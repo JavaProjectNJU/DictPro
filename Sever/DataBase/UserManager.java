@@ -107,6 +107,7 @@ public class UserManager {
 			Statement statement = conn.createStatement();
 			String sql = "select username1,username2 from FriendRelation "
 					+ "where username1 = '"+ account1 +"' and username2 = '"+ account2 +"';";
+//------------------------------------------------------
 			ResultSet result = statement.executeQuery(sql);
 			if(result.next())
 				isFriend = true;
