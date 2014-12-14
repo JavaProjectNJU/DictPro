@@ -1,10 +1,16 @@
 package net.Message;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
-
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+
 import word.Word;
 
 public class Message implements Serializable{
@@ -109,7 +115,7 @@ public class Message implements Serializable{
 		public String uid;
 		public String psw;
 		public String targetuid;
-		public Image card;
+		public byte[] card;
 	}
 
 	public class Send_Message extends MsgData implements Serializable{
@@ -122,4 +128,27 @@ public class Message implements Serializable{
 		public boolean success;
 	}
 
+	public byte[] imageToBytes(BufferedImage image){
+		byte[] buf = null;
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(image, "jpg", baos);
+			buf = baos.toByteArray();
+			
+		}catch(IOException e){
+			
+		}
+		return buf;
+	}
+	
+	public BufferedImage bytesToImage(byte[] buf){
+		BufferedImage image = null;
+		try{
+			ByteArrayInputStream baos = new ByteArrayInputStream(buf);
+			image = ImageIO.read(baos);
+		}catch(IOException e){
+			
+		}
+		return image;
+	}
 }
