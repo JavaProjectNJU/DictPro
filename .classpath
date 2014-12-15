@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="Sever"/>
 	<classpathentry kind="src" path="Client"/>
 	<classpathentry kind="lib" path="mysql_connector_java_5.1.27_bin.jar"/>
+	<classpathentry kind="lib" path="substance.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
