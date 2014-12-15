@@ -14,6 +14,11 @@ public class Word implements Serializable{
 		pron_EN_US = null;
 		explain = null;
 	}
+	
+	public Word(String word){
+		this.word = word;
+	}
+	
 	public String getWord() {
 		return word;
 	}

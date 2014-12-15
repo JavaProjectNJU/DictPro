@@ -8,25 +8,25 @@ public class DataBase {
     /**
      * @param args the command line arguments
      */
-    //jdbcÇı¶¯µÄÎ»ÖÃ
+    //jdbcé©±åŠ¨çš„ä½ç½®
     private static String driver = "com.mysql.jdbc.Driver";
-    //²âÊÔÓÃÊı¾İ¿â¡°myfirstdbexample¡±ÔÚÍøÂçÉÏµÄÎ»ÖÃ
+    //æµ‹è¯•ç”¨æ•°æ®åº“â€œmyfirstdbexampleâ€åœ¨ç½‘ç»œä¸Šçš„ä½ç½®
     private static String url = "jdbc:mysql://localhost:3306/JavaProject"+
 		"?useUnicode=true&characterEncoding=utf8";
-    //ÓÃ»§ÃûºÍÃÜÂë
+    //ç”¨æˆ·åå’Œå¯†ç 
     private static String user = "root";
     private static String password = "zhangruiyi";
-    //Á¬½Ó¾ä±ú
+    //è¿æ¥å¥æŸ„
     private static DataBaseConnectionPool dBPool = new DataBaseConnectionPool("Local", driver, url,
     		user, password, 1000);
     public static Connection conn = null;
     
-    //½¨Á¢Á¬½Ó
+    //å»ºç«‹è¿æ¥
     public static Connection connect(){
     	conn = dBPool.getConnection();
     	try {
 			if(!conn.isClosed()){
-			    System.out.println("³É¹¦Á¬½ÓÊı¾İ¿â£¡");
+			    System.out.println("æˆåŠŸè¿æ¥æ•°æ®åº“ï¼");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

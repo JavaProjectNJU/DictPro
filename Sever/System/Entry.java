@@ -18,5 +18,35 @@ public class Entry {
 		UserManager.delFriend("zhangry868", "roy");
 		UserManager.addFriend("zhangry868", "roy");
 		System.out.println(UserManager.friendJudge("zhangry868", "roy"));
+		
+		ThreadPool thPool = new ThreadPool(10);
+		thPool.addTask(new PrintMessage());
+	}
+}
+
+class PrintMessage extends Task
+{
+	@Override
+	public Task[] taskCore() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected boolean needExecuteImmediate() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public String info() {
+		// TODO Auto-generated method stub
+		return new String("PrintMessage");
+	}
+	
+	public void run()
+	{
+		while(true)
+			System.out.println("Hello,This is the sever!!");
 	}
 }

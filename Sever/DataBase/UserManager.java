@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class UserManager {
 	private static Connection conn = null;
-	private static ArrayList<User> onlineUser;
+	private static ArrayList<User> onlineUser = new ArrayList<User>();
 	public static boolean createUser(String account,String Pw){
 		boolean change = false;
 		try {
@@ -59,7 +59,7 @@ public class UserManager {
 		try {
 			conn = DataBase.connect();
 			Statement statement = conn.createStatement();
-			String sql = "select username,password from user;";
+			String sql = "select username,password from USERTABLE;";
 			ResultSet result = statement.executeQuery(sql);
 			while(result.next()){
 				if(account.equals(result.getString("username"))
@@ -81,7 +81,7 @@ public class UserManager {
 		try {
 			conn = DataBase.connect();
 			Statement statement = conn.createStatement();
-			String sql = "select username,password from user;";
+			String sql = "select username,password from USERTABLE;";
 			ResultSet result = statement.executeQuery(sql);
 			while(result.next()){
 				if(account.equals(result.getString("username"))

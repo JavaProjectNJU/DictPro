@@ -1,7 +1,7 @@
 package DataBase;
 
 /**
-* Êı¾İ¿âÁ¬½Ó³ØÀà
+* æ•°æ®åº“è¿æ¥æ± ç±»
 */
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,16 +13,16 @@ import java.util.Timer;
 public class DataBaseConnectionPool
 {
 	private Connection con = null;
-	private int inUsed = 0;    //Ê¹ÓÃµÄÁ¬½ÓÊı
-	private ArrayList<Connection> freeConnections = new ArrayList<Connection>();//ÈİÆ÷£¬¿ÕÏĞÁ¬½Ó
-	private int minConn;     //×îĞ¡Á¬½ÓÊı
-	private int maxConn;     //×î´óÁ¬½Ó
-	private String name;     //Á¬½Ó³ØÃû×Ö
-	private String password; //ÃÜÂë
-	private String url;      //Êı¾İ¿âÁ¬½ÓµØÖ·
-	private String driver;   //Çı¶¯
-	private String user;     //ÓÃ»§Ãû
-	public Timer timer;      //¶¨Ê±
+	private int inUsed = 0;    //ä½¿ç”¨çš„è¿æ¥æ•°
+	private ArrayList<Connection> freeConnections = new ArrayList<Connection>();//å®¹å™¨ï¼Œç©ºé—²è¿æ¥
+	private int minConn;     //æœ€å°è¿æ¥æ•°
+	private int maxConn;     //æœ€å¤§è¿æ¥
+	private String name;     //è¿æ¥æ± åå­—
+	private String password; //å¯†ç 
+	private String url;      //æ•°æ®åº“è¿æ¥åœ°å€
+	private String driver;   //é©±åŠ¨
+	private String user;     //ç”¨æˆ·å
+	public Timer timer;      //å®šæ—¶
 
 	public DataBaseConnectionPool() {
 		// TODO Auto-generated constructor stub
@@ -40,7 +40,7 @@ public class DataBaseConnectionPool
 
 	public synchronized void freeConnection(Connection con) 
 	{
-		this.freeConnections.add(con);//Ìí¼Óµ½¿ÕÏĞÁ¬½ÓµÄÄ©Î²
+		this.freeConnections.add(con);//æ·»åŠ åˆ°ç©ºé—²è¿æ¥çš„æœ«å°¾
 		this.inUsed --;
 	}
 
@@ -53,15 +53,15 @@ public class DataBaseConnectionPool
 			freeConnections.remove(con); //Right??????????????????
 			
 			if(con == null)
-				con = getConnection(timeout); //¼ÌĞø»ñµÃÁ¬½Ó
+				con = getConnection(timeout); //ç»§ç»­è·å¾—è¿æ¥
 		}
 		else
 		{
-			con = newConnection(); //ĞÂ½¨Á¬½Ó
+			con = newConnection(); //æ–°å»ºè¿æ¥
 		}
 		if(this.maxConn == 0 || this.maxConn < this.inUsed)
 		{
-			con = null;//´ïµ½×î´óÁ¬½ÓÊı£¬ÔİÊ±²»ÄÜ»ñµÃÁ¬½ÓÁË¡£
+			con = null;//è¾¾åˆ°æœ€å¤§è¿æ¥æ•°ï¼Œæš‚æ—¶ä¸èƒ½è·å¾—è¿æ¥äº†ã€‚
 		}
 		if(con != null)
 		{
@@ -76,21 +76,21 @@ public class DataBaseConnectionPool
 		if(this.freeConnections.size()>0)
 		{
 			con=(Connection)this.freeConnections.get(0);
-			this.freeConnections.remove(0);//Èç¹ûÁ¬½Ó·ÖÅä³öÈ¥ÁË£¬¾Í´Ó¿ÕÏĞÁ¬½ÓÀïÉ¾³ı
-			if(con==null)con = getConnection(); //¼ÌĞø»ñµÃÁ¬½Ó
+			this.freeConnections.remove(0);//å¦‚æœè¿æ¥åˆ†é…å‡ºå»äº†ï¼Œå°±ä»ç©ºé—²è¿æ¥é‡Œåˆ é™¤
+			if(con==null)con = getConnection(); //ç»§ç»­è·å¾—è¿æ¥
 		}
 		else
 		{
-			con = newConnection(); //ĞÂ½¨Á¬½Ó
+			con = newConnection(); //æ–°å»ºè¿æ¥
 		}
 		if(this.maxConn == 0 || this.maxConn<this.inUsed)
 		{
-			con = null;//µÈ´ı ³¬¹ı×î´óÁ¬½ÓÊ±
+			con = null;//ç­‰å¾… è¶…è¿‡æœ€å¤§è¿æ¥æ—¶
 		}
 		if(con != null)
 		{
 			this.inUsed ++;
-			System.out.println("µÃµ½¡¡" + this.name + "¡¡µÄÁ¬½Ó£¬ÏÖÓĞ" + inUsed + "¸öÁ¬½ÓÔÚÊ¹ÓÃ!");
+			System.out.println("å¾—åˆ°ã€€" + this.name + "ã€€çš„è¿æ¥ï¼Œç°æœ‰" + inUsed + "ä¸ªè¿æ¥åœ¨ä½¿ç”¨!");
 		}
 		return con;
 	}
@@ -134,7 +134,7 @@ public class DataBaseConnectionPool
 
 	public synchronized void TimerEvent() 
 	{
-		//ÔİÊ±»¹Ã»ÓĞÊµÏÖÒÔºó»á¼ÓÉÏµÄ
+		//æš‚æ—¶è¿˜æ²¡æœ‰å®ç°ä»¥åä¼šåŠ ä¸Šçš„
 	}
 
 	public String getDriver() {
