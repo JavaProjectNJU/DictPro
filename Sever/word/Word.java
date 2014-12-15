@@ -1,24 +1,18 @@
 package word;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Word implements Serializable{
+public class Word {
 	private String word;//the word
 	private String pron_EN_UK;//is a url for an mp3 file
 	private String pron_EN_US;
-	private String[] explain;//explains, the length is 3
+	private ArrayList<String> explain;//explains, the length is the counter
 	public Word(){
 		word = null;
 		pron_EN_UK = null;
 		pron_EN_US = null;
-		explain = new String[3];
+		explain = null;
 	}
-	
-	public Word(String word){
-		this.word = word;
-	}
-	
 	public String getWord() {
 		return word;
 	}
@@ -37,16 +31,17 @@ public class Word implements Serializable{
 	public void setPron_EN_US(String pron_EN_US) {
 		this.pron_EN_US = pron_EN_US;
 	}
-	public String[] getExplain() {
+	public ArrayList<String> getExplain() {
 		return explain;
 	}
-	public void setExplain(String explain,int type) {
-		this.explain[type] = explain;
+	public void setExplain(ArrayList<String> explain) {
+		this.explain = explain;
 	}
 	
-	public void addExplain(String exp,int type){
+	public void addExplain(String exp){
 		if(explain == null){
-			explain = new String[3];
+			explain = new ArrayList<String>();
 		}
+		explain.add(exp);
 	}
 }

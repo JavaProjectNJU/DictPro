@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import DataBase.DictionaryManager;
 import word.Word;
 
 public class FromBing extends WordEngine{
@@ -33,10 +32,10 @@ public class FromBing extends WordEngine{
 		if(m.find()){
 			wordString = m.group();
 			//System.out.println(wordString);
-			Pattern word = Pattern.compile("(?<=必应词典为您提供)[\u0000-\uFFFF]*(?=的释义，)");
-			Pattern pron_EN_UK = Pattern.compile("(?<=美\\[)[^\\[]*(?=\\]，)");
-			Pattern pron_EN_US = Pattern.compile("(?<=，英\\[)[^\\[]*(?=\\]，)");
-			Pattern explains = Pattern.compile("(?<=，)[^\\[]*(?=网络释义：)");
+			Pattern word = Pattern.compile("(?<=蹇呭簲璇嶅吀涓烘偍鎻愪緵)[\u0000-\uFFFF]*(?=鐨勯噴涔夛紝)");
+			Pattern pron_EN_UK = Pattern.compile("(?<=缇嶾\\[)[^\\[]*(?=\\]锛�");
+			Pattern pron_EN_US = Pattern.compile("(?<=锛岃嫳\\[)[^\\[]*(?=\\]锛�");
+			Pattern explains = Pattern.compile("(?<=锛�[^\\[]*(?=缃戠粶閲婁箟锛�");
 			m = word.matcher(wordString);
 			if(m.find())
 				theWord.setWord(m.group());
@@ -51,14 +50,15 @@ public class FromBing extends WordEngine{
 			System.out.println(theWord.getPron_EN_US());
 			m = explains.matcher(wordString);
 			if(m.find()){
-				String[] ex = m.group().split("； ");
+				//System.out.println(m.group());
+				String[] ex = m.group().split("锛�");
 				ArrayList<String> explain = new ArrayList<String>();
 				for(String str:ex){
+					System.out.println(str);
 					if(str != null && str.length() != 0)
 						explain.add(str);
 				}
-				theWord.setExplain(explain.toString(),DictionaryManager.BING);
-				System.out.println(explain.toString());
+				theWord.setExplain(explain);
 			}
 		}else{
 			
@@ -77,6 +77,6 @@ public class FromBing extends WordEngine{
 	}
 	public static void main(String[] args){
 		WordEngine bing = new FromBing();
-		bing.search("give");
+		bing.search("gggg");
 	}
 }

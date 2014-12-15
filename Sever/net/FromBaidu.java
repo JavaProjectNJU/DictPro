@@ -10,7 +10,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import DataBase.DictionaryManager;
 import word.Word;
 
 public class FromBaidu extends WordEngine{
@@ -59,7 +58,7 @@ public class FromBaidu extends WordEngine{
 					if(str != null && str.length() != 0)
 						explain.add(str);
 				}
-				theWord.setExplain(explain.toString(),DictionaryManager.BAIDU);
+				theWord.setExplain(explain);
 			}
 		}else{
 			

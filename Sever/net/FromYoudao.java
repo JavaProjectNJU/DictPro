@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import DataBase.DictionaryManager;
 import word.Word;
 
 public class FromYoudao extends WordEngine{
@@ -34,8 +33,8 @@ public class FromYoudao extends WordEngine{
 			wordString = m.group();
 			//System.out.println(wordString);
 			Pattern word = Pattern.compile("(?<=<span class=\"keyword\">)[^<]*(?=</span>)"); 
-			Pattern pron_EN_UK = Pattern.compile("(?<=<span class=\"pronounce\">è‹±\\s{37}<span class=\"phonetic\">)[^<]*(?=</span>)");
-			Pattern pron_EN_US = Pattern.compile("(?<=<span class=\"pronounce\">ç¾Ž\\s{37}<span class=\"phonetic\">)[^<]*(?=</span>)");
+			Pattern pron_EN_UK = Pattern.compile("(?<=<span class=\"pronounce\">Ó¢\\s{37}<span class=\"phonetic\">)[^<]*(?=</span>)");
+			Pattern pron_EN_US = Pattern.compile("(?<=<span class=\"pronounce\">ÃÀ\\s{37}<span class=\"phonetic\">)[^<]*(?=</span>)");
 			Pattern explains = Pattern.compile("(?<=<ul>)[\u0000-\uFFFF]*(?=</ul>)");
 			m = word.matcher(wordString);
 			if(m.find())
@@ -61,7 +60,7 @@ public class FromYoudao extends WordEngine{
 					System.out.println(mathcer.group());
 					explain.add(mathcer.group());
 				}
-				theWord.setExplain(explain.toString(),DictionaryManager.YOUDAO);
+				theWord.setExplain(explain);
 			}
 		}else{
 					
@@ -82,4 +81,5 @@ public class FromYoudao extends WordEngine{
 		WordEngine youdao = new FromYoudao();
 		youdao.search("give");
 	}
+
 }
