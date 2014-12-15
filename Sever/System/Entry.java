@@ -1,5 +1,6 @@
 package System;
 
+import word.Word;
 import net.FromBaidu;
 import net.WordEngine;
 import DataBase.DataBase;
@@ -18,14 +19,20 @@ public class Entry {
 		UserManager.delFriend("zhangry868", "roy");
 		UserManager.addFriend("zhangry868", "roy");
 		System.out.println(UserManager.friendJudge("zhangry868", "roy"));
-		
 		ThreadPool thPool = new ThreadPool(10);
-		thPool.addTask(new PrintMessage());
+		thPool.addTask(new PrintMessage("Hello1"));
+		thPool.addTask(new PrintMessage("World1"));
+		thPool.addTask(new PrintMessage("Hello2"));
+		thPool.addTask(new PrintMessage("World2"));
 	}
 }
 
 class PrintMessage extends Task
 {
+	String str;
+	PrintMessage(String _str){
+		str = _str;
+	}
 	@Override
 	public Task[] taskCore() throws Exception {
 		// TODO Auto-generated method stub
@@ -47,6 +54,6 @@ class PrintMessage extends Task
 	public void run()
 	{
 		while(true)
-			System.out.println("Hello,This is the sever!!");
+			System.out.println(str);
 	}
 }
