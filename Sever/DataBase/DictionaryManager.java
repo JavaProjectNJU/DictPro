@@ -10,9 +10,9 @@ import java.sql.Statement;
 //Type 3:Youdao
 
 public class DictionaryManager {
-	public static int BAIDU = 1;
-	public static int BING = 2;
-	public static int YOUDAO = 3;
+	public static int BAIDU = 0;
+	public static int BING = 1;
+	public static int YOUDAO = 2;
 	public static boolean SetMeaning(String word,String meaning,int type)
 	{
 		boolean change = false;

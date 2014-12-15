@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import DataBase.DictionaryManager;
 import word.Word;
 
 public class FromYoudao extends WordEngine{
@@ -60,7 +61,7 @@ public class FromYoudao extends WordEngine{
 					System.out.println(mathcer.group());
 					explain.add(mathcer.group());
 				}
-				theWord.setExplain(explain);
+				theWord.setExplain(explain.toString(),DictionaryManager.YOUDAO);
 			}
 		}else{
 					

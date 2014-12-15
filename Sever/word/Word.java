@@ -12,7 +12,7 @@ public class Word implements Serializable{
 		word = null;
 		pron_EN_UK = null;
 		pron_EN_US = null;
-		explain = null;
+		explain = new String[3];
 	}
 	
 	public Word(String word){

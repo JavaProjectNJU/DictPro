@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import DataBase.DictionaryManager;
 import word.Word;
 
 public class FromBing extends WordEngine{
@@ -58,7 +59,7 @@ public class FromBing extends WordEngine{
 					if(str != null && str.length() != 0)
 						explain.add(str);
 				}
-				theWord.setExplain(explain);
+				theWord.setExplain(explain.toString(),DictionaryManager.BING);
 			}
 		}else{
 			
@@ -77,6 +78,6 @@ public class FromBing extends WordEngine{
 	}
 	public static void main(String[] args){
 		WordEngine bing = new FromBing();
-		bing.search("gggg");
+		bing.search("give");
 	}
 }
