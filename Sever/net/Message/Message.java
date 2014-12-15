@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import word.UnionWord;
 import word.Word;
 
 public class Message implements Serializable{
@@ -108,7 +109,7 @@ public class Message implements Serializable{
 	public class Del_Praise extends MsgData implements Serializable{
 		public String uid;
 		public String psw;
-		public Word word;
+		public UnionWord word;
 	}
 
 	public class Send_Card extends MsgData implements Serializable{
