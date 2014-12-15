@@ -51,15 +51,14 @@ public class FromBing extends WordEngine{
 			System.out.println(theWord.getPron_EN_US());
 			m = explains.matcher(wordString);
 			if(m.find()){
-				//System.out.println(m.group());
 				String[] ex = m.group().split("； ");
 				ArrayList<String> explain = new ArrayList<String>();
 				for(String str:ex){
-					System.out.println(str);
 					if(str != null && str.length() != 0)
 						explain.add(str);
 				}
 				theWord.setExplain(explain.toString(),DictionaryManager.BING);
+				System.out.println(explain.toString());
 			}
 		}else{
 			
