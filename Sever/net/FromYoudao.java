@@ -81,5 +81,4 @@ public class FromYoudao extends WordEngine{
 		WordEngine youdao = new FromYoudao();
 		youdao.search("give");
 	}
-
 }

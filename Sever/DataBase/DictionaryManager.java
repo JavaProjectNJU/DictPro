@@ -41,8 +41,8 @@ public class DictionaryManager {
 		boolean change = false;
 		try {
 			Statement statement = DataBase.connect().createStatement();
-			String sql = "insert into Dictionary(Word) values('"
-					+ word+"');";
+			String sql = "insert into Dictionary(Word,NumZanBaidu,NumZanYoudao,NumZanBing) values('"
+					+ word +"0,0,0;";;
 			statement.execute(sql);
 			change = true;
 		} catch (SQLException e) {
@@ -50,18 +50,25 @@ public class DictionaryManager {
 		}
 		return change;
 	}
-	public static boolean AddPraise(String word)
+	public static boolean AddPraise(String word,int type)
 	{
 		boolean change = false;
 		try {
 			Statement statement = DataBase.connect().createStatement();
-			String sql = "insert into Dictionary(Word,Baidu,Bing,Youdao) values('"
-					+ word +"null,null,null";
+			String sql = "insert into Dictionary(Word,NumZanBaidu,NumZanYoudao,NumZanBing) values('"
+					+ word +"0,0,0;";
 			statement.execute(sql);
 			change = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return change;
+	}
+	public static void onlineSearchWord(String word) {
+		
+	}
+	public static boolean searchWord(String word) {
+		
+		return false;
 	}
 }

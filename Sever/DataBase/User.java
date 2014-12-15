@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import javax.swing.Icon;
 
+import word.Word;
+
 public class User implements Serializable{
 	protected String nickname;
 	protected String account;
@@ -106,6 +108,15 @@ public class User implements Serializable{
 	{
 		updateFriendOnline();
 		return onlineFriend;
+	}
+	
+	public Word SearchWord(String word)
+	{
+		boolean getword = DictionaryManager.searchWord(word);
+		if (!getword) {
+			DictionaryManager.onlineSearchWord(word);
+		}
+		return new Word();
 	}
 	
 	public void display()
