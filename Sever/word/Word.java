@@ -7,7 +7,7 @@ public class Word implements Serializable{
 	private String word;//the word
 	private String pron_EN_UK;//is a url for an mp3 file
 	private String pron_EN_US;
-	private ArrayList<String> explain;//explains, the length is the counter
+	private String[] explain;//explains, the length is 3
 	public Word(){
 		word = null;
 		pron_EN_UK = null;
@@ -37,17 +37,16 @@ public class Word implements Serializable{
 	public void setPron_EN_US(String pron_EN_US) {
 		this.pron_EN_US = pron_EN_US;
 	}
-	public ArrayList<String> getExplain() {
+	public String[] getExplain() {
 		return explain;
 	}
-	public void setExplain(ArrayList<String> explain) {
-		this.explain = explain;
+	public void setExplain(String explain,int type) {
+		this.explain[type] = explain;
 	}
 	
-	public void addExplain(String exp){
+	public void addExplain(String exp,int type){
 		if(explain == null){
-			explain = new ArrayList<String>();
+			explain = new String[3];
 		}
-		explain.add(exp);
 	}
 }

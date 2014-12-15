@@ -112,9 +112,9 @@ public class User implements Serializable{
 	
 	public Word SearchWord(String word)
 	{
-		boolean getword = DictionaryManager.searchWord(word);
+		boolean getword = DictionaryManager.SearchWord(word);
 		if (!getword) {
-			DictionaryManager.onlineSearchWord(word);
+			DictionaryManager.OnlineSearchWord(word);
 		}
 		return new Word();
 	}
