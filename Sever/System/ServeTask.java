@@ -86,11 +86,14 @@ public class ServeTask extends Task implements Runnable{
 					case Message.DEL_FRIEND:delFriend(msg);break;
 					case Message.DEL_PRAISE:delPrise(msg);break;
 					case Message.UPDATE_FRIEND_ONLINE:updateOnlineFriend(msg);break;
+					case Message.USER_INFO:getUserInfo(msg);break;
+					default:;
 					}
 					
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -112,7 +115,28 @@ public class ServeTask extends Task implements Runnable{
 					e.printStackTrace();
 				}
 				user = null;
+				try {
+					if(user != null)//关闭socket
+						userSocket.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
+		}
+	}
+	
+	private void getUserInfo(Message msg){
+		Message.Info uinfo = (Message.Info)(msg.data);
+		msg.reply = true;
+		msg.type = Message.USER_INFO;
+		if(user == null || !user.isOn() || uManager.identityVerify(uinfo.uid, uinfo.psw)){
+			uinfo.myself = null;
+		}else{
+			uinfo.myself = new UserInfo(user);
+		}
+		synchronized(msgBox){
+			msgBox.add(msg);
 		}
 	}
 	private void updateOnlineFriend(Message msg) {
@@ -372,25 +396,13 @@ public class ServeTask extends Task implements Runnable{
 			}
 			user.getFriendOnline();
 			data.success = true;
-			synchronized(msgBox){
-				msgBox.add(replyMsg);
-			}
 			
-			Message online = new Message();
-			online.id = msg.id;
-			online.reply = true;
-			Message.OnlineFriend friend = online.new OnlineFriend();
-			online.data = friend;
-			friend.friendList = user.getFriendOnline();
-			
-			synchronized(msgBox){
-				msgBox.add(online);
-			}
 		}else{// login faild
 			data.success = false;
-			synchronized(msgBox){
-				msgBox.add(replyMsg);
-			}
+			
+		}
+		synchronized(msgBox){
+			msgBox.add(replyMsg);
 		}
 		
 	}

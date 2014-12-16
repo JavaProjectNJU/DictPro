@@ -32,6 +32,7 @@ public class Message implements Serializable{
 	public static final int SEND_CARD = 11;
 	public static final int SEND_MESSAGE = 12;
 	public static final int IP_DATA = 13;
+	public static final int USER_INFO = 14;
 	public MsgData data;
 	
 
@@ -136,6 +137,13 @@ public class Message implements Serializable{
 		public String uid;
 		public String Ip;
 	}
+	public class Info extends MsgData implements Serializable{
+		public String uid;
+		public String psw;
+		public UserInfo myself;
+	}
+	
+	
 	public static byte[] imageToBytes(BufferedImage image){
 		byte[] buf = null;
 		try {
