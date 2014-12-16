@@ -49,7 +49,7 @@ public class User implements Serializable{
 		strdate = usr.strdate; 
 	}
 	
-	public boolean login()
+	public boolean login(String ip,int port)
 	{
 		boolean success = false;
 		success = UserManager.identityVerify(account, pw);
@@ -58,6 +58,8 @@ public class User implements Serializable{
 		if(success)
 		{
 			UserInfo tmpUserInfo = new UserInfo(this);
+			tmpUserInfo.setprot(port);
+			tmpUserInfo.setIpAddr(ip);
 			UserManager.addOnlineUser(tmpUserInfo);
 		}
 		return success;

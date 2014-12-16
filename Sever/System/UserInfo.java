@@ -8,6 +8,14 @@ import DataBase.User;
 public class UserInfo extends User implements Serializable{
 //	String pw;  
 	String IpAddr;	
+	public String getIpAddr() {
+		return IpAddr;
+	}
+
+	public void setIpAddr(String ipAddr) {
+		IpAddr = ipAddr;
+	}
+
 	int prot;
 	
 	public UserInfo(User usr){
@@ -51,9 +59,9 @@ public class UserInfo extends User implements Serializable{
 		//UserManager.createUser("ruiyi", "123456");
 		//UserManager.createUser("haohao", "123456");
 		//UserManager.createUser("jam", "123456");
-		usr1.login();
-		usr2.login();
-		usr3.login();
+		//usr1.login();
+		//usr2.login();
+		//usr3.login();
 		usr1.delFriend("jam");
 		//System.out.println(usr1.isFriend("haohao"));
 		//System.out.println(usr1.isFriend("jam"));
