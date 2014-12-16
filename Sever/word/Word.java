@@ -1,8 +1,9 @@
 package word;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Word {
+public class Word  implements Serializable{
 	private String word;//the word
 	private String pron_EN_UK;//is a url for an mp3 file
 	private String pron_EN_US;

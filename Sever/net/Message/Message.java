@@ -130,6 +130,9 @@ public class Message implements Serializable{
 		public boolean success;
 	}
 
+	public class IpReply extends MsgData implements Serizlizable{
+		
+	}
 	public byte[] imageToBytes(BufferedImage image){
 		byte[] buf = null;
 		try {

@@ -157,7 +157,7 @@ public class ServeTask extends Task implements Runnable{
 		replyMsg.id = msg.id;
 		replyMsg.reply = true;
 		Message.ReplyData data = new Message.ReplyData();
-		boolean login = user.login()
+		boolean login = user.login();
 		if(login){//login successful
 			uManager.addOnlineUser(user);
 			msgMap.put(user.getAccount(), msgBox);
@@ -172,6 +172,10 @@ public class ServeTask extends Task implements Runnable{
 			online.reply = true;
 			Message.OnlineFriend friend = new Message.OnlineFriend();
 			friend.friendList = user.getFriendOnline();
+			online.data = friend;
+			synchronized(msgBox){
+				msgBox.add(online);
+			}
 		}else{// login faild
 			data.success = false;
 			synchronized(msgBox){
