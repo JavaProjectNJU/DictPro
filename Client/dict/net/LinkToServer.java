@@ -17,6 +17,7 @@ public class LinkToServer {
 	private static String ip = "localhost";
 	private static int port = 8000;
 	private static int idCreater = 0;
+	private static int cardPort = 8005;
 	private Socket socket;
 	public Socket getSocket() {
 		return socket;
@@ -288,12 +289,86 @@ public class LinkToServer {
 		return false;
 	}
 	public boolean sendCard(BufferedImage image, String uid){
+		Message cardMsg = new Message();
+		cardMsg.id = idCreater ++;
+		cardMsg.reply = false;
+		cardMsg.type = Message.SEND_CARD;
+		Message.Send_Card data = cardMsg.new Send_Card();
+		cardMsg.data = data;
+		data.uid = uid;
+		data.psw = psw;
+		data.card = Message.imageToBytes(image);
+		try {
+			objOut.writeObject(cardMsg);
+			Message reply = waitReply(cardMsg.id);
+			if(reply == null)
+				return false;
+			else{
+				String ip = ((Message.IpData)(reply.data)).Ip;
+				if(ip == null || ip.length() == 0)
+					return false;
+				else{
+					Socket cardSocket = new Socket(ip, cardPort);
+					ObjectOutputStream cardStream = new ObjectOutputStream(cardSocket.getOutputStream());
+					data.psw = null;//不能把密码发送出去
+					cardStream.writeObject(cardMsg);
+					cardStream.close();
+					socket.close();
+					return true;
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			
+		}
 		return false;
 	}
 	public ArrayList<UserInfo> getOnlineFriend(){
+		
+		Message onlineMsg = new Message();
+		onlineMsg.id = idCreater ++;
+		onlineMsg.reply = false;
+		onlineMsg.type = Message.UPDATE_FRIEND_ONLINE;
+		Message.OnlineFriend data = onlineMsg.new OnlineFriend();
+		onlineMsg.data = data;
+		data.friendList = null;
+		try {
+			objOut.writeObject(onlineMsg);
+			Message reply = waitReply(onlineMsg.id);
+			if(reply == null)
+				return null;
+			return	((Message.OnlineFriend)(reply.data)).friendList;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			
+		}
 		return null;
+		
 	}
 	public UserInfo getDetail(){
+		Message userInfoMsg = new Message();
+		userInfoMsg.id = idCreater ++;
+		userInfoMsg.reply = false;
+		userInfoMsg.type = Message.USER_INFO;
+		Message.Info data = userInfoMsg.new Info();
+		userInfoMsg.data = data;
+		data.myself = null;
+		try {
+			objOut.writeObject(userInfoMsg);
+			Message reply = waitReply(userInfoMsg.id);
+			if(reply == null)
+				return null;
+			return	((Message.Info)(reply.data)).myself;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			
+		}
 		return null;
 	}
 	private Message waitReply(int id){
