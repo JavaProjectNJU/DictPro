@@ -95,7 +95,12 @@ public class ServeTask extends Task implements Runnable{
 						msgMap.remove(user.getAccount());
 					}
 				}
-				fromClient.close();
+				try {
+					fromClient.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				user = null;
 			}
 		}
