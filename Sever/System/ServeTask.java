@@ -6,16 +6,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.Message.Message;
 
 public class ServeTask extends Task implements Runnable{
 	private Socket userSocket;
 	private InputStream fromClient;
-	private OutputStream toClient;
-	public ServeTask(Socket socket){
+	private ArrayList<Message> msgBox;
+	private Map msgMap;
+	public ServeTask(Socket socket, ArrayList<Message> msgBox, Map msgMap){
 		userSocket = socket;
+		this.msgBox = msgBox;
+		this.msgMap = msgMap;
 		try {
 			fromClient = socket.getInputStream();
-			toClient = socket.getOutputStream();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
