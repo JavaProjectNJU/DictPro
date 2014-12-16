@@ -98,13 +98,13 @@ public class Message implements Serializable{
 	}
 
 	public class Serach extends MsgData implements Serializable{
-		public Word word;
+		public UnionWord word;
 	}
 
 	public class Add_Praise extends MsgData implements Serializable{
 		public String uid;
 		public String psw;
-		public Word word;
+		public UnionWord word;
 	}
 
 	public class Del_Praise extends MsgData implements Serializable{
@@ -130,8 +130,9 @@ public class Message implements Serializable{
 		public boolean success;
 	}
 
-	public class IpReply extends MsgData implements Serizlizable{
-		
+	public class IpData extends MsgData implements Serializable{
+		public String uid;
+		public String Ip;
 	}
 	public byte[] imageToBytes(BufferedImage image){
 		byte[] buf = null;
