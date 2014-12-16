@@ -136,4 +136,18 @@ public class UserManager {
 	public static ArrayList<UserInfo> getOnlineUser(){
 		return onlineUser;
 	}
+	
+	public static UserInfo getUserInfo(String uid){
+		UserInfo usrInfo = null;
+		int i;
+		for(i = 0;i < onlineUser.size(); i ++)
+		{
+			if(onlineUser.get(i).getAccount().equals(uid))
+			{	
+				usrInfo = onlineUser.get(i);
+				break;
+			}
+		}
+		return usrInfo;
+	}
 }
