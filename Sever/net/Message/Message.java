@@ -31,6 +31,7 @@ public class Message implements Serializable{
 	public static final int DEL_PRAISE = 10;
 	public static final int SEND_CARD = 11;
 	public static final int SEND_MESSAGE = 12;
+	public static final int IP_DATA = 13;
 	public MsgData data;
 	
 
@@ -104,7 +105,8 @@ public class Message implements Serializable{
 	public class Add_Praise extends MsgData implements Serializable{
 		public String uid;
 		public String psw;
-		public UnionWord word;
+		public String word;
+		public int source;
 	}
 
 	public class Del_Praise extends MsgData implements Serializable{
@@ -134,7 +136,7 @@ public class Message implements Serializable{
 		public String uid;
 		public String Ip;
 	}
-	public byte[] imageToBytes(BufferedImage image){
+	public static byte[] imageToBytes(BufferedImage image){
 		byte[] buf = null;
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -147,7 +149,7 @@ public class Message implements Serializable{
 		return buf;
 	}
 	
-	public BufferedImage bytesToImage(byte[] buf){
+	public static BufferedImage bytesToImage(byte[] buf){
 		BufferedImage image = null;
 		try{
 			ByteArrayInputStream baos = new ByteArrayInputStream(buf);

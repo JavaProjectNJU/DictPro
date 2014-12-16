@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import DataBase.DictionaryManager;
 import DataBase.UserManager;
 import net.Message.*;
 
@@ -18,6 +19,7 @@ public class Sever {
 	static final int port = 8000;
 	Map msgMap;
 	UserManager uManager; 
+	DictionaryManager dictm;
 	public Sever(){
 		pool = new ThreadPool();
 		try {
@@ -29,8 +31,10 @@ public class Sever {
 		}
 		msgMap = new HashMap<String,List>();
 		uManager = new UserManager();
+		dictm = new DictionaryManager();
 		ServeTask.setMsgMap(msgMap);
 		ServeTask.setUserManager(uManager);
+		ServeTask.setDictionaryManager(dictm);
 	}
 	public void start(){
 		

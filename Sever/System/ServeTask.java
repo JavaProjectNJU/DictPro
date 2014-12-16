@@ -1,5 +1,6 @@
 package System;
 
+import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -120,24 +121,104 @@ public class ServeTask extends Task implements Runnable{
 	}
 	private void delPrise(Message msg) {
 		// TODO Auto-generated method stub
-		
+		Message.Add_Praise addPrise = (Message.Add_Praise)(msg.data);
+		Message reply = new Message();
+		reply.id = msg.id;
+		reply.reply = true;
+		reply.type = Message.ADD_PRAISE;
+		Message.ReplyData data = reply.new ReplyData();
+		reply.data = data;
+		if(user == null || !user.isOn() || !uManager.identityVerify(addPrise.uid, addPrise.psw) || !dictManager.DelPraise(addPrise.uid, addPrise.word, addPrise.source)){
+			data.success = false;
+		}else{
+			data.success = true;
+		}
+		synchronized(msgBox){
+			msgBox.add(reply);
+		}
 	}
 	private void addPrise(Message msg) {
 		// TODO Auto-generated method stub
-		
+		Message.Add_Praise addPrise = (Message.Add_Praise)(msg.data);
+		Message reply = new Message();
+		reply.id = msg.id;
+		reply.reply = true;
+		reply.type = Message.ADD_PRAISE;
+		Message.ReplyData data = reply.new ReplyData();
+		reply.data = data;
+		if(user == null || !user.isOn() || !uManager.identityVerify(addPrise.uid, addPrise.psw) || !dictManager.AddPraise(addPrise.uid, addPrise.word, addPrise.source)){
+			data.success = false;
+		}else{
+			data.success = true;
+		}
+		synchronized(msgBox){
+			msgBox.add(reply);
+		}
 	}
 	private void delFriend(Message msg) {
 		// TODO Auto-generated method stub
+		Message.AddFriend addFriend = (Message.AddFriend)(msg.data);
+		Message reply = new Message();
+		reply.id = msg.id;
+		reply.reply = true;
+		reply.type = Message.ADD_FRIEND;
+		Message.ReplyData data = reply.new ReplyData();
 		
+		reply.data = data;
+		if(user == null || !user.isOn() || !uManager.identityVerify(addFriend.uid, addFriend.psw) || !user.delFriend(addFriend.friend_uid)){
+			data.success = false;
+		}else{
+			data.success = true;
+		}
+		synchronized(msgBox){
+			msgBox.add(reply);
+		}
 	}
 	private void addFriend(Message msg) {
 		// TODO Auto-generated method stub
+		Message.AddFriend addFriend = (Message.AddFriend)(msg.data);
+		Message reply = new Message();
+		reply.id = msg.id;
+		reply.reply = true;
+		reply.type = Message.ADD_FRIEND;
+		Message.ReplyData data = reply.new ReplyData();
 		
+		reply.data = data;
+		if(user == null || !user.isOn() || !uManager.identityVerify(addFriend.uid, addFriend.psw) || !user.addFriend(addFriend.friend_uid)){
+			data.success = false;
+		}else{
+			data.success = true;
+		}
+		synchronized(msgBox){
+			msgBox.add(reply);
+		}
 	}
 	private void sendCard(Message msg) {
 		// TODO Auto-generated method stub
 		Message.Send_Card sendCard = (Message.Send_Card)(msg.data);
-		 
+		Message ipReply = new Message();
+		ipReply.id = msg.id;
+		ipReply.reply = true;
+		ipReply.type = Message.IP_DATA;
+		Message.IpData ipdata = ipReply.new IpData();
+		ipReply.data = ipdata;
+		if(user == null || !user.isOn() || !uManager.identityVerify(sendCard.uid, sendCard.psw)){
+			ipdata.Ip = null;
+		}else{//认证成功
+			ipdata.Ip = uManager.getIp(sendCard.targetuid);
+		}
+		//save card
+		/*
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		
+		synchronized(msgBox){
+			msgBox.add(ipReply);
+		}
 	}
 	private void sendMsg(Message msg) {
 		
@@ -150,19 +231,25 @@ public class ServeTask extends Task implements Runnable{
 		Message.ReplyData data = reply.new ReplyData();
 		reply.data = data;
 		ArrayList<Message> targetMsgBox = null;
-		synchronized(msgMap){//获得目标信箱地址
-			targetMsgBox = (ArrayList<Message>)msgMap.get(sendMsg.targetuid);
+		if(user == null || !user.isOn() || !uManager.identityVerify(sendMsg.uid, sendMsg.psw)){
+			data.success = false;//if the user id offline or the psw is wrong then dont forword
 		}
-		if(targetMsgBox != null){//在线用户可以发送
-			msg.id = idCreater ++;
-			msg.reply = false;
-			msg.type = Message.SEND_MESSAGE;
-			synchronized(targetMsgBox){
-				targetMsgBox.add(msg);
+		else{
+			synchronized(msgMap){//获得目标信箱地址
+				targetMsgBox = (ArrayList<Message>)msgMap.get(sendMsg.targetuid);
 			}
-			data.success = true;
-		}else{//不能发送
-			data.success = false;
+			if(targetMsgBox != null){//在线用户可以发送
+				msg.id = idCreater ++;
+				msg.reply = false;
+				msg.type = Message.SEND_MESSAGE;
+				sendMsg.psw = null;//for security the psw shouldnt be forword
+				synchronized(targetMsgBox){
+					targetMsgBox.add(msg);
+				}
+				data.success = true;
+			}else{//不能发送
+				data.success = false;
+			}
 		}
 		synchronized(msgBox){
 			msgBox.add(reply);//send the reply to tell the source  wether the msg send successfully
