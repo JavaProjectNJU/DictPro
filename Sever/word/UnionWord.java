@@ -7,4 +7,8 @@ public class UnionWord implements Serializable{
 	Word wordBaidu;
 	Word wordYoudao;
 	Word wordBing;
+	public void setwordBaidu(Word baidu)
+	{
+		wordBaidu = baidu;
+	}
 }

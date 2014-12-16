@@ -112,10 +112,6 @@ public class User implements Serializable{
 	
 	public Word SearchWord(String word)
 	{
-		boolean getword = DictionaryManager.SearchWord(word);
-		if (!getword) {
-			DictionaryManager.OnlineSearchWord(word);
-		}
 		return new Word();
 	}
 	
@@ -127,6 +123,55 @@ public class User implements Serializable{
 		System.out.println("在线:        "+on);
 		System.out.println("性别:        "+sex);
 		System.out.println("上次登录:     "+date);
+	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getAccount() {
+		return account;
+	}
+	public void setAccount(String account) {
+		this.account = account;
+	}
+	public String getPw() {
+		return pw;
+	}
+	public void setPw(String pw) {
+		this.pw = pw;
+	}
+	public boolean isOn() {
+		return on;
+	}
+	public void setOn(boolean on) {
+		this.on = on;
+	}
+	public boolean isSex() {
+		return sex;
+	}
+	public void setSex(boolean sex) {
+		this.sex = sex;
+	}
+	public Icon getImage() {
+		return image;
+	}
+	public void setImage(Icon image) {
+		this.image = image;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public String getStrdate() {
+		return strdate;
+	}
+	public void setStrdate(String strdate) {
+		this.strdate = strdate;
 	}
 }
 
