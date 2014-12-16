@@ -5,11 +5,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Blob;
+
+import com.sun.net.httpserver.Authenticator.Success;
 
 import word.UnionWord;
 import word.Word;
@@ -23,38 +26,52 @@ public class DictionaryManager {
 	public static int BAIDU = 0;
 	public static int BING = 1;
 	public static int YOUDAO = 2;
+	
+	public static boolean AddWordandMeaning(UnionWord uword)
+	{
+		boolean success1 = DictionaryManager.AddWord(uword.getWordstr());
+		boolean success2 = DictionaryManager.SetMeaning(uword.getWordBaidu().getWord(),uword.getWordBaidu(),BAIDU);
+		boolean success3 = DictionaryManager.SetMeaning(uword.getWordYoudao().getWord(),uword.getWordYoudao(),YOUDAO);
+		boolean success4 = DictionaryManager.SetMeaning(uword.getWordBing().getWord(),uword.getWordBing(),BING);
+		return success1 & success2 & success3 & success4;
+	}
+	
 	public static boolean SetMeaning(String word,Word meaning,int type)
 	{
 		boolean change = false;
 		try {
 			PreparedStatement statement;
+			Connection conn = DataBase.connect();
 			if(type == BAIDU)
-				statement = DataBase.connect().prepareStatement("update Dictionary set Baidu = (?) where Word = '"+word+"';");
+				statement = conn.prepareStatement("update Dictionary set Baidu = (?) where Word = '"+word+"';");
 			else if(type == BING)
-				statement = DataBase.connect().prepareStatement("update Dictionary set Bing = (?) where Word = '"+word+"';");
+				statement = conn.prepareStatement("update Dictionary set Bing = (?) where Word = '"+word+"';");
 			else
-				statement = DataBase.connect().prepareStatement("update Dictionary set Youdao = (?) where Word = '"+word+"';");
+				statement = conn.prepareStatement("update Dictionary set Youdao = (?) where Word = '"+word+"';");
 			statement.setObject(1, meaning);
 			statement.execute();
 			change = true;
+			DataBase.close(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return change;
 	}
 	
-	public static boolean AddWord(String word) 
+	public static boolean AddWord(String word) //Add New Word into Dictionary
 	{
 		boolean change = false;
 		try {
-			Statement statement = DataBase.connect().createStatement();
+			Connection conn = DataBase.connect();
+			Statement statement = conn.createStatement();
 			String sql = "insert into Dictionary(Word,NumZanBaidu,NumZanYoudao,NumZanBing) values('"
 					+ word +"',0,0,0);";
 			//System.out.println(sql);
 			statement.execute(sql);
 			change = true;
+			DataBase.close(conn);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//Praise Exist!!!
 		}
 		return change;
 	}
@@ -63,7 +80,8 @@ public class DictionaryManager {
 	{
 		boolean change = false;
 		try {
-			Statement statement = DataBase.connect().createStatement();
+			Connection conn = DataBase.connect();
+			Statement statement = conn.createStatement();
 			String sql = null;
 			if(type == BAIDU)
 				sql = "insert into BaiduPraise(username,Word) values('"+ username + "','"+ word + "');";
@@ -72,9 +90,9 @@ public class DictionaryManager {
 			else 
 				sql = "insert into YouDaoPraise(username,Word) values('"+ username + "','"+ word + "');";
 			change = statement.execute(sql);
-			
+			DataBase.close(conn);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//Praise Exist!!!
 		}
 		return change;
 	}
@@ -83,7 +101,8 @@ public class DictionaryManager {
 	{
 		boolean change = false;
 		try {
-			Statement statement = DataBase.connect().createStatement();
+			Connection conn = DataBase.connect();
+			Statement statement = conn.createStatement();
 			String sql = null;
 			if(type == BAIDU)
 				sql = "delete from BaiduPraise where username = '"+ username + "' and word = '"+ word + "';";
@@ -92,7 +111,7 @@ public class DictionaryManager {
 			else 
 				sql = "delete from YouDaoPraise where username = '"+ username + "' and word = '"+ word + "';";
 			change = statement.execute(sql);
-			
+			DataBase.close(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -104,20 +123,45 @@ public class DictionaryManager {
 		UnionWord unionWord = new UnionWord();
 		try {
 			statement = DataBase.connect().createStatement();
-			String sql ="select Baidu from Dictionary where Word = '"+ word +"';";
+			String sql ="select Baidu,Bing,YouDao from Dictionary where Word = '"+ word +"';";
 			ResultSet result = statement.executeQuery(sql);
 			if(result.next()){		
 				Blob inblobBaidu = result.getBlob("Baidu");
-				System.out.println(inblobBaidu);
+				//System.out.println(inblobBaidu);
 				InputStream isBaidu = inblobBaidu.getBinaryStream();
 				BufferedInputStream inputBaidu = new BufferedInputStream(isBaidu);
 				
 				byte[] buff = new byte[(int)inblobBaidu.length()];
 				while(-1 != (inputBaidu.read(buff, 0, buff.length)));
-				ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(buff));
-				Word baidu = (Word)in.readObject();
+				ObjectInputStream inBaidu = new ObjectInputStream(new ByteArrayInputStream(buff));
+				Word baidu = (Word)inBaidu.readObject();
 				System.out.println(baidu.getWord());
 				unionWord.setwordBaidu(baidu);
+				
+				Blob inblobBing = result.getBlob("Bing");
+				//System.out.println(inblobBing);
+				InputStream isBing = inblobBing.getBinaryStream();
+				BufferedInputStream inputBing = new BufferedInputStream(isBing);
+				
+				buff = new byte[(int)inblobBing.length()];
+				while(-1 != (inputBing.read(buff, 0, buff.length)));
+				ObjectInputStream inBing = new ObjectInputStream(new ByteArrayInputStream(buff));
+				Word bing = (Word)inBing.readObject();
+				System.out.println(bing.getWord());
+				unionWord.setwordBing(bing);
+				
+				Blob inblobYouDao = result.getBlob("YouDao");
+				//System.out.println(inblobYouDao);
+				InputStream isYouDao = inblobYouDao.getBinaryStream();
+				BufferedInputStream inputYouDao = new BufferedInputStream(isYouDao);
+				
+				buff = new byte[(int)inblobYouDao.length()];
+				while(-1 != (inputYouDao.read(buff, 0, buff.length)));
+				ObjectInputStream inYouDao = new ObjectInputStream(new ByteArrayInputStream(buff));
+				Word youdao = (Word)inYouDao.readObject();
+				System.out.println(youdao.getWord());
+				unionWord.setwordYouDao(youdao);
+				
 			}
 			//result.getBlob("Bing");
 			//result.getBlob("Baidu");
@@ -140,8 +184,11 @@ public class DictionaryManager {
 	{
 		Word word = new Word();
 		word.setWord("China");
+		
 		//DictionaryManager.AddWord(word.getWord());
 		DictionaryManager.SetMeaning(word.getWord(),word,BAIDU);
+		DictionaryManager.SetMeaning(word.getWord(),word,YOUDAO);
+		DictionaryManager.SetMeaning(word.getWord(),word,BING);
 		DictionaryManager.SearchWord("China");
 		//DictionaryManager.AddPraise("haohao", "insistence", BAIDU);
 	}

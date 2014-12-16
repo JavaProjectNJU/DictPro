@@ -11,4 +11,27 @@ public class UnionWord implements Serializable{
 	{
 		wordBaidu = baidu;
 	}
+	public void setwordBing(Word bing) {
+		// TODO Auto-generated method stub
+		wordBing = bing;
+	}
+	public String getWordstr() {
+		return wordstr;
+	}
+	public void setWordstr(String wordstr) {
+		this.wordstr = wordstr;
+	}
+	public Word getWordBaidu() {
+		return wordBaidu;
+	}
+	public Word getWordYoudao() {
+		return wordYoudao;
+	}
+	public Word getWordBing() {
+		return wordBing;
+	}
+	public void setwordYouDao(Word youdao) {
+		// TODO Auto-generated method stub
+		wordYoudao = youdao;
+	}
 }

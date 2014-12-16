@@ -9,12 +9,11 @@ import java.util.ArrayList;
 import System.UserInfo;
 
 public class UserManager {
-	private static Connection conn = null;
 	private static ArrayList<UserInfo> onlineUser = new ArrayList<UserInfo>();
 	public static boolean createUser(String account,String Pw){
 		boolean change = false;
 		try {
-			conn = DataBase.connect();
+			Connection conn = DataBase.connect();
 			Statement statement = conn.createStatement();
 			String sql = "insert into USERTABLE(username,password) values('"
 					+account+"','"+Pw+"');";
@@ -29,7 +28,7 @@ public class UserManager {
 	public static boolean addFriend(String account1, String account2){
 		boolean change = false;
 		try {
-			conn = DataBase.connect();
+			Connection conn = DataBase.connect();
 			Statement statement = conn.createStatement();
 			String sql = "insert into FriendRelation(username1,username2) values('"
 					+account1+"','"+account2+"');";
@@ -44,7 +43,7 @@ public class UserManager {
 	public static boolean delFriend(String account1, String account2){
 		boolean change = false;
 		try {
-			conn = DataBase.connect();
+			Connection conn = DataBase.connect();
 			Statement statement = conn.createStatement();
 			String sql = "delete from FriendRelation where username1='"
 					+account1+"' and username2='"+account2+"';";
@@ -59,7 +58,7 @@ public class UserManager {
 	public static boolean changePassword(String account,String oldPw,String newPw){
 		boolean change = false;
 		try {
-			conn = DataBase.connect();
+			Connection conn = DataBase.connect();
 			Statement statement = conn.createStatement();
 			String sql = "select username,password from USERTABLE;";
 			ResultSet result = statement.executeQuery(sql);
@@ -70,10 +69,10 @@ public class UserManager {
 					break;
 				}
 			}
+			DataBase.close(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		DataBase.close(conn);
 		return change;
 	}
 	
@@ -81,7 +80,7 @@ public class UserManager {
 	public static boolean identityVerify(String account,String Pw){
 		boolean isValid = false;
 		try {
-			conn = DataBase.connect();
+			Connection conn = DataBase.connect();
 			Statement statement = conn.createStatement();
 			String sql = "select username,password from USERTABLE;";
 			ResultSet result = statement.executeQuery(sql);
@@ -105,7 +104,7 @@ public class UserManager {
 	public static boolean friendJudge(String account1,String account2){
 		boolean isFriend = false;
 		try {
-			conn = DataBase.connect();
+			Connection conn = DataBase.connect();
 			Statement statement = conn.createStatement();
 			String sql = "select username1,username2 from FriendRelation "
 					+ "where username1 = '"+ account1 +"' and username2 = '"+ account2 +"';";
