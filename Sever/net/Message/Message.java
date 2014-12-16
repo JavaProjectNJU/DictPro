@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import System.UserInfo;
 import word.UnionWord;
 import word.Word;
 
@@ -93,7 +94,7 @@ public class Message implements Serializable{
 	public class OnlineFriend extends MsgData implements Serializable{
 		public String uid;
 		public String psw;
-		public ArrayList<String> friendList;
+		public ArrayList<UserInfo> friendList;
 	}
 
 	public class Serach extends MsgData implements Serializable{

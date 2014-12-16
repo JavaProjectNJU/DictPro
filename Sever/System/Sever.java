@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import DataBase.UserManager;
 import net.Message.*;
 
 
@@ -16,6 +17,7 @@ public class Sever {
 	ServerSocket serverSocket;
 	static final int port = 8000;
 	Map msgMap;
+	UserManager uManager; 
 	public Sever(){
 		pool = new ThreadPool();
 		try {
@@ -26,13 +28,17 @@ public class Sever {
 			System.exit(-1);
 		}
 		msgMap = new HashMap<String,List>();
+		uManager = new UserManager();
+		ServeTask.setMsgMap(msgMap);
+		ServeTask.setUserManager(uManager);
 	}
 	public void start(){
+		
 		while(true){
 			try {
 				Socket socket = serverSocket.accept();
 				ArrayList<Message> msgBox = new ArrayList<Message>();
-				ServeTask newTask = new ServeTask(socket, msgBox, msgMap);
+				ServeTask newTask = new ServeTask(socket, msgBox);
 				
 				SendTask sendTask = new SendTask(socket, msgBox);
 				pool.addTask(newTask);
