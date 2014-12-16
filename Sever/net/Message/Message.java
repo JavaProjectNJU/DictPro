@@ -113,7 +113,8 @@ public class Message implements Serializable{
 	public class Del_Praise extends MsgData implements Serializable{
 		public String uid;
 		public String psw;
-		public UnionWord word;
+		public String word;
+		public int source;
 	}
 
 	public class Send_Card extends MsgData implements Serializable{

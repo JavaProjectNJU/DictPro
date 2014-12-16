@@ -66,9 +66,9 @@ public class ServeTask extends Task implements Runnable{
 		if(fromClientData == null)
 			return;
 
-		
-		while(true){
-			try {
+		try {
+			while(true){
+			
 				Message msg = (Message)(fromClient.readObject());
 				if(msg.reply){// themsg is a reply
 					
@@ -91,37 +91,38 @@ public class ServeTask extends Task implements Runnable{
 					}
 					
 				}
+			
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+		}catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{//if any exception has been throws then we shoule logout the user
+			synchronized(uManager){//still need some change !!!!!!!!!!!!!
+				if(user != null)
+					user.logout();
+			}
+			synchronized(msgMap){
+				if(msgBox != null){
+					msgMap.remove(user.getAccount());
+				}
+			}
+			try {
+				fromClient.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				
 				e.printStackTrace();
-			}catch (ClassNotFoundException e) {
+			}
+			user = null;
+			try {
+				if(user != null)//关闭socket
+					userSocket.close();
+			} catch (IOException e1) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally{//if any exception has been throws then we shoule logout the user
-				synchronized(uManager){//still need some change !!!!!!!!!!!!!
-					if(user != null)
-						user.logout();
-				}
-				synchronized(msgMap){
-					if(msgBox != null){
-						msgMap.remove(user.getAccount());
-					}
-				}
-				try {
-					fromClient.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				user = null;
-				try {
-					if(user != null)//关闭socket
-						userSocket.close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				e1.printStackTrace();
 			}
 		}
 	}
@@ -154,14 +155,14 @@ public class ServeTask extends Task implements Runnable{
 	}
 	private void delPrise(Message msg) {
 		// TODO Auto-generated method stub
-		Message.Add_Praise addPrise = (Message.Add_Praise)(msg.data);
+		Message.Del_Praise delPrise = (Message.Del_Praise)(msg.data);
 		Message reply = new Message();
 		reply.id = msg.id;
 		reply.reply = true;
-		reply.type = Message.ADD_PRAISE;
+		reply.type = Message.DEL_PRAISE;
 		Message.ReplyData data = reply.new ReplyData();
 		reply.data = data;
-		if(user == null || !user.isOn() || !uManager.identityVerify(addPrise.uid, addPrise.psw) || !dictManager.DelPraise(addPrise.uid, addPrise.word, addPrise.source)){
+		if(user == null || !user.isOn() || !uManager.identityVerify(delPrise.uid, delPrise.psw) || !dictManager.DelPraise(delPrise.uid, delPrise.word, delPrise.source)){
 			data.success = false;
 		}else{
 			data.success = true;
@@ -190,15 +191,15 @@ public class ServeTask extends Task implements Runnable{
 	}
 	private void delFriend(Message msg) {
 		// TODO Auto-generated method stub
-		Message.AddFriend addFriend = (Message.AddFriend)(msg.data);
+		Message.DelFriend delFriend = (Message.DelFriend)(msg.data);
 		Message reply = new Message();
 		reply.id = msg.id;
 		reply.reply = true;
-		reply.type = Message.ADD_FRIEND;
+		reply.type = Message.DEL_FRIEND;
 		Message.ReplyData data = reply.new ReplyData();
 		
 		reply.data = data;
-		if(user == null || !user.isOn() || !uManager.identityVerify(addFriend.uid, addFriend.psw) || !user.delFriend(addFriend.friend_uid)){
+		if(user == null || !user.isOn() || !uManager.identityVerify(delFriend.uid, delFriend.psw) || !user.delFriend(delFriend.friend_uid)){
 			data.success = false;
 		}else{
 			data.success = true;
@@ -238,7 +239,7 @@ public class ServeTask extends Task implements Runnable{
 		if(user == null || !user.isOn() || !uManager.identityVerify(sendCard.uid, sendCard.psw)){
 			ipdata.Ip = null;
 		}else{//认证成功
-			ipdata.Ip = uManager.getIp(sendCard.targetuid);
+			ipdata.Ip = uManager.getUserInfo(sendCard.targetuid).IpAddr;
 		}
 		//save card
 		/*
