@@ -117,7 +117,16 @@ public class ServeTask extends Task implements Runnable{
 	}
 	private void updateOnlineFriend(Message msg) {
 		// TODO Auto-generated method stub
-		
+		Message.OnlineFriend onlineFriend = (Message.OnlineFriend)(msg.data);
+		msg.reply = true;
+		if(user == null || !user.isOn() || !uManager.identityVerify(onlineFriend.uid, onlineFriend.psw)){
+			onlineFriend.friendList = null;
+		}else{
+			onlineFriend.friendList = user.getFriendOnline();
+		}
+		synchronized(msgBox){
+			msgBox.add(msg);
+		}
 	}
 	private void delPrise(Message msg) {
 		// TODO Auto-generated method stub
