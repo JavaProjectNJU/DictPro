@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import System.UserInfo;
+
 public class UserManager {
 	private static Connection conn = null;
-	private static ArrayList<User> onlineUser = new ArrayList<User>();
+	private static ArrayList<UserInfo> onlineUser = new ArrayList<UserInfo>();
 	public static boolean createUser(String account,String Pw){
 		boolean change = false;
 		try {
@@ -120,19 +122,19 @@ public class UserManager {
 		}
 	}
 	
-	public static boolean addOnlineUser(User user){
+	public static boolean addOnlineUser(UserInfo user){
 		boolean change = false;
 		change = onlineUser.add(user);
 		return change;
 	}
 	
-	public static boolean delOnlineUser(User user){
+	public static boolean delOnlineUser(UserInfo user){
 		boolean change = false;
 		change = onlineUser.remove(user);
 		return change;
 	}
 	
-	public static ArrayList<User> getOnlineUser(){
+	public static ArrayList<UserInfo> getOnlineUser(){
 		return onlineUser;
 	}
 }

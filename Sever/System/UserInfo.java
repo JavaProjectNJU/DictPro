@@ -9,12 +9,16 @@ public class UserInfo extends User implements Serializable{
 //	String pw;  
 	String IpAddr;	
 	int prot;
-
-	UserInfo(String nickname,String account,String pw){
+	
+	public UserInfo(User usr){
+		super(usr);
+	}
+	
+	public UserInfo(String nickname,String account,String pw){
 		super(nickname,account,pw);
 	}//UserInfo(String nickname,String account,String pw)
 
-	UserInfo(String nickname,String account,String pw,String IpAddr,int prot){
+	public UserInfo(String nickname,String account,String pw,String IpAddr,int prot){
 		super(nickname,account,pw);
 		this.IpAddr=IpAddr;
 		this.prot=prot;
@@ -53,7 +57,7 @@ public class UserInfo extends User implements Serializable{
 		usr1.delFriend("jam");
 		//System.out.println(usr1.isFriend("haohao"));
 		//System.out.println(usr1.isFriend("jam"));
-		ArrayList<User> usr = usr1.getFriendOnline();
+		ArrayList<UserInfo> usr = usr1.getFriendOnline();
 		for(int i = 0;i < usr.size();i ++)
 			usr.get(i).display();
 	}

@@ -6,13 +6,14 @@ import java.util.ArrayList;
 
 import javax.swing.Icon;
 
+import System.UserInfo;
 import word.Word;
 
 public class User implements Serializable{
 	protected String nickname;
 	protected String account;
 	protected String pw;
-	protected ArrayList<User> onlineFriend;
+	protected ArrayList<UserInfo> onlineFriend;
 	protected boolean on = false;
 	protected boolean sex = true;
 	protected Icon image = null;
@@ -24,7 +25,7 @@ public class User implements Serializable{
 	{
 		this.account = account;
 		this.pw = Pw;
-		onlineFriend = new ArrayList<User>();
+		onlineFriend = new ArrayList<UserInfo>();
 	}
 	
 	public User(String nickname,String account,String Pw)
@@ -32,7 +33,20 @@ public class User implements Serializable{
 		this.nickname = nickname;
 		this.account = account;
 		this.pw = Pw;
-		onlineFriend = new ArrayList<User>();
+		onlineFriend = new ArrayList<UserInfo>();
+	}
+	
+	protected User(User usr) {
+		// TODO Auto-generated constructor stub
+		nickname = usr.nickname;
+		account = usr.account;
+		pw = null;
+		onlineFriend = usr.onlineFriend;
+		on = usr.on;
+		sex = usr.sex;
+		image = usr.image;
+		date = usr.date;		//date是上次上线时间
+		strdate = usr.strdate; 
 	}
 	
 	public boolean login()
@@ -42,7 +56,10 @@ public class User implements Serializable{
 		on = true;
 		date = new Date(System.currentTimeMillis());
 		if(success)
-			UserManager.addOnlineUser(this);
+		{
+			UserInfo tmpUserInfo = new UserInfo(this);
+			UserManager.addOnlineUser(tmpUserInfo);
+		}
 		return success;
 	}
 	
@@ -52,7 +69,10 @@ public class User implements Serializable{
 		on = false;
 		success = UserManager.identityVerify(account, pw);
 		if(success)
-			UserManager.delOnlineUser(this);
+		{
+			UserInfo tmpUserInfo = new UserInfo(this);
+			UserManager.delOnlineUser(tmpUserInfo);
+		}
 		return success;
 	}
 	
@@ -98,13 +118,13 @@ public class User implements Serializable{
 	public void updateFriendOnline()
 	{
 		onlineFriend.clear();
-		ArrayList<User> temp = UserManager.getOnlineUser();
+		ArrayList<UserInfo> temp = UserManager.getOnlineUser();
 		for(int i = 0;i < temp.size();i ++)
 			if(temp.get(i).isFriend(this.account))
 				onlineFriend.add(temp.get(i));
 	}
 	
-	public ArrayList<User> getFriendOnline()
+	public ArrayList<UserInfo> getFriendOnline()
 	{
 		updateFriendOnline();
 		return onlineFriend;
