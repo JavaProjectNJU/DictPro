@@ -33,7 +33,7 @@ public class LinkToServer {
 		try {
 			socket = new Socket(ip, port);
 			socket.setTcpNoDelay(true);
-			//objOut = new ObjectOutputStream(socket.getOutputStream());
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			this.requestMap = requestMap;
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -64,7 +64,7 @@ public class LinkToServer {
 		data.uid = uid;
 		data.psw = psw;
 		try {
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(loginMessage);
 			objOut.flush();
 			
@@ -89,7 +89,7 @@ public class LinkToServer {
 		data.uid = uid;
 		data.psw = psw;
 		try {
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(logoutMessage);
 			objOut.flush();
 			
@@ -118,7 +118,7 @@ public class LinkToServer {
 		data.sex = sex;
 		try {
 			System.out.println("sending a register msg");
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(rigisterMsg);
 			objOut.flush();
 			
@@ -146,7 +146,7 @@ public class LinkToServer {
 		data.oldpsw = psw;
 		data.newpsw = newpsw;
 		try {
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(changeMsg);
 			objOut.flush();
 			
@@ -172,7 +172,7 @@ public class LinkToServer {
 		data.word = new UnionWord(); 
 		data.word.setWordstr(word);
 		try {
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(serachMsg);
 			objOut.flush();
 			
@@ -201,7 +201,7 @@ public class LinkToServer {
 		data.word = word;
 		data.source = type;
 		try {
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(addPriseMsg);
 			objOut.flush();
 			
@@ -228,7 +228,7 @@ public class LinkToServer {
 		data.word = word;
 		data.source = type;
 		try {
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(delPriseMsg);
 			objOut.flush();
 			
@@ -254,7 +254,7 @@ public class LinkToServer {
 		data.psw = psw;
 		data.friend_uid = friendUid;
 		try {
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(addFriendMsg);
 			objOut.flush();
 			
@@ -280,7 +280,7 @@ public class LinkToServer {
 		data.psw = psw;
 		data.friend_uid = friendUid;
 		try {
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(delFriendMsg);
 			objOut.flush();
 			
@@ -306,7 +306,7 @@ public class LinkToServer {
 		data.psw = psw;
 		data.dialoge = text;
 		try {
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(sendTextMsg);
 			objOut.flush();
 			
@@ -332,7 +332,7 @@ public class LinkToServer {
 		data.psw = psw;
 		data.card = Message.imageToBytes(image);
 		try {
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(cardMsg);
 			objOut.flush();
 			
@@ -372,7 +372,7 @@ public class LinkToServer {
 		onlineMsg.data = data;
 		data.friendList = null;
 		try {
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(onlineMsg);
 			objOut.flush();
 			
@@ -398,7 +398,7 @@ public class LinkToServer {
 		userInfoMsg.data = data;
 		data.myself = null;
 		try {
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			
 			objOut.writeObject(userInfoMsg);
 			objOut.flush();
 			
