@@ -180,6 +180,42 @@ public class DictionaryManager {
 		return unionWord;
 	}
 	
+	public static boolean saveWordCard(String sender,String receiver,byte[] img)
+	{
+		boolean change = false;
+		try {
+			PreparedStatement statement;
+			Connection conn = DataBase.connect();
+			statement = conn.prepareStatement("insert into WordCard(sender,receiver,image) values((?),(?),(?))");
+			statement.setString(1, sender);
+			statement.setString(2, receiver);
+			statement.setObject(3, img);
+			statement.execute();
+			DataBase.close(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return change;
+	}
+	
+	public static boolean getWordCard(String uid)
+	{
+		boolean change = false;
+		try {
+			PreparedStatement statement;
+			Connection conn = DataBase.connect();
+			statement = conn.prepareStatement("insert into WordCard(sender,receiver,image) values((?),(?),(?))");
+			//statement.setString(1, sender);
+			//statement.setString(2, receiver);
+			//statement.setObject(3, img);
+			statement.execute();
+			DataBase.close(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return change;
+	}
+	
 	public static void main(String[] args)
 	{
 		Word word = new Word();
