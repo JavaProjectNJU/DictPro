@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Blob;
 
+import javax.smartcardio.CardTerminals;
+
 import com.sun.net.httpserver.Authenticator.Success;
 
 import word.UnionWord;
@@ -198,9 +200,10 @@ public class DictionaryManager {
 		return change;
 	}
 	
-	public static boolean getWordCard(String uid)
+	public static byte[] getWordCard(String uid)
 	{
 		boolean change = false;
+		byte[] card = null;
 		try {
 			PreparedStatement statement;
 			Connection conn = DataBase.connect();
@@ -213,7 +216,7 @@ public class DictionaryManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return change;
+		return card;
 	}
 	
 	public static void main(String[] args)
