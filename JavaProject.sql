@@ -74,6 +74,19 @@ After DELETE on BingPraise
 for each row
 Update Dictionary
 Set NumZanBing = NumZanBing - 1 where Word = old.Word;
+
+alter table BaiduPraise add constraint DEL_USER1 foreign key(username)
+references USERTABLE(username) on delete cascade;
+alter table BingPraise add constraint DEL_USER2 foreign key(username)
+references USERTABLE(username) on delete cascade;
+alter table YouDaoPraise add constraint DEL_USER3 foreign key(username)
+references USERTABLE(username) on delete cascade;
+
+alter table FriendRelation add constraint DEL_USER4 foreign key(username1)
+references USERTABLE(username) on delete cascade;
+alter table FriendRelation add constraint DEL_USER5 foreign key(username2)
+references USERTABLE(username) on delete cascade;
+
 -- Test-------------------------------------------------------------------------
 insert into Dictionary(Word,NumZanBaidu,NumZanYoudao,NumZanBing) values('Good',0,0,0);
 insert into BingPraise(username,Word) values('roy','Good');

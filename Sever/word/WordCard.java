@@ -43,6 +43,9 @@ public class WordCard {
 	int srcWidth;
 	int srcHeight;
 	BufferedImage buffImage;
+	static final Font font = new Font("Consola",Font.PLAIN,30);
+	static final Font pronounce = new Font("Consola",Font.PLAIN,20);
+	static final Font explain = new Font("微软雅黑",Font.BOLD,16);
 	public WordCard(Word word,String uid1,String uid2){
 		// TODO Auto-generated method stub
 		srcImageFile = "C:\\Users\\YourDream\\Desktop\\card2.jpg";
@@ -62,9 +65,6 @@ public class WordCard {
         try {     	
         	buffImage =  ImageIO.read(new File(srcImageFile));
 			Graphics g = buffImage.getGraphics();
-			Font font = new Font("Console",Font.PLAIN,30);
-			Font pronounce = new Font("Console",Font.PLAIN,20);
-			Font explain = new Font("微软雅黑",Font.BOLD,16);
 			g.setFont(font);
 			g.setColor(new Color(0,0,0));
 			g.drawString(word.getWord(), 100, 130);

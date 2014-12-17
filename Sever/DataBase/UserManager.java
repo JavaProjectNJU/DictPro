@@ -10,55 +10,70 @@ import System.UserInfo;
 
 public class UserManager {
 	private static ArrayList<UserInfo> onlineUser = new ArrayList<UserInfo>();
+	
+	@SuppressWarnings("finally")
 	public static boolean createUser(String account,String Pw){
 		boolean change = false;
+		Connection conn = null;
 		try {
-			Connection conn = DataBase.connect();
+			conn = DataBase.connect();
 			Statement statement = conn.createStatement();
 			String sql = "insert into USERTABLE(username,password) values('"
 					+account+"','"+Pw+"');";
 			change = statement.execute(sql);
-			DataBase.close(conn);
 		} catch (SQLException e) {
 			System.out.println("User Exists!");
 		}
-		return change;
+		finally{
+			DataBase.close(conn);
+			return change;
+		}
 	}
 	
+	@SuppressWarnings("finally")
 	public static boolean addFriend(String account1, String account2){
 		boolean change = false;
+		Connection conn = null;
 		try {
-			Connection conn = DataBase.connect();
+			conn = DataBase.connect();
 			Statement statement = conn.createStatement();
 			String sql = "insert into FriendRelation(username1,username2) values('"
 					+account1+"','"+account2+"');";
 			change = statement.execute(sql);
-			DataBase.close(conn);
 		} catch (SQLException e) {
 			System.out.println("Friendship Exists!");
 		}
-		return change;
+		finally{
+			DataBase.close(conn);
+			return change;
+		}
 	}
 	
+	@SuppressWarnings("finally")
 	public static boolean delFriend(String account1, String account2){
 		boolean change = false;
+		Connection conn = null;
 		try {
-			Connection conn = DataBase.connect();
+			conn = DataBase.connect();
 			Statement statement = conn.createStatement();
 			String sql = "delete from FriendRelation where username1='"
 					+account1+"' and username2='"+account2+"';";
-			change = statement.execute(sql);
-			DataBase.close(conn);
+			change = statement.execute(sql);	
 		} catch (SQLException e) {
 			System.out.println("Not Exists!");
 		}
-		return change;
+		finally{
+			DataBase.close(conn);
+			return change;
+		}
 	}
 	
+	@SuppressWarnings("finally")
 	public static boolean changePassword(String account,String oldPw,String newPw){
 		boolean change = false;
+		Connection conn = null;
 		try {
-			Connection conn = DataBase.connect();
+			conn = DataBase.connect();
 			Statement statement = conn.createStatement();
 			String sql = "select username,password from USERTABLE;";
 			ResultSet result = statement.executeQuery(sql);
@@ -69,18 +84,21 @@ public class UserManager {
 					break;
 				}
 			}
-			DataBase.close(conn);
 		} catch (SQLException e) {
 			System.out.println("Change Password Failed!");
 		}
-		return change;
+		finally{
+			DataBase.close(conn);
+			return change;
+		}
 	}
 	
 	@SuppressWarnings("finally")
 	public static boolean identityVerify(String account,String Pw){
 		boolean isValid = false;
+		Connection conn = null;
 		try {
-			Connection conn = DataBase.connect();
+			conn = DataBase.connect();
 			Statement statement = conn.createStatement();
 			String sql = "select username,password from USERTABLE;";
 			ResultSet result = statement.executeQuery(sql);
@@ -91,11 +109,11 @@ public class UserManager {
 					break;
 				}
 			}
-			DataBase.close(conn);
 		} catch (SQLException e) {
 			System.out.println("identityVerify, Access Failed!");
 		}
 		finally{
+			DataBase.close(conn);
 			return isValid;
 		}
 	}
@@ -103,8 +121,9 @@ public class UserManager {
 	@SuppressWarnings("finally")
 	public static boolean friendJudge(String account1,String account2){
 		boolean isFriend = false;
+		Connection conn = null;
 		try {
-			Connection conn = DataBase.connect();
+			conn = DataBase.connect();
 			Statement statement = conn.createStatement();
 			String sql = "select username1,username2 from FriendRelation "
 					+ "where username1 = '"+ account1 +"' and username2 = '"+ account2 +"';";
@@ -112,11 +131,11 @@ public class UserManager {
 			ResultSet result = statement.executeQuery(sql);
 			if(result.next())
 				isFriend = true;
-			DataBase.close(conn);
 		} catch (SQLException e) {
 			System.out.println("FriendJudge, DataBase Access Failed");
 		}
 		finally{
+			DataBase.close(conn);
 			return isFriend;
 		}
 	}
