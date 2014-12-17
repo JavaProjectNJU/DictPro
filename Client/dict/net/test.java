@@ -36,10 +36,11 @@ public class test {
 		ListenCard card = new ListenCard();
 		System.out.println("create cara listenner~~~~");
 		Thread tmsg = new Thread(msgs);
+		tmsg.start();
 		System.out.println("create msg recevice thread~~~~");
 		Thread tcard = new Thread(card);
 		System.out.println("create card recevice thread~~~~");
-		tmsg.start();
+		
 		System.out.println("start msg recevice thread~~~~");
 		tcard.start();
 		System.out.println("start card recevice thread~~~~");

@@ -55,7 +55,7 @@ public void run() {
 					requestMap.put(msg.id, msg);
 				}
 			}else{//then it is a request 
-				System.out.println("a msg from b");
+				System.out.println("a msg from b: id="+msg.id);
 				
 			}
 		

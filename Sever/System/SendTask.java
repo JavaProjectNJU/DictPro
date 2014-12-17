@@ -26,6 +26,12 @@ public class SendTask extends Task implements Runnable{
 		socket = userSocket;
 		
 		this.msgBox = userMsgBox;
+		try {
+			toTarget =  new ObjectOutputStream(socket.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		/*try {
 			toTarget = new ObjectOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
@@ -62,9 +68,7 @@ public class SendTask extends Task implements Runnable{
 				if(!msgBox.isEmpty()){
 					System.out.println("server send task is sending");
 					
-					if(toTarget == null){
-						toTarget =  new ObjectOutputStream(socket.getOutputStream());
-					}
+					
 					synchronized(msgBox){
 						//socket.setSendBufferSize(2);
 						toTarget.writeObject(msgBox.get(0));
