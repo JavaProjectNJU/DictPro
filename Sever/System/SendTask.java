@@ -16,6 +16,7 @@ import java.util.Map;
 import DataBase.DictionaryManager;
 import DataBase.UserManager;
 import net.Message.Message;
+import net.Message.MyObjectOutputStream;
 
 public class SendTask extends Task implements Runnable{
 	private Socket socket;
@@ -66,7 +67,7 @@ public class SendTask extends Task implements Runnable{
 				if(!msgBox.isEmpty()){
 					byte[] buf = null;
 					if(toTarget == null){
-						toTarget =  new ObjectOutputStream(socket.getOutputStream());
+						toTarget =  new MyObjectOutputStream(socket.getOutputStream());
 					}
 					synchronized(msgBox){
 						toTarget.writeObject(msgBox.get(0));
