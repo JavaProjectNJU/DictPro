@@ -1,4 +1,25 @@
 package word;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.*;
+import java.io.*;
+
+import javax.swing.*;
+
+import net.FromBaidu;
+import net.FromBing;
+import net.WordEngine;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,16 +34,23 @@ import java.io.*;
 
 import javax.swing.*;
 
+import net.FromBing;
+import net.WordEngine;
+
 public class WordCard {
 	String srcImageFile;
 	BufferedImage bi;
 	int srcWidth;
 	int srcHeight;
 	BufferedImage buffImage;
-	public WordCard(Word word,String uid1,String uid2) throws IOException {
+	public WordCard(Word word,String uid1,String uid2){
 		// TODO Auto-generated method stub
 		srcImageFile = "C:\\Users\\YourDream\\Desktop\\card2.jpg";
-		bi = ImageIO.read(new File(srcImageFile));
+		try {
+			bi = ImageIO.read(new File(srcImageFile));
+		} catch (IOException e1) {
+			System.out.println("File Not Found!");
+		}
         srcWidth = bi.getHeight(); // 源图宽度
         srcHeight = bi.getWidth(); // 源图高度
         //System.out.println(srcWidth+ "," +srcHeight);
@@ -107,8 +135,15 @@ public class WordCard {
 	public void setBuffImage(BufferedImage buffImage) {
 		this.buffImage = buffImage;
 	}
+	
+	public static void main(String[] args)
+	{
+		WordEngine baidu = new FromBing();
+        Word word = baidu.search("give");
+		WordCard wCard = new WordCard(word,"Roy","Guo");
+		wCard.display();
+	}
 }
-
 
 
 class ImageViewerFrame extends JFrame{
@@ -117,21 +152,7 @@ class ImageViewerFrame extends JFrame{
         setSize(height,width);
         label = new JLabel();
         add(label);
-        JMenuBar menubar = new JMenuBar();
-        setJMenuBar(menubar);
-        JMenu menu = new JMenu("File");
-        menubar.add(menu);
-        JMenuItem openItem = new JMenuItem("Open");
-        menu.add(openItem);
-        JMenuItem exitItem = new JMenuItem("Close");
-        menu.add(exitItem);
         label.setIcon(new ImageIcon(name));
-        exitItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                System.exit(0);
-            }
-        });
     }
     private JLabel label;
 }
