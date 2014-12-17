@@ -16,7 +16,7 @@ import net.Message.*;
 public class Sever {
 	ThreadPool pool;
 	ServerSocket serverSocket;
-	static final int port = 8000;
+	static final int port = 4567;
 	Map msgMap;
 	UserManager uManager; 
 	DictionaryManager dictm;

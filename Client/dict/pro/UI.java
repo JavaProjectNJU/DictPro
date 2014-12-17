@@ -1,5 +1,8 @@
 package dict.pro;
 
+import dict.net.*;
+import javafx.scene.layout.Border;
+
 import javax.swing.*;
 
 import java.awt.event.*;
@@ -9,6 +12,8 @@ import java.io.*;
 import javax.swing.event.*;
 import javax.swing.text.Document;
 
+import net.Message.Message.Serach;
+
 import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.border.StandardBorderPainter;
 import org.jvnet.substance.button.ClassicButtonShaper;
@@ -17,8 +22,12 @@ import org.jvnet.substance.skin.OfficeBlue2007Skin;
 import org.jvnet.substance.theme.SubstanceTerracottaTheme;
 import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 
+import word.UnionWord;
+
 
 public class UI extends JFrame{
+	
+	private boolean online=false;
 	
 	private JTextField inputField = new JTextField(30); // Input Field
 	private JButton SearchButton = new JButton("search"); //Search Button
@@ -54,8 +63,6 @@ public class UI extends JFrame{
 	private JPanel bYJPanel=new JPanel();
 	
 	public UI(){
-		
-		
 		
 		bDJPanel.setLayout(new BorderLayout(5,0));
 		bDJPanel.add(bDArea,BorderLayout.CENTER);
@@ -119,6 +126,403 @@ public class UI extends JFrame{
 		dictPro.add(body,BorderLayout.CENTER);
 		
 		add(dictPro);
+		//listen the online friend list
+		Flist.addListSelectionListener(new ListSelectionListener(){ 
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				if(Flist.getSelectedValue()==null) return;
+				//====
+				String selectid = (String)Flist.getSelectedValue();
+				BDid.setText(selectid);
+				YDid.setText(selectid);
+				BYid.setText(selectid);
+			}
+			
+		});
+		
+		//listen the inputField
+		inputField.addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getKeyCode()==KeyEvent.VK_ENTER){
+					String getString=inputField.getText();
+					
+					bDArea.removeAll();
+					yDArea.removeAll();
+					bYArea.removeAll();
+					
+					//search getString
+					final UnionWord uWord=serach(getString);
+					
+					JPanel BDUK = new JPanel() {
+					    @Override
+					    public void paint(Graphics g) {
+					    	if(uWord.getWordBaidu().getPron_EN_UK()!=null)
+					    		g.drawString(uWord.getWordBaidu().getPron_EN_UK(),10,50);
+					    }
+					};
+					
+					JPanel BDUS = new JPanel() {
+					    @Override
+					    public void paint(Graphics g) {
+					    	if(uWord.getWordBaidu().getPron_EN_US()!=null)
+					    		g.drawString(uWord.getWordBaidu().getPron_EN_US(),10,50);
+					    }
+					};	
+					
+					JPanel BDExplain=new JPanel(){
+					    public void paint(Graphics g) {
+					    	if(uWord.getWordBaidu().getExplain()!=null){
+					    		for(int i=0;i<uWord.getWordBaidu().getExplain().size();i++)
+					    			g.drawString(uWord.getWordBaidu().getExplain().get(i)+"\n",10,50);
+					    	}
+					    }
+						
+					};
+	
+					JPanel BDHeader=new JPanel();
+					BDHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
+					BDHeader.add(BDUK);
+					BDHeader.add(BDUS);
+					
+					JPanel BDBody=new JPanel();
+					BDBody.setLayout(new BorderLayout());
+					BDBody.add(BDHeader,BorderLayout.NORTH);
+					BDBody.add(BDExplain,BorderLayout.CENTER);
+					
+					bDArea.add(BDBody);
+					
+					//====================YOUDAO
+					JPanel YDUK = new JPanel() {
+					    @Override
+					    public void paint(Graphics g) {
+					    	if(uWord.getWordYoudao().getPron_EN_UK()!=null)
+					    		g.drawString(uWord.getWordYoudao().getPron_EN_UK(),10,50);
+					    }
+					};
+					
+					JPanel YDUS = new JPanel() {
+					    @Override
+					    public void paint(Graphics g) {
+					    	if(uWord.getWordYoudao().getPron_EN_US()!=null)
+					    		g.drawString(uWord.getWordYoudao().getPron_EN_US(),10,50);
+					    }
+					};	
+					
+					JPanel YDExplain=new JPanel(){
+					    public void paint(Graphics g) {
+					    	if(uWord.getWordYoudao().getExplain()!=null){
+					    		for(int i=0;i<uWord.getWordYoudao().getExplain().size();i++)
+					    			g.drawString(uWord.getWordYoudao().getExplain().get(i)+"\n",10,50);
+					    	}
+					    }
+						
+					};
+	
+					JPanel YDHeader=new JPanel();
+					YDHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
+					YDHeader.add(YDUK);
+					YDHeader.add(YDUS);
+					
+					JPanel YDBody=new JPanel();
+					YDBody.setLayout(new BorderLayout());
+					YDBody.add(YDHeader,BorderLayout.NORTH);
+					YDBody.add(YDExplain,BorderLayout.CENTER);
+					
+					yDArea.add(YDBody);
+					
+					
+					//===============BING
+					JPanel BYUK = new JPanel() {
+					    @Override
+					    public void paint(Graphics g) {
+					    	if(uWord.getWordBing().getPron_EN_UK()!=null)
+					    		g.drawString(uWord.getWordBing().getPron_EN_UK(),10,50);
+					    }
+					};
+					
+					JPanel BYUS = new JPanel() {
+					    @Override
+					    public void paint(Graphics g) {
+					    	if(uWord.getWordBing().getPron_EN_US()!=null)
+					    		g.drawString(uWord.getWordBing().getPron_EN_US(),10,50);
+					    }
+					};	
+					
+					JPanel BYExplain=new JPanel(){
+					    public void paint(Graphics g) {
+					    	if(uWord.getWordBing().getExplain()!=null){
+					    		for(int i=0;i<uWord.getWordBing().getExplain().size();i++)
+					    			g.drawString(uWord.getWordBing().getExplain().get(i)+"\n",10,50);
+					    	}
+					    }
+						
+					};
+	
+					JPanel BYHeader=new JPanel();
+					BYHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
+					BYHeader.add(BYUK);
+					BYHeader.add(BYUS);
+					
+					JPanel BYBody=new JPanel();
+					BYBody.setLayout(new BorderLayout());
+					BYBody.add(BYHeader,BorderLayout.NORTH);
+					BYBody.add(BYExplain,BorderLayout.CENTER);
+					
+					bYArea.add(BYBody);
+				}
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}	
+		});
+		
+		//click the search button
+		SearchButton.addActionListener(new ActionListener(){   
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String getString=inputField.getText();
+				
+				bDArea.removeAll();
+				yDArea.removeAll();
+				bYArea.removeAll();
+				
+				//search getString
+				final UnionWord uWord=serach(getString);
+				
+				JPanel BDUK = new JPanel() {
+				    @Override
+				    public void paint(Graphics g) {
+				    	if(uWord.getWordBaidu().getPron_EN_UK()!=null)
+				    		g.drawString(uWord.getWordBaidu().getPron_EN_UK(),10,50);
+				    }
+				};
+				
+				JPanel BDUS = new JPanel() {
+				    @Override
+				    public void paint(Graphics g) {
+				    	if(uWord.getWordBaidu().getPron_EN_US()!=null)
+				    		g.drawString(uWord.getWordBaidu().getPron_EN_US(),10,50);
+				    }
+				};	
+				
+				JPanel BDExplain=new JPanel(){
+				    public void paint(Graphics g) {
+				    	if(uWord.getWordBaidu().getExplain()!=null){
+				    		for(int i=0;i<uWord.getWordBaidu().getExplain().size();i++)
+				    			g.drawString(uWord.getWordBaidu().getExplain().get(i)+"\n",10,50);
+				    	}
+				    }
+					
+				};
+
+				JPanel BDHeader=new JPanel();
+				BDHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
+				BDHeader.add(BDUK);
+				BDHeader.add(BDUS);
+				
+				JPanel BDBody=new JPanel();
+				BDBody.setLayout(new BorderLayout());
+				BDBody.add(BDHeader,BorderLayout.NORTH);
+				BDBody.add(BDExplain,BorderLayout.CENTER);
+				
+				bDArea.add(BDBody);
+				
+				//====================YOUDAO
+				JPanel YDUK = new JPanel() {
+				    @Override
+				    public void paint(Graphics g) {
+				    	if(uWord.getWordYoudao().getPron_EN_UK()!=null)
+				    		g.drawString(uWord.getWordYoudao().getPron_EN_UK(),10,50);
+				    }
+				};
+				
+				JPanel YDUS = new JPanel() {
+				    @Override
+				    public void paint(Graphics g) {
+				    	if(uWord.getWordYoudao().getPron_EN_US()!=null)
+				    		g.drawString(uWord.getWordYoudao().getPron_EN_US(),10,50);
+				    }
+				};	
+				
+				JPanel YDExplain=new JPanel(){
+				    public void paint(Graphics g) {
+				    	if(uWord.getWordYoudao().getExplain()!=null){
+				    		for(int i=0;i<uWord.getWordYoudao().getExplain().size();i++)
+				    			g.drawString(uWord.getWordYoudao().getExplain().get(i)+"\n",10,50);
+				    	}
+				    }
+					
+				};
+
+				JPanel YDHeader=new JPanel();
+				YDHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
+				YDHeader.add(YDUK);
+				YDHeader.add(YDUS);
+				
+				JPanel YDBody=new JPanel();
+				YDBody.setLayout(new BorderLayout());
+				YDBody.add(YDHeader,BorderLayout.NORTH);
+				YDBody.add(YDExplain,BorderLayout.CENTER);
+				
+				yDArea.add(YDBody);
+				
+				
+				//===============BING
+				JPanel BYUK = new JPanel() {
+				    @Override
+				    public void paint(Graphics g) {
+				    	if(uWord.getWordBing().getPron_EN_UK()!=null)
+				    		g.drawString(uWord.getWordBing().getPron_EN_UK(),10,50);
+				    }
+				};
+				
+				JPanel BYUS = new JPanel() {
+				    @Override
+				    public void paint(Graphics g) {
+				    	if(uWord.getWordBing().getPron_EN_US()!=null)
+				    		g.drawString(uWord.getWordBing().getPron_EN_US(),10,50);
+				    }
+				};	
+				
+				JPanel BYExplain=new JPanel(){
+				    public void paint(Graphics g) {
+				    	if(uWord.getWordBing().getExplain()!=null){
+				    		for(int i=0;i<uWord.getWordBing().getExplain().size();i++)
+				    			g.drawString(uWord.getWordBing().getExplain().get(i)+"\n",10,50);
+				    	}
+				    }
+					
+				};
+
+				JPanel BYHeader=new JPanel();
+				BYHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
+				BYHeader.add(BYUK);
+				BYHeader.add(BYUS);
+				
+				JPanel BYBody=new JPanel();
+				BYBody.setLayout(new BorderLayout());
+				BYBody.add(BYHeader,BorderLayout.NORTH);
+				BYBody.add(BYExplain,BorderLayout.CENTER);
+				
+				bYArea.add(BYBody);
+			}
+		});
+		
+		//click the add button
+		Login.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				 if(online == false){
+					login lwin=new login();
+					lwin.setTitle("DictPro-LogIn");
+					lwin.setSize(250,200);
+					lwin.setLocationRelativeTo(null);
+					lwin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					lwin.setVisible(true); 
+				 }
+			}
+		});
+		
+		Signin.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+				signin swin=new signin();
+				swin.setTitle("DictPro-SignIn");
+				swin.setSize(250,400);
+				swin.setLocationRelativeTo(null);
+				swin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				swin.setVisible(true); 
+			}
+		});
+	
+		
+		BDsend.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				 if(online == true){
+					 //send
+				 }
+			}
+		});
+		
+		BDgood.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				 if(online == true){
+					 //give good comment
+				 }
+			}
+		});
+		
+		YDsend.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				 if(online == true){
+					 //send
+				 }
+			}
+		});
+		
+		YDgood.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				 if(online == true){
+					 //give good comment
+				 }
+			}
+		});
+		
+		BYsend.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				 if(online == true){
+					 //send
+				 }
+			}
+		});
+		
+		BYgood.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				 if(online == true){
+					 //give good comment
+				 }
+			}
+		});
+
 	}
     
 	public static void main(String[] args){
