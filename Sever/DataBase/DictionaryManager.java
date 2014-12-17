@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.sql.Blob;
 
 import javax.smartcardio.CardTerminals;
+import javax.swing.JOptionPane;
 
 import net.FromBaidu;
 import net.FromBing;
@@ -107,7 +108,8 @@ public class DictionaryManager {
 				sql = "insert into YouDaoPraise(username,Word) values('"+ username + "','"+ word + "');";
 			change = statement.execute(sql);
 		} catch (SQLException e) {
-			//Praise Exist!!!
+			JOptionPane.showMessageDialog(null,
+				       "你已经点过赞了，不要重复点击!", "系统信息", JOptionPane.ERROR_MESSAGE);
 		}
 		finally{
 			DataBase.close(conn);
@@ -133,7 +135,8 @@ public class DictionaryManager {
 				sql = "delete from YouDaoPraise where username = '"+ username + "' and word = '"+ word + "';";
 			change = statement.execute(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+				       "你还没点过赞", "系统信息", JOptionPane.ERROR_MESSAGE);
 		}
 		finally{
 			DataBase.close(conn);
@@ -193,7 +196,8 @@ public class DictionaryManager {
 			//result.getBlob("Bing");
 			//result.getBlob("Baidu");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null,
+				       "未知的错误！", "系统信息", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -233,7 +237,8 @@ public class DictionaryManager {
 			statement.execute();
 			DataBase.close(conn);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+				       "未知的错误，存储单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
 		}
 		return change;
 	}
@@ -251,7 +256,8 @@ public class DictionaryManager {
 			statement.execute();
 			DataBase.close(conn);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+				       "未知的错误，取出单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
 		}
 		return card;
 	}

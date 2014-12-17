@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.*;
 import java.io.*;
@@ -141,6 +142,7 @@ public class WordCard {
 		WordEngine baidu = new FromBing();
         Word word = baidu.search("give");
 		WordCard wCard = new WordCard(word,"Roy","Guo");
+
 		wCard.display();
 	}
 }
