@@ -73,7 +73,7 @@ public class ServeTask extends Task implements Runnable{
 			if(userSocket == null || userSocket.isClosed())//
 				break;
 			try{
-				System.out.print("server running a servertask");
+				System.out.println("server running a servertask");
 
 				if(fromClient == null)
 					fromClient = new ObjectInputStream(new BufferedInputStream(userSocket.getInputStream()));	

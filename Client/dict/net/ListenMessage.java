@@ -13,38 +13,54 @@ public class ListenMessage implements Runnable{
 	private Socket socket;
 	private ObjectInputStream objIn;
 	public ListenMessage(Map requestMap, Socket socket){
+		System.out.println("ctrating listen msg~~");
 		this.requestMap = requestMap;
 		this.socket = socket;
-		System.out.println("ctrating listen msg~~");
+		
 		
 		System.out.println("ctrated listen msg~~");
 	}
 	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		try {
-			objIn = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-			System.out.println("ctrated object input stream~~");
-			while(true){
-				System.out.println("running listen msg~~");
-				if(objIn == null)
-					return;
+public void run() {
+
 		
-				Message msg = (Message)(objIn.readObject());
-				if(msg.reply = true){//when listened the reply send to the request
-					System.out.print("receive a reply" + msg.id);
-					requestMap.put(msg.id, msg);
-				}else{//is a request ,recevice a msg
-					Message.Send_Message receviceMsg = (Message.Send_Message)(msg.data);
-					System.out.println("from " + receviceMsg.uid +": " + receviceMsg.dialoge);
-				}
+		while(true){
+			Message msg = null;
+			if(socket == null || socket.isClosed())//
+				break;
+			try{
+				System.out.println("listenning msg");
+
+				if(objIn == null)
+					objIn = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));	
+				
+				msg = (Message)(objIn.readObject());
+				//char eof = fromClient.readChar();//将文件结束符读出来；
+				//fromClient.close();
+				
+				System.out.println("receive a msg");
+			}catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				objIn = null;//重置输入流
+				e.printStackTrace();
 			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if(msg == null)
+				continue;
+			if(msg.reply){// themsg is a reply
+				System.out.println("reply to:"+ msg.id);
+				synchronized(requestMap){
+					requestMap.put(msg.id, msg);
+				}
+			}else{//then it is a request 
+				System.out.println("a msg from b");
+				
+			}
+		
 		}
+	
 	}
+	
 }

@@ -42,6 +42,7 @@ public class Sever {
 			try {
 				System.out.println("server is running");
 				Socket socket = serverSocket.accept();
+				socket.setTcpNoDelay(true);
 				System.out.println("server accept a socket");
 				ArrayList<Message> msgBox = new ArrayList<Message>();
 				ServeTask newTask = new ServeTask(socket, msgBox);

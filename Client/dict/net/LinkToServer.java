@@ -422,8 +422,10 @@ public class LinkToServer {
 				if(reply != null){
 					requestMap.remove(id);
 					return reply;
-				}else if(loop > 100)//10000ms 超时 10s
+				}else if(loop > 100){//10000ms 超时 10s
+					System.out.println("time out");
 					return null;
+				}
 			}
 			try {
 				Thread.sleep(100);
