@@ -1,6 +1,9 @@
 package System;
 
 import java.awt.List;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -13,6 +16,7 @@ import java.util.Map;
 import DataBase.DictionaryManager;
 import DataBase.UserManager;
 import net.Message.Message;
+import net.Message.MyObjectOutputStream;
 
 public class SendTask extends Task implements Runnable{
 	private Socket socket;
@@ -55,38 +59,42 @@ public class SendTask extends Task implements Runnable{
 	}
 	
 	public void run(){
-		try {
-			while(true){
+		
+		while(true){
+			try {
+				if(socket.isClosed())
+					break;
 				if(!msgBox.isEmpty()){
-				
-					toTarget =  new ObjectOutputStream(socket.getOutputStream());
+					byte[] buf = null;
+					if(toTarget == null){
+						toTarget =  new MyObjectOutputStream(socket.getOutputStream());
+					}
 					synchronized(msgBox){
 						toTarget.writeObject(msgBox.get(0));
 						msgBox.remove(0);
 					}
 					toTarget.flush();
-					toTarget.close();
+					//toTarget.close();
 				
 				}else{
 					Thread.sleep(20);
 						
 				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			try {
-				if(socket != null)
-					socket.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+					// TODO Auto-generated catch block
+				try {
+					socket.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
 	}
 
 	

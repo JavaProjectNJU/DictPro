@@ -37,8 +37,9 @@ public class Sever {
 		ServeTask.setDictionaryManager(dictm);
 	}
 	public void start(){
-		try {
-			while(true){
+		
+		while(true){
+			try {
 				System.out.println("server is running");
 				Socket socket = serverSocket.accept();
 				System.out.println("server accept a socket");
@@ -48,13 +49,13 @@ public class Sever {
 				SendTask sendTask = new SendTask(socket, msgBox);
 				pool.addTask(newTask);
 				pool.addTask(sendTask);
-			
+			} catch (IOException e) {
+					// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			
-			e.printStackTrace();
 		}
+		
 	}
 	
 }

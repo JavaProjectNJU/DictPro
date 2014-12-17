@@ -31,23 +31,21 @@ public class ServeTask extends Task implements Runnable{
 	static private UserManager uManager;//share with all the server
 	static private DictionaryManager dictManager;
 	static private int idCreater = 0;
+	byte[] buff = null;
 	public ServeTask(Socket socket, ArrayList<Message> msgBox){
 		userSocket = socket;
 		try {
 			userSocket.setTcpNoDelay(true);
+			
 		} catch (SocketException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
-		this.msgBox = msgBox;
-		try {
-			System.out.println("creating a object input stream");
-			fromClient = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-			System.out.println("created a object input stream");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.msgBox = msgBox;
+		
 		
 	}
 	@Override
@@ -69,66 +67,56 @@ public class ServeTask extends Task implements Runnable{
 	}
 	public void run() {
 
-		try {
-			while(true){
+		
+		while(true){
+			Message msg = null;
+			if(userSocket == null || userSocket.isClosed())//
+				break;
+			try{
 				System.out.print("server running a servertask");
-				Message msg = (Message)(fromClient.readObject());
+
+				if(fromClient == null)
+					fromClient = new ObjectInputStream(new BufferedInputStream(userSocket.getInputStream()));	
+				
+				msg = (Message)(fromClient.readObject());
+				//char eof = fromClient.readChar();//将文件结束符读出来；
+				//fromClient.close();
+				
 				System.out.println("server readed a msg");
-				if(msg.reply){// themsg is a reply
-					
-				}else{//then it is a request 
-					switch(msg.type){
-					case Message.LOGIN:login(msg);break;
-					case Message.REGISTER:register(msg);break;
-					case Message.LOGOUT:logout(msg);break;
-					case Message.CHANGE_PSW:changePsw(msg);break;
-					case Message.SEARCH:search(msg);break;
-					case Message.SEND_MESSAGE:sendMsg(msg);break;
-					case Message.SEND_CARD:sendCard(msg);break;
-					case Message.ADD_FRIEND:addFriend(msg);break;
-					case Message.ADD_PRAISE:addPrise(msg);break;
-					case Message.DEL_FRIEND:delFriend(msg);break;
-					case Message.DEL_PRAISE:delPrise(msg);break;
-					case Message.UPDATE_FRIEND_ONLINE:updateOnlineFriend(msg);break;
-					case Message.USER_INFO:getUserInfo(msg);break;
-					default:;
-					}
-					
-				}
-			
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			
-			e.printStackTrace();
-		}catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{//if any exception has been throws then we shoule logout the user
-			synchronized(uManager){//still need some change !!!!!!!!!!!!!
-				if(user != null)
-					user.logout();
-			}
-			synchronized(msgMap){
-				if(user != null){
-					msgMap.remove(user.getAccount());
-				}
-			}
-			try {
-				fromClient.close();
-			} catch (IOException e) {
+			}catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			user = null;
-			try {
-				if(userSocket != null)//关闭socket
-					userSocket.close();
-			} catch (IOException e1) {
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				fromClient = null;//重置输入流
+				e.printStackTrace();
 			}
+			if(msg == null)
+				continue;
+			if(msg.reply){// themsg is a reply
+				
+			}else{//then it is a request 
+				switch(msg.type){
+				case Message.LOGIN:login(msg);break;
+				case Message.REGISTER:register(msg);break;
+				case Message.LOGOUT:logout(msg);break;
+				case Message.CHANGE_PSW:changePsw(msg);break;
+				case Message.SEARCH:search(msg);break;
+				case Message.SEND_MESSAGE:sendMsg(msg);break;
+				case Message.SEND_CARD:sendCard(msg);break;
+				case Message.ADD_FRIEND:addFriend(msg);break;
+				case Message.ADD_PRAISE:addPrise(msg);break;
+				case Message.DEL_FRIEND:delFriend(msg);break;
+				case Message.DEL_PRAISE:delPrise(msg);break;
+				case Message.UPDATE_FRIEND_ONLINE:updateOnlineFriend(msg);break;
+				case Message.USER_INFO:getUserInfo(msg);break;
+				default:;
+				}
+				
+			}
+		
 		}
+	
 	}
 	
 	private void getUserInfo(Message msg){
@@ -372,12 +360,13 @@ public class ServeTask extends Task implements Runnable{
 		if(uManager.createUser(rMsgData.uid, rMsgData.psw)){
 			//user = new User(rMsgData.uid, rMsgData.psw);
 			
-			
+			System.out.println("server register successful");
 			//synchronized(msgMap){
 			//	msgMap.put(user.getAccount(), msgBox);//add msBox to map then others can send msg
 			//}
 			redata.success = true;
 		}else{//create faile
+			System.out.println("server register failed");
 			redata.success = false;
 		}
 		synchronized(msgBox){
