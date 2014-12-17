@@ -40,7 +40,8 @@ public class ListenMessage implements Runnable{
 				if(msg.reply = true){//when listened the reply send to the request
 					requestMap.put(msg.id, msg);
 				}else{//is a request ,recevice a msg
-					
+					Message.Send_Message receviceMsg = (Message.Send_Message)(msg.data);
+					System.out.println("from " + receviceMsg.uid +": " + receviceMsg.dialoge);
 				}
 			}
 		} catch (ClassNotFoundException e) {

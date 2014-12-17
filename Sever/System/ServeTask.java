@@ -233,25 +233,28 @@ public class ServeTask extends Task implements Runnable{
 		Message ipReply = new Message();
 		ipReply.id = msg.id;
 		ipReply.reply = true;
-		ipReply.type = Message.IP_DATA;
-		Message.IpData ipdata = ipReply.new IpData();
-		ipReply.data = ipdata;
-		if(user == null || !user.isOn() || !uManager.identityVerify(sendCard.uid, sendCard.psw)){
-			ipdata.Ip = null;
-		}else{//认证成功
-			ipdata.Ip = uManager.getUserInfo(sendCard.targetuid).IpAddr;
-		}
-		//save card
-		/*
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
+		if(dictManager.saveWordCard(sendCard.uid, sendCard.targetuid, sendCard.card)){
+			ipReply.type = Message.IP_DATA;
+			Message.IpData ipdata = ipReply.new IpData();
+			ipReply.data = ipdata;
+			if(user == null || !user.isOn() || !uManager.identityVerify(sendCard.uid, sendCard.psw)){
+				ipdata.Ip = null;
+			}else{//认证成功
+				ipdata.Ip = uManager.getUserInfo(sendCard.targetuid).IpAddr;
+			}
+			//save card
+		
+			/*
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 */
 		
 		synchronized(msgBox){
 			msgBox.add(ipReply);
+		}
 		}
 	}
 	private void sendMsg(Message msg) {
