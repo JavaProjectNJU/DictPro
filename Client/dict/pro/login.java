@@ -3,6 +3,8 @@ package dict.pro;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -18,10 +20,12 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 public class login extends JFrame{
+	
+	private boolean submitEnable=true;
 
 	public login(){
-		JTextField uid =new JTextField(20); // Input Field
-		JTextField psw=new JTextField(20); // input the psw for the first time
+		final JTextField uid =new JTextField(20); // Input Field
+		final JTextField psw=new JTextField(20); // input the psw for the first time
 
 		JButton loginButton=new JButton("Log In");
 		JButton cancelButton=new JButton("Cancel");
@@ -48,6 +52,33 @@ public class login extends JFrame{
 		linPanel.add(pswPanel,BorderLayout.WEST);
 		linPanel.add(buttonPanel,BorderLayout.WEST);
 		add(linPanel);
+		
+		
+		loginButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				 if(submitEnable){
+					 String uidString=uid.getText();
+					 String pswString=psw.getText();
+					 if(uidString!=null && pswString!=null)
+						 //submit something
+						 
+						 ;
+				 }
+			}
+		});
+		
+		cancelButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+			}
+		});
+		
 	}
     
 	public static void main(String[] args){
@@ -57,6 +88,6 @@ public class login extends JFrame{
 		frame.setSize(250,200);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);   //test, when click the sign in button, show this window
+		frame.setVisible(false);   //test, when click the sign in button, show this window
 	}
 }

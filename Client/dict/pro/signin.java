@@ -3,6 +3,8 @@ package dict.pro;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -18,12 +20,15 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 public class signin extends JFrame{
+	
+	private boolean signEnable=true;
+	private char sexch='M';
 
 	public signin(){
-		JTextField uid =new JTextField(20); // Input Field
-		JTextField psw0=new JTextField(20); // input the psw for the first time
-		JTextField psw1=new JTextField(20); // input the psw for the second time
-		JTextField email=new JTextField(20); // input the email
+		final JTextField uid =new JTextField(20); // Input Field
+		final JTextField psw0=new JTextField(20); // input the psw for the first time
+		final JTextField psw1=new JTextField(20); // input the psw for the second time
+		final JTextField email=new JTextField(20); // input the email
 		
 		ButtonGroup sex=new ButtonGroup();
 		JRadioButton male=new JRadioButton("Male",true);
@@ -77,6 +82,51 @@ public class signin extends JFrame{
 		
 		sinPanel.add(buttonPanel,BorderLayout.WEST);
 		add(sinPanel);
+		
+		male.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				sexch='M';
+			}
+		});
+		
+		female.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				sexch='F';
+			}
+		});
+		
+		submitButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String pswStr0=psw0.getText();
+				String pswStr1=psw1.getText();
+				signEnable=pswStr0.equals(pswStr1);
+				if(signEnable){
+					String uidStr=uid.getText();
+					String emailStr=email.getText();
+					
+					//send to server
+					
+				}
+			}
+		});
+		
+		cancelButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+			}
+		});
 	}
     
 	public static void main(String[] args){
