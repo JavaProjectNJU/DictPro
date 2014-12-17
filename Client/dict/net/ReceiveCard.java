@@ -1,6 +1,7 @@
 package dict.net;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -19,7 +20,7 @@ public class ReceiveCard implements Runnable{
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
-			ObjectInputStream cardStream = new ObjectInputStream(socket.getInputStream());
+			ObjectInputStream cardStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 			Message msg = (Message)cardStream.readObject();
 			Message.Send_Card cardData = (Message.Send_Card)(msg.data);
 			BufferedImage image = Message.bytesToImage(cardData.card);

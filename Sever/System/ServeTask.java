@@ -1,6 +1,7 @@
 package System;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,19 +27,23 @@ public class ServeTask extends Task implements Runnable{
 	private ObjectInputStream fromClient;
 	private ArrayList<Message> msgBox;
 	private User user = null;
-	private WordEngine baidu, youdao, bing;
 	static private Map msgMap;//share with all the server
 	static private UserManager uManager;//share with all the server
 	static private DictionaryManager dictManager;
 	static private int idCreater = 0;
 	public ServeTask(Socket socket, ArrayList<Message> msgBox){
 		userSocket = socket;
-		this.msgBox = msgBox;
-		baidu = new FromBaidu();
-		youdao = new FromYoudao();
-		bing = new FromBing();
 		try {
-			fromClient = new ObjectInputStream(socket.getInputStream());
+			userSocket.setTcpNoDelay(true);
+		} catch (SocketException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		this.msgBox = msgBox;
+		try {
+			System.out.println("creating a object input stream");
+			fromClient = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+			System.out.println("created a object input stream");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,14 +68,12 @@ public class ServeTask extends Task implements Runnable{
 		return null;
 	}
 	public void run() {
-		DataInputStream fromClientData = new DataInputStream(fromClient);
-		if(fromClientData == null)
-			return;
 
 		try {
 			while(true){
-			
+				System.out.print("server running a servertask");
 				Message msg = (Message)(fromClient.readObject());
+				System.out.println("server readed a msg");
 				if(msg.reply){// themsg is a reply
 					
 				}else{//then it is a request 
@@ -106,7 +110,7 @@ public class ServeTask extends Task implements Runnable{
 					user.logout();
 			}
 			synchronized(msgMap){
-				if(msgBox != null){
+				if(user != null){
 					msgMap.remove(user.getAccount());
 				}
 			}
@@ -118,7 +122,7 @@ public class ServeTask extends Task implements Runnable{
 			}
 			user = null;
 			try {
-				if(user != null)//关闭socket
+				if(userSocket != null)//关闭socket
 					userSocket.close();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -364,13 +368,14 @@ public class ServeTask extends Task implements Runnable{
 		reply.type = Message.REGISTER;
 		Message.ReplyData redata = reply.new ReplyData();
 		reply.data = redata;
+		System.out.println("register msg: uid-"+rMsgData.uid+" psw-"+rMsgData.psw+" email-"+rMsgData.email+ " sex-"+rMsgData.sex);
 		if(uManager.createUser(rMsgData.uid, rMsgData.psw)){
-			user = new User(rMsgData.uid, rMsgData.psw);
+			//user = new User(rMsgData.uid, rMsgData.psw);
 			
 			
-			synchronized(msgMap){
-				msgMap.put(user.getAccount(), msgBox);//add msBox to map then others can send msg
-			}
+			//synchronized(msgMap){
+			//	msgMap.put(user.getAccount(), msgBox);//add msBox to map then others can send msg
+			//}
 			redata.success = true;
 		}else{//create faile
 			redata.success = false;

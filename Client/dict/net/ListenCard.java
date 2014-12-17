@@ -9,7 +9,9 @@ public class ListenCard implements Runnable{
 	private static int localPort = 8005;
 	public ListenCard(){
 		try {
+			System.out.println("creating listencard~~~");
 			listenSocket = new ServerSocket(localPort);
+			System.out.println("created listencard~~~");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -21,10 +23,9 @@ public class ListenCard implements Runnable{
 		// TODO Auto-generated method stub
 		try {
 			while(true){
-				Socket newCard;
-			
-				newCard = listenSocket.accept();
-			
+				System.out.println("running listencard listencard~~~");
+				Socket newCard = listenSocket.accept();
+				newCard.setTcpNoDelay(true);
 				ReceiveCard reveive = new ReceiveCard(newCard);
 				Thread t = new Thread(reveive);
 				t.start();

@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -20,13 +21,19 @@ public class SendTask extends Task implements Runnable{
 	
 	public SendTask(Socket userSocket, ArrayList<Message> userMsgBox){
 		socket = userSocket;
-		this.msgBox = userMsgBox;
 		try {
+			socket.setTcpNoDelay(true);
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.msgBox = userMsgBox;
+		/*try {
 			toTarget = new ObjectOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	@Override
@@ -52,14 +59,16 @@ public class SendTask extends Task implements Runnable{
 			while(true){
 				if(!msgBox.isEmpty()){
 				
+					toTarget =  new ObjectOutputStream(socket.getOutputStream());
 					synchronized(msgBox){
 						toTarget.writeObject(msgBox.get(0));
 						msgBox.remove(0);
 					}
-					
+					toTarget.flush();
+					toTarget.close();
 				
 				}else{
-					Thread.sleep(500);
+					Thread.sleep(20);
 						
 				}
 			}

@@ -39,8 +39,9 @@ public class Sever {
 	public void start(){
 		try {
 			while(true){
-			
+				System.out.println("server is running");
 				Socket socket = serverSocket.accept();
+				System.out.println("server accept a socket");
 				ArrayList<Message> msgBox = new ArrayList<Message>();
 				ServeTask newTask = new ServeTask(socket, msgBox);
 				

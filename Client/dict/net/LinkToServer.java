@@ -32,7 +32,8 @@ public class LinkToServer {
 	public LinkToServer(Map requestMap){
 		try {
 			socket = new Socket(ip, port);
-			objOut = new ObjectOutputStream(socket.getOutputStream());
+			socket.setTcpNoDelay(true);
+			//objOut = new ObjectOutputStream(socket.getOutputStream());
 			this.requestMap = requestMap;
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -63,7 +64,10 @@ public class LinkToServer {
 		data.uid = uid;
 		data.psw = psw;
 		try {
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(loginMessage);
+			objOut.flush();
+			objOut.close();
 			Message reply = waitReply(loginMessage.id);
 			if(reply == null)
 				return false;
@@ -85,7 +89,10 @@ public class LinkToServer {
 		data.uid = uid;
 		data.psw = psw;
 		try {
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(logoutMessage);
+			objOut.flush();
+			objOut.close();
 			Message reply = waitReply(logoutMessage.id);
 			if(reply == null)
 				return false;
@@ -110,7 +117,12 @@ public class LinkToServer {
 		data.email = email;
 		data.sex = sex;
 		try {
+			System.out.println("sending a register msg");
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(rigisterMsg);
+			objOut.flush();
+			objOut.close();
+			System.out.println("sended a register msg");
 			Message reply = waitReply(rigisterMsg.id);
 			if(reply == null)
 				return false;
@@ -134,7 +146,10 @@ public class LinkToServer {
 		data.oldpsw = psw;
 		data.newpsw = newpsw;
 		try {
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(changeMsg);
+			objOut.flush();
+			objOut.close();
 			Message reply = waitReply(changeMsg.id);
 			if(reply == null)
 				return false;
@@ -157,7 +172,10 @@ public class LinkToServer {
 		data.word = new UnionWord(); 
 		data.word.setWordstr(word);
 		try {
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(serachMsg);
+			objOut.flush();
+			objOut.close();
 			Message reply = waitReply(serachMsg.id);
 			if(reply == null)
 				return null;
@@ -183,7 +201,10 @@ public class LinkToServer {
 		data.word = word;
 		data.source = type;
 		try {
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(addPriseMsg);
+			objOut.flush();
+			objOut.close();
 			Message reply = waitReply(addPriseMsg.id);
 			if(reply == null)
 				return false;
@@ -207,7 +228,10 @@ public class LinkToServer {
 		data.word = word;
 		data.source = type;
 		try {
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(delPriseMsg);
+			objOut.flush();
+			objOut.close();
 			Message reply = waitReply(delPriseMsg.id);
 			if(reply == null)
 				return false;
@@ -230,7 +254,10 @@ public class LinkToServer {
 		data.psw = psw;
 		data.friend_uid = friendUid;
 		try {
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(addFriendMsg);
+			objOut.flush();
+			objOut.close();
 			Message reply = waitReply(addFriendMsg.id);
 			if(reply == null)
 				return false;
@@ -253,7 +280,10 @@ public class LinkToServer {
 		data.psw = psw;
 		data.friend_uid = friendUid;
 		try {
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(delFriendMsg);
+			objOut.flush();
+			objOut.close();
 			Message reply = waitReply(delFriendMsg.id);
 			if(reply == null)
 				return false;
@@ -276,7 +306,10 @@ public class LinkToServer {
 		data.psw = psw;
 		data.dialoge = text;
 		try {
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(sendTextMsg);
+			objOut.flush();
+			objOut.close();
 			Message reply = waitReply(sendTextMsg.id);
 			if(reply == null)
 				return false;
@@ -299,7 +332,10 @@ public class LinkToServer {
 		data.psw = psw;
 		data.card = Message.imageToBytes(image);
 		try {
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(cardMsg);
+			objOut.flush();
+			objOut.close();
 			Message reply = waitReply(cardMsg.id);
 			if(reply == null)
 				return false;
@@ -312,6 +348,7 @@ public class LinkToServer {
 					ObjectOutputStream cardStream = new ObjectOutputStream(cardSocket.getOutputStream());
 					data.psw = null;//不能把密码发送出去
 					cardStream.writeObject(cardMsg);
+					cardStream.flush();
 					cardStream.close();
 					socket.close();
 					return true;
@@ -335,7 +372,10 @@ public class LinkToServer {
 		onlineMsg.data = data;
 		data.friendList = null;
 		try {
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(onlineMsg);
+			objOut.flush();
+			objOut.close();
 			Message reply = waitReply(onlineMsg.id);
 			if(reply == null)
 				return null;
@@ -358,7 +398,10 @@ public class LinkToServer {
 		userInfoMsg.data = data;
 		data.myself = null;
 		try {
+			objOut = new ObjectOutputStream(socket.getOutputStream());
 			objOut.writeObject(userInfoMsg);
+			objOut.flush();
+			objOut.close();
 			Message reply = waitReply(userInfoMsg.id);
 			if(reply == null)
 				return null;
@@ -379,7 +422,7 @@ public class LinkToServer {
 				if(reply != null){
 					requestMap.remove(id);
 					return reply;
-				}else if(loop > 5)//500ms 超时
+				}else if(loop > 100)//10000ms 超时 10s
 					return null;
 			}
 			try {
