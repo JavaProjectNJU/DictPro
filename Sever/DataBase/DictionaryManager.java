@@ -73,7 +73,7 @@ public class DictionaryManager {
 			change = true;
 			DataBase.close(conn);
 		} catch (SQLException e) {
-			//Praise Exist!!!
+			System.out.println("Word Exists!");
 		}
 		return change;
 	}

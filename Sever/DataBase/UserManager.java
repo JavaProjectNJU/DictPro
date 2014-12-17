@@ -20,7 +20,7 @@ public class UserManager {
 			change = statement.execute(sql);
 			DataBase.close(conn);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("User Exists!");
 		}
 		return change;
 	}
@@ -35,7 +35,7 @@ public class UserManager {
 			change = statement.execute(sql);
 			DataBase.close(conn);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Friendship Exists!");
 		}
 		return change;
 	}
@@ -50,7 +50,7 @@ public class UserManager {
 			change = statement.execute(sql);
 			DataBase.close(conn);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Not Exists!");
 		}
 		return change;
 	}
@@ -71,7 +71,7 @@ public class UserManager {
 			}
 			DataBase.close(conn);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Change Password Failed!");
 		}
 		return change;
 	}
@@ -93,7 +93,7 @@ public class UserManager {
 			}
 			DataBase.close(conn);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("identityVerify, Access Failed!");
 		}
 		finally{
 			return isValid;
@@ -114,7 +114,7 @@ public class UserManager {
 				isFriend = true;
 			DataBase.close(conn);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("FriendJudge, DataBase Access Failed");
 		}
 		finally{
 			return isFriend;
