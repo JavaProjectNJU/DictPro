@@ -15,7 +15,7 @@ import word.UnionWord;
 
 public class LinkToServer {
 	private static String ip = "localhost";
-	private static int port = 8000;
+	private static int port = 4567;
 	private static int idCreater = 0;
 	private static int cardPort = 8005;
 	private Socket socket;
@@ -34,6 +34,9 @@ public class LinkToServer {
 			socket = new Socket(ip, port);
 			socket.setTcpNoDelay(true);
 			objOut = new ObjectOutputStream(socket.getOutputStream());
+			if(objOut == null){
+				System.out.println("outputstream failed");
+			}
 			this.requestMap = requestMap;
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

@@ -15,7 +15,8 @@ public class test {
 		System.out.println("start test~~~");
 		for(int i = 0; i < 5; i ++){//try to connect
 			try {
-				socket = new Socket("localhost", 8000);
+				socket = new Socket("192.168.253.1", 8000);
+				//socket = new Socket("localhost", 8000);
 				socket.setTcpNoDelay(true);
 				System.out.println("create socket~~~");
 				if(socket != null)
