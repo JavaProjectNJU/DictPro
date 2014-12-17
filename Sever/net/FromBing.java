@@ -32,10 +32,10 @@ public class FromBing extends WordEngine{
 		if(m.find()){
 			wordString = m.group();
 			//System.out.println(wordString);
-			Pattern word = Pattern.compile("(?<=蹇呭簲璇嶅吀涓烘偍鎻愪緵)[\u0000-\uFFFF]*(?=鐨勯噴涔夛紝)");
-			Pattern pron_EN_UK = Pattern.compile("(?<=缇嶾\\[)[^\\[]*(?=\\]锛�");
-			Pattern pron_EN_US = Pattern.compile("(?<=锛岃嫳\\[)[^\\[]*(?=\\]锛�");
-			Pattern explains = Pattern.compile("(?<=锛�[^\\[]*(?=缃戠粶閲婁箟锛�");
+			Pattern word = Pattern.compile("(?<=必应词典为您提供)[\u0000-\uFFFF]*(?=的释义)");
+			Pattern pron_EN_UK = Pattern.compile("(?<=，英\\[)[^\\[]*(?=\\]，)");
+			Pattern pron_EN_US = Pattern.compile("(?<=，美\\[)[^\\[]*(?=\\]，)");
+			Pattern explains = Pattern.compile("(?<=\\]，)[^\\[]*(?=网络释义：)");
 			m = word.matcher(wordString);
 			if(m.find())
 				theWord.setWord(m.group());
@@ -51,7 +51,7 @@ public class FromBing extends WordEngine{
 			m = explains.matcher(wordString);
 			if(m.find()){
 				//System.out.println(m.group());
-				String[] ex = m.group().split("锛�");
+				String[] ex = m.group().split("； ");
 				ArrayList<String> explain = new ArrayList<String>();
 				for(String str:ex){
 					System.out.println(str);
@@ -77,6 +77,6 @@ public class FromBing extends WordEngine{
 	}
 	public static void main(String[] args){
 		WordEngine bing = new FromBing();
-		bing.search("gggg");
+		bing.search("give");
 	}
 }

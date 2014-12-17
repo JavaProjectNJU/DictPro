@@ -33,8 +33,8 @@ public class FromYoudao extends WordEngine{
 			wordString = m.group();
 			//System.out.println(wordString);
 			Pattern word = Pattern.compile("(?<=<span class=\"keyword\">)[^<]*(?=</span>)"); 
-			Pattern pron_EN_UK = Pattern.compile("(?<=<span class=\"pronounce\">Ó¢\\s{37}<span class=\"phonetic\">)[^<]*(?=</span>)");
-			Pattern pron_EN_US = Pattern.compile("(?<=<span class=\"pronounce\">ÃÀ\\s{37}<span class=\"phonetic\">)[^<]*(?=</span>)");
+			Pattern pron_EN_UK = Pattern.compile("(?<=<span class=\"pronounce\">è‹±\\s{37}<span class=\"phonetic\">)[^<]*(?=</span>)");
+			Pattern pron_EN_US = Pattern.compile("(?<=<span class=\"pronounce\">ç¾Ž\\s{37}<span class=\"phonetic\">)[^<]*(?=</span>)");
 			Pattern explains = Pattern.compile("(?<=<ul>)[\u0000-\uFFFF]*(?=</ul>)");
 			m = word.matcher(wordString);
 			if(m.find())
@@ -79,7 +79,7 @@ public class FromYoudao extends WordEngine{
 	}
 	public static void main(String[] args){
 		WordEngine youdao = new FromYoudao();
-		youdao.search("give");
+		youdao.search("test");
 	}
 
 }
