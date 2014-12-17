@@ -1,11 +1,6 @@
 package dict.pro;
 
-import javax.swing.JFrame;
-
-
 import javax.swing.*;
-
-import javax.swing.JFrame;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -13,6 +8,14 @@ import java.io.*;
 
 import javax.swing.event.*;
 import javax.swing.text.Document;
+
+import org.jvnet.substance.SubstanceLookAndFeel;
+import org.jvnet.substance.border.StandardBorderPainter;
+import org.jvnet.substance.button.ClassicButtonShaper;
+import org.jvnet.substance.painter.StandardGradientPainter;
+import org.jvnet.substance.skin.OfficeBlue2007Skin;
+import org.jvnet.substance.theme.SubstanceTerracottaTheme;
+import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 
 
 public class UI extends JFrame{
@@ -51,6 +54,9 @@ public class UI extends JFrame{
 	private JPanel bYJPanel=new JPanel();
 	
 	public UI(){
+		
+		
+		
 		bDJPanel.setLayout(new BorderLayout(5,0));
 		bDJPanel.add(bDArea,BorderLayout.CENTER);
 		JPanel bdp=new JPanel();
@@ -116,6 +122,25 @@ public class UI extends JFrame{
 	}
     
 	public static void main(String[] args){
+		
+		try {
+            UIManager.setLookAndFeel(new SubstanceLookAndFeel());
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            JDialog.setDefaultLookAndFeelDecorated(true);
+            SubstanceLookAndFeel.setCurrentTheme(new SubstanceTerracottaTheme());
+          
+
+          
+          SubstanceLookAndFeel.setSkin(new OfficeBlue2007Skin());
+          SubstanceLookAndFeel.setCurrentButtonShaper(new ClassicButtonShaper());
+          SubstanceLookAndFeel.setCurrentWatermark(new SubstanceBubblesWatermark());
+          SubstanceLookAndFeel.setCurrentBorderPainter(new StandardBorderPainter());
+            SubstanceLookAndFeel.setCurrentGradientPainter(new StandardGradientPainter());
+            //SubstanceLookAndFeel.setCurrentTitlePainter(new FlatTitePainter());
+        } catch (Exception e) {
+            System.err.println("Something went wrong!");
+        }
+		
 		
 		UI frame=new UI();
 		frame.setTitle("DictPro");
