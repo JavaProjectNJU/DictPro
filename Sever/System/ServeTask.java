@@ -368,7 +368,6 @@ public class ServeTask extends Task implements Runnable{
 			synchronized(msgMap){
 				msgMap.put(user.getAccount(), msgBox);//add msBox to map then others can send msg
 			}
-			user.login();//after create then autologin
 			redata.success = true;
 		}else{//create faile
 			redata.success = false;
@@ -390,7 +389,7 @@ public class ServeTask extends Task implements Runnable{
 		replyMsg.type = Message.LOGIN;
 		Message.ReplyData data = replyMsg.new ReplyData();
 		replyMsg.data = data;
-		boolean login = user.login();
+		boolean login = user.login(userSocket.getInetAddress().getHostAddress(), userSocket.getPort());
 		if(login){//login successful
 			synchronized(msgMap){
 				msgMap.put(user.getAccount(), msgBox);
