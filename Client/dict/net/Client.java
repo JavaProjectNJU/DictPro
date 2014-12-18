@@ -30,7 +30,7 @@ public class Client {
 			}
 			
 		}
-		LinkToServer link = new LinkToServer(requests);
+		LinkToServer link = new LinkToServer(requests, socket);
 		
 		ListenMessage msgs = new ListenMessage(requests, socket);
 		

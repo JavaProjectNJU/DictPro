@@ -10,10 +10,11 @@ import net.Message.Message.Send_Message;
 public class test {
 	public static void main(String[] args){
 		try {
-			ServerSocket s = new ServerSocket(8000);
+			ServerSocket s = new ServerSocket(8888);
 			int index = 0;
 			Socket socket = s.accept();
 			socket.setTcpNoDelay(true);
+			System.out.println("when create :ip1:"+socket.getInetAddress().getHostAddress()+"port:"+socket.getPort());
 			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
 			while(true){
 				

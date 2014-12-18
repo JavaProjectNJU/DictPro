@@ -132,6 +132,9 @@ public class Message implements Serializable{
 	}
 	public class ReplyData extends MsgData implements Serializable{
 		public boolean success;
+		public String fortest = "guoruijun";
+		public String fortest1 = "guoruijun";
+		public String fortest2 = "guoruijun";
 	}
 
 	public class IpData extends MsgData implements Serializable{

@@ -12,7 +12,7 @@ public class ListenMessage implements Runnable{
 	private static Map requestMap;
 	private Socket socket;
 	private ObjectInputStream objIn;
-	public ListenMessage(Map requestMap, Socket socket){
+	public ListenMessage(Map requestMap, final Socket socket){
 		System.out.println("ctrating listen msg~~");
 		this.requestMap = requestMap;
 		this.socket = socket;
@@ -42,10 +42,18 @@ public void run() {
 			}catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				objIn = null;//重置输入流
 				e.printStackTrace();
+				try {
+					socket.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				break;
 			}
 			if(msg == null)
 				continue;

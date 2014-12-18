@@ -90,6 +90,7 @@ public class ServeTask extends Task implements Runnable{
 				// TODO Auto-generated catch block
 				fromClient = null;//重置输入流
 				e.printStackTrace();
+				break;
 			}
 			if(msg == null)
 				continue;

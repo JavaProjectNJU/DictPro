@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class SendTask extends Task implements Runnable{
 	private ArrayList<Message> msgBox;
 	private ObjectOutputStream toTarget;
 	
-	public SendTask(Socket userSocket, ArrayList<Message> userMsgBox){
+	public SendTask(final Socket userSocket, ArrayList<Message> userMsgBox){
 		socket = userSocket;
 		
 		this.msgBox = userMsgBox;
@@ -65,26 +66,29 @@ public class SendTask extends Task implements Runnable{
 			try {
 				if(socket.isClosed())
 					break;
-				if(!msgBox.isEmpty()){
-					System.out.println("server send task is sending");
+
+				synchronized(msgBox){
+					if(!msgBox.isEmpty()){
+						System.out.println("server send task is sending");
 					
 					
-					synchronized(msgBox){
 						//socket.setSendBufferSize(2);
 						toTarget.writeObject(msgBox.get(0));
+					//	byte[] gb = new byte[10000];
+					//	socket.getOutputStream().write(gb);
+						System.out.println("ip:"+socket.getInetAddress().getHostAddress()+"port:"+socket.getPort());
+					//	socket.connect(new SocketAddress(socket.getLocalAddress().getHostAddress(),socket.getPort() - 1));
 						toTarget.flush();
 						
 						//socket.getOutputStream().flush();
 						System.out.println("the msg id:" + msgBox.get(0).id);
 						msgBox.remove(0);
-					}
 					
-					System.out.println("server send task is sended");
+					
+						System.out.println("server send task is sended");
 					//toTarget.close();
 				
-				}else{
-					Thread.sleep(20);
-						
+					}
 				}
 			} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -94,9 +98,6 @@ public class SendTask extends Task implements Runnable{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

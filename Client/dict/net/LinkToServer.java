@@ -15,7 +15,7 @@ import word.UnionWord;
 
 public class LinkToServer {
 	private static String ip = "localhost";
-	private static int port = 4567;
+	private static int port = 8888;
 	private static int idCreater = 0;
 	private static int cardPort = 8005;
 	private Socket socket;
@@ -29,10 +29,9 @@ public class LinkToServer {
 	private String psw;
 	private ObjectOutputStream objOut;
 	private static Map requestMap;
-	public LinkToServer(Map requestMap){
+	public LinkToServer(Map requestMap,final Socket socket){
 		try {
-			socket = new Socket(ip, port);
-			socket.setTcpNoDelay(true);
+			this.socket =socket;
 			objOut = new ObjectOutputStream(socket.getOutputStream());
 			if(objOut == null){
 				System.out.println("outputstream failed");
@@ -46,8 +45,8 @@ public class LinkToServer {
 			e.printStackTrace();
 		}
 	}
-	public LinkToServer(Map requestMap, String uid, String psw){
-		this(requestMap);
+	public LinkToServer(Map requestMap, String uid, String psw,final Socket socket){
+		this(requestMap, socket);
 		this.uid =uid;
 		this.psw = psw;
 	}
