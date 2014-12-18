@@ -23,11 +23,17 @@ import org.jvnet.substance.theme.SubstanceTerracottaTheme;
 import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 
 import word.UnionWord;
+import word.WordCard;
 
 
 public class UI extends JFrame{
 	
+	public LinkToServer link=Client.getLink();
+	
 	private boolean online=false;
+	private boolean bdgood=false;
+	private boolean ydgood=false;
+	private boolean bygood=false;
 	
 	private JTextField inputField = new JTextField(30); // Input Field
 	private JButton SearchButton = new JButton("search"); //Search Button
@@ -161,7 +167,7 @@ public class UI extends JFrame{
 					bYArea.removeAll();
 					
 					//search getString
-					final UnionWord uWord=serach(getString);
+					final UnionWord uWord=link.serach(getString);
 					
 					JPanel BDUK = new JPanel() {
 					    @Override
@@ -187,7 +193,8 @@ public class UI extends JFrame{
 					    	}
 					    }
 						
-					};
+					}
+					;
 	
 					JPanel BDHeader=new JPanel();
 					BDHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -303,7 +310,7 @@ public class UI extends JFrame{
 				bYArea.removeAll();
 				
 				//search getString
-				final UnionWord uWord=serach(getString);
+				final UnionWord uWord=link.serach(getString);
 				
 				JPanel BDUK = new JPanel() {
 				    @Override
@@ -456,7 +463,6 @@ public class UI extends JFrame{
 			}
 		});
 	
-		
 		BDsend.addActionListener(new ActionListener(){
 
 			@Override
@@ -464,10 +470,13 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				 if(online == true){
 					 //send
+					 if(inputField.getText()!=null && BDid.getText()!=null){
+						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordBaidu(), link.getDetail().getNickname(), BDid.getText());
+						 link.sendCard(wcCard.getBuffImage(), BDid.getText());
+					 }
 				 }
 			}
 		});
-		
 		BDgood.addActionListener(new ActionListener(){
 
 			@Override
@@ -475,6 +484,15 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				 if(online == true){
 					 //give good comment
+					 if(!bdgood){
+						 link.addPrise(inputField.getText(), 0);
+						 bdgood=true;
+					 }
+					 else{
+						 link.delPrise(inputField.getText(), 0);
+						 bdgood=false;
+					 }
+					
 				 }
 			}
 		});
@@ -486,10 +504,13 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				 if(online == true){
 					 //send
+					 if(inputField.getText()!=null && YDid.getText()!=null){
+						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordYoudao(), link.getDetail().getNickname(), BDid.getText());
+						 link.sendCard(wcCard.getBuffImage(), YDid.getText());
+					 }
 				 }
 			}
 		});
-		
 		YDgood.addActionListener(new ActionListener(){
 
 			@Override
@@ -497,6 +518,15 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				 if(online == true){
 					 //give good comment
+					 if(!ydgood){
+						 link.addPrise(inputField.getText(), 1);
+						 ydgood=true;
+					 }
+					 else{
+						 link.delPrise(inputField.getText(), 1);
+						 ydgood=false;
+					 }
+					
 				 }
 			}
 		});
@@ -508,10 +538,13 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				 if(online == true){
 					 //send
+					 if(inputField.getText()!=null && YDid.getText()!=null){
+						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordBing(), link.getDetail().getNickname(), BDid.getText());
+						 link.sendCard(wcCard.getBuffImage(), BYid.getText());
+					 }
 				 }
 			}
 		});
-		
 		BYgood.addActionListener(new ActionListener(){
 
 			@Override
@@ -519,6 +552,15 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				 if(online == true){
 					 //give good comment
+					 if(!bygood){
+						 link.addPrise(inputField.getText(), 2);
+						 bygood=true;
+					 }
+					 else{
+						 link.delPrise(inputField.getText(), 2);
+						 bygood=false;
+					 }
+					
 				 }
 			}
 		});
