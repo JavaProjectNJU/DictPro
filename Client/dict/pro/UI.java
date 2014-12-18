@@ -99,6 +99,7 @@ public class UI extends JFrame{
 		
 		JPanel body=new JPanel();
 		body.setLayout(new GridLayout(3,1));
+// add a sort function
 		body.add(bDJPanel);
 		body.add(yDJPanel);
 		body.add(bYJPanel);
