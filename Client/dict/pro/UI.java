@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 
 import javax.swing.event.*;
 import javax.swing.text.Document;
@@ -32,13 +33,14 @@ import wordcard.WordCard;
 
 public class UI extends JFrame{
 
+	private ArrayList<Message> msgBox=new ArrayList<Message>();
 	
 	private JList Flist = new JList<UserInfo>(); //flist for online friend
 
 	private JButton messageButton=new JButton("No Message");
 	private JList messageList=new JList();
 	
-	public LinkToServer link=Client.getLink(Flist,messageButton,messageList);
+	public LinkToServer link=Client.getLink(Flist,messageButton,messageList,msgBox);
 	
 	//private boolean online=link.isOnline();
 	private boolean bdgood=false;
@@ -83,7 +85,8 @@ public class UI extends JFrame{
 	private JButton addFriendButton=new JButton("Add Friend");
 	
 
-	
+	private JButton msgSend=new JButton("Send");
+	private JTextField msgField=new JTextField(20);
 	
 	
 	public UI(){
@@ -576,11 +579,22 @@ public class UI extends JFrame{
 				if(msg.type==Message.SEND_MESSAGE){
 					//send the message
 					JFrame msgFrame=new JFrame();
-					JTextField msgField=new JTextField(20);
+
 					Message.Send_Message data=(Message.Send_Message)(msg.data);
 					JPanel msgPanel=new JPanel();
 					msgPanel.setLayout(new GridLayout(2,1));
 					msgPanel.add(new JLabel(" From : "+ data.uid+"\n"+ data.dialoge));
+					JPanel msgbtmPanel=new JPanel();
+					msgbtmPanel.setLayout(new BorderLayout());
+					msgbtmPanel.add(msgField,BorderLayout.CENTER);
+					msgbtmPanel.add(msgSend,BorderLayout.EAST);
+					msgPanel.add(msgbtmPanel);
+					
+					msgFrame.setTitle("Message");
+					msgFrame.setSize(400,200);
+					msgFrame.setLocationRelativeTo(null);
+					msgFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					msgFrame.setVisible(true);
 					
 				}
 				else if(msg.type==Message.SEND_CARD){
@@ -590,6 +604,41 @@ public class UI extends JFrame{
 				
 			}
 		});
+		
+		//JButton msgSend=new JButton("Send");
+		msgSend.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(msgField.getText()!=null && msgField.getText().length()!=0){
+					boolean issuccess=link.sendText(msgField.getText());
+					if(issuccess){
+						JOptionPane.showMessageDialog(null,"send sussefully! ", "Message Reminder!", JOptionPane.INFORMATION_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(null, "cannot send!","Message Remainder",JOptionPane.ERROR_MESSAGE);
+					}
+					dispose();
+				}
+			}
+		});
+		msgField.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(msgField.getText()!=null && msgField.getText().length()!=0){
+					boolean issuccess=link.sendText(msgField.getText());
+					if(issuccess){
+						JOptionPane.showMessageDialog(null,"send sussefully! ", "Message Reminder!", JOptionPane.INFORMATION_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(null, "cannot send!","Message Remainder",JOptionPane.ERROR_MESSAGE);
+					}
+					dispose();
+				}
+			}
+		});
+	
 	}
     
 	public static void main(String[] args){
