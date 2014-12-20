@@ -68,6 +68,49 @@ public class UserManager {
 		}
 	}
 	
+	public static boolean delUser(String user){
+		boolean change = false;
+		Connection conn = null;
+		try {
+			conn = DataBase.connect();
+			Statement statement = conn.createStatement();
+			String sql = "delete from UserTable where username='"
+					+ user +"';";
+			change = statement.execute(sql);	
+		} catch (SQLException e) {
+			System.out.println("Delete User Not Exists!");
+		}
+		finally{
+			DataBase.close(conn);
+		}
+		return change;
+	}
+	
+	public static boolean getUserList(String user){
+		boolean change = false;
+		Connection conn = null;
+		ArrayList<UserInfo> userList = new ArrayList<UserInfo>();
+		try {
+			conn = DataBase.connect();
+			Statement statement = conn.createStatement();
+			String sql = "select * from UserTable";
+			ResultSet result = statement.executeQuery(sql);
+			UserInfo usrinfoInfo = new UserInfo(result.getString("nickname"),result.getString("username"),null);
+			userList.add(usrinfoInfo);
+			while(result.next())
+			{
+				usrinfoInfo = new UserInfo(result.getString("nickname"),result.getString("username"),null);
+				userList.add(usrinfoInfo);
+			}
+		} catch (SQLException e) {
+			System.out.println("UserList Not Exists!");
+		}
+		finally{
+			DataBase.close(conn);
+		}
+		return change;
+	}
+	
 	@SuppressWarnings("finally")
 	public static boolean changePassword(String account,String oldPw,String newPw){
 		boolean change = false;
