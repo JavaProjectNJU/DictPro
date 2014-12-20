@@ -355,8 +355,9 @@ public class LinkToServer {
 		cardMsg.type = Message.SEND_CARD;
 		Message.Send_Card data = cardMsg.new Send_Card();
 		cardMsg.data = data;
-		data.uid = uid;
+		data.uid = this.uid;
 		data.psw = psw;
+		data.targetuid = uid;
 		data.card = Message.imageToBytes(image);
 		try {
 			
@@ -368,6 +369,7 @@ public class LinkToServer {
 				return false;
 			else{
 				String ip = ((Message.IpData)(reply.data)).Ip;
+				System.out.println("the card ip :" + ip);
 				if(ip == null || ip.length() == 0)
 					return false;
 				else{
