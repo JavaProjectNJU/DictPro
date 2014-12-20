@@ -147,6 +147,12 @@ public class User implements Serializable{
 		System.out.println("上次登录:     "+date);
 	}
 	
+	public UserInfo UpdateUserInfo()
+	{
+		
+		return null;	
+	}
+		
 	public String getNickname() {
 		return nickname;
 	}

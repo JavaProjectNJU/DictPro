@@ -21,8 +21,8 @@ import org.jvnet.substance.skin.OfficeBlue2007Skin;
 import org.jvnet.substance.theme.SubstanceTerracottaTheme;
 import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 
+import Word.WordCard;
 import word.UnionWord;
-import word.WordCard;
 
 
 public class UI extends JFrame{

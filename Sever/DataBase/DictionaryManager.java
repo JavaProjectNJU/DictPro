@@ -152,7 +152,7 @@ public class DictionaryManager {
 		try {
 			conn = DataBase.connect();
 			statement = conn.createStatement();
-			String sql ="select Baidu,Bing,YouDao from Dictionary where Word = '"+ word +"';";
+			String sql ="select Baidu,Bing,YouDao,NumZanBaidu,NumZanYoudao,NumZanBing from Dictionary where Word = '"+ word +"';";
 			ResultSet result = statement.executeQuery(sql);
 			if(result.next()){	
 				exist = true;
@@ -191,6 +191,9 @@ public class DictionaryManager {
 				Word youdao = (Word)inYouDao.readObject();
 				System.out.println(youdao.getWord());
 				unionWord.setwordYouDao(youdao);
+				unionWord.setPariseBaidu(result.getInt("NumZanBaidu"));
+				unionWord.setPariseBing(result.getInt("NumZanBing"));
+				unionWord.setPariseYoudao(result.getInt("NumZanYoudao"));
 				
 			}
 			//result.getBlob("Bing");
@@ -226,6 +229,24 @@ public class DictionaryManager {
 	}
 	
 	public static boolean saveWordCard(String sender,String receiver,byte[] img){
+		boolean change = false;
+		try {
+			PreparedStatement statement;
+			Connection conn = DataBase.connect();
+			statement = conn.prepareStatement("insert into WordCard(sender,receiver,image) values((?),(?),(?))");
+			statement.setString(1, sender);
+			statement.setString(2, receiver);
+			statement.setObject(3, img);
+			statement.execute();
+			DataBase.close(conn);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,
+				       "未知的错误，存储单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
+		}
+		return change;
+	}
+	
+	public static boolean saveUserImage(String user,byte[] img){
 		boolean change = false;
 		try {
 			PreparedStatement statement;
