@@ -50,7 +50,7 @@ public class WordCard {
 	static final Font explain = new Font("微软雅黑",Font.BOLD,16);
 	public WordCard(Word word,String uid1,String uid2){
 		// TODO Auto-generated method stub
-		srcImageFile = "card2.jpg";
+		srcImageFile = "Client\\card2.jpg";
 		try {
 			bi = ImageIO.read(new File(srcImageFile));
 		} catch (IOException e1) {
