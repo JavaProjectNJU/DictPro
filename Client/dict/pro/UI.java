@@ -1,7 +1,6 @@
 package dict.pro;
 
 import dict.net.*;
-import javafx.scene.layout.Border;
 
 import javax.swing.*;
 
@@ -30,10 +29,11 @@ public class UI extends JFrame{
 	
 	public LinkToServer link=Client.getLink();
 	
-	private boolean online=false;
+	private boolean online=link.isOnline();
 	private boolean bdgood=false;
 	private boolean ydgood=false;
 	private boolean bygood=false;
+
 	
 	private JTextField inputField = new JTextField(30); // Input Field
 	private JButton SearchButton = new JButton("search"); //Search Button
@@ -100,6 +100,7 @@ public class UI extends JFrame{
 		JPanel body=new JPanel();
 		body.setLayout(new GridLayout(3,1));
 // add a sort function
+		
 		body.add(bDJPanel);
 		body.add(yDJPanel);
 		body.add(bYJPanel);
