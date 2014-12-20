@@ -313,7 +313,7 @@ public class ServeTask extends Task implements Runnable{
 		
 		ans.word = dictManager.SearchWord(request.word.getWordstr());
 		if(user != null && user.isOn()){
-			ans.word = dictManager.hasPrasied(user.getAccount() ,ans.word);
+			dictManager.hasPraised(user.getAccount() ,ans.word);
 		}
 	
 		
