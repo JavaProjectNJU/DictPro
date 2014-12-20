@@ -27,6 +27,7 @@ public class Client {
 					new FileInputStream("Client/client.conf.properties"));
 			Properties properties = new Properties();
 			properties.load(bis);
+			
 			ip = properties.getProperty("server_ip", "127.0.0.1");
 			System.out.println(ip);
 			server_port = Integer.valueOf(properties.getProperty("server_port", "8888"));
