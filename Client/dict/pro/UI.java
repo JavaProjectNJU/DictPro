@@ -460,11 +460,18 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				
 				String uname=addFriendField.getText();
+				boolean isadd=false;
 				if(link.isOnline() && uname!=null){
-					link.addFriend(uname);
+					isadd=link.addFriend(uname);
 				}
 				else{
 					JOptionPane.showMessageDialog(null,"fail! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
+				}
+				if(isadd){
+					JOptionPane.showMessageDialog(null,"success! ", "Add friend reminder!", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"can not be found! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -475,11 +482,18 @@ public class UI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String uname=addFriendField.getText();
+				boolean isadd=false;
 				if(link.isOnline() && uname!=null){
-					link.addFriend(uname);
+					isadd=link.addFriend(uname);
 				}
 				else{
 					JOptionPane.showMessageDialog(null,"fail! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
+				}
+				if(isadd){
+					JOptionPane.showMessageDialog(null,"success! ", "Add friend reminder!", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"can not be found! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
