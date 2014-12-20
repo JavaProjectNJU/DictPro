@@ -6,11 +6,10 @@ import java.net.Socket;
 
 public class ListenCard implements Runnable{
 	private ServerSocket listenSocket;
-	private static int localPort = 8005;
-	public ListenCard(){
+	public ListenCard(int port){
 		try {
 			System.out.println("creating listencard~~~");
-			listenSocket = new ServerSocket(localPort);
+			listenSocket = new ServerSocket(port);
 			System.out.println("created listencard~~~");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
