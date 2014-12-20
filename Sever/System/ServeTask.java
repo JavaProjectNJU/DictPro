@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import sun.net.www.content.text.plain;
 import word.UnionWord;
 import DataBase.DictionaryManager;
 import DataBase.User;
@@ -128,6 +129,7 @@ public class ServeTask extends Task implements Runnable{
 			isonline.isOnline = false;
 		}else{
 			isonline.isOnline = true;
+			System.out.println("Is Online!!!!");
 		}
 		msgBox.add(msg);
 	}

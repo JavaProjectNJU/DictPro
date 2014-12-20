@@ -173,7 +173,6 @@ class SeverUI extends JFrame {
 		});
 
 		dispatchBtn = new JButton("Dispatch");
-		dispatchBtn.setIcon(new ImageIcon(".\\pics\\lzpaul0.jpg"));
 		dispatchBtn.setVerticalTextPosition(SwingConstants.BOTTOM);
 
 		dispatchBtn.addActionListener(new ActionListener() {

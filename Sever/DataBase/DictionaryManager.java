@@ -324,12 +324,12 @@ public class DictionaryManager {
 	
 	public static void main(String[] args){
 		Word word = new Word();
-		word.setWord("China");
+		word.setWord("good");
 		//DictionaryManager.AddWord(word.getWord());
 		DictionaryManager.SetMeaning(word.getWord(),word,BAIDU);
 		DictionaryManager.SetMeaning(word.getWord(),word,YOUDAO);
 		DictionaryManager.SetMeaning(word.getWord(),word,BING);
-		DictionaryManager.SearchWord("China");
+		DictionaryManager.SearchWord("good");
 		//DictionaryManager.AddPraise("haohao", "insistence", BAIDU);
 	}
 }
