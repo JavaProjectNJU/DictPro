@@ -153,6 +153,7 @@ public class UI extends JFrame{
 		
 		add(dictPro);
 		//listen the online friend list
+
 		Flist.addListSelectionListener(new ListSelectionListener(){ 
 
 			@Override
@@ -183,6 +184,8 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				// TODO Auto-generated method stub
 				String getString=inputField.getText();
+				if(getString.length() == 0)
+					return;
 				
 				bDArea.removeAll();
 				yDArea.removeAll();
@@ -249,7 +252,10 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
 					String getString=inputField.getText();
+					if(getString.length() == 0)
+						return;
 					
 					bDArea.removeAll();
 					yDArea.removeAll();
@@ -355,11 +361,22 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(link.isOnline() == true){
+				boolean success = false;
+				 if(link.isOnline()){
 					 //send
-					 if(inputField.getText()!=null && BDid.getText()!=null){
-						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordBaidu(), link.getDetail().getNickname(), BDid.getText());
-						 link.sendCard(wcCard.getBuffImage(), BDid.getText());
+					 if(inputField.getText().length() != 0 && BDid.getText().length() != 0 ){
+						 if(link.serach(inputField.getText())== null)
+						 {
+							 JOptionPane.showMessageDialog(null,"Can't get the meaning of word from baidu!", "Error", JOptionPane.ERROR_MESSAGE);
+							 return;
+						 }
+						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordBaidu(), link.getDetail().getAccount(), BDid.getText());
+						 success = link.sendCard(wcCard.getBuffImage(), BDid.getText());
+						 if(success)
+							 JOptionPane.showMessageDialog(null,"Send Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+						 else {
+							 JOptionPane.showMessageDialog(null,"Send Fail", "Fail", JOptionPane.ERROR_MESSAGE);
+						}
 					 }
 				 }
 			}
@@ -369,8 +386,12 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(link.isOnline() == true){
+				 if(link.isOnline()){
 					 //give good comment
+					 if(inputField.getText().length() == 0)
+					 {
+						 return;
+					 }
 					 if(!bdgood){
 						 link.addPrise(inputField.getText(), 0);
 						 bdgood=true;
@@ -390,11 +411,22 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(link.isOnline() == true){
+				boolean success = false;
+				 if(link.isOnline()){
 					 //send
-					 if(inputField.getText()!=null && YDid.getText()!=null){
-						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordYoudao(), link.getDetail().getNickname(), BDid.getText());
-						 link.sendCard(wcCard.getBuffImage(), YDid.getText());
+					 if(inputField.getText().length() != 0 && YDid.getText().length() != 0 ){
+						 if(link.serach(inputField.getText())== null)
+						 {
+							 JOptionPane.showMessageDialog(null,"Can't get the meaning of word from youdao!", "Error", JOptionPane.ERROR_MESSAGE);
+							 return;
+						 }
+						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordBaidu(), link.getDetail().getAccount(), BDid.getText());
+						 success = link.sendCard(wcCard.getBuffImage(), BDid.getText());
+						 if(success)
+							 JOptionPane.showMessageDialog(null,"Send Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+						 else {
+							 JOptionPane.showMessageDialog(null,"Send Fail", "Fail", JOptionPane.ERROR_MESSAGE);
+						}
 					 }
 				 }
 			}
@@ -460,6 +492,8 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				
 				String uname=addFriendField.getText();
+				if(uname.length() == 0)
+					return;
 				boolean isadd=false;
 				if(link.isOnline() && uname!=null){
 					isadd=link.addFriend(uname);
@@ -483,6 +517,8 @@ public class UI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String uname=addFriendField.getText();
+				if(uname.length() == 0)
+					return;
 				boolean isadd=false;
 				if(link.isOnline() && uname!=null){
 					isadd=link.addFriend(uname);
