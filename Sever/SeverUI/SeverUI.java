@@ -6,6 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Hashtable;
 import java.util.HashSet;
@@ -21,8 +22,10 @@ import org.jvnet.substance.skin.OfficeBlue2007Skin;
 import org.jvnet.substance.theme.SubstanceTerracottaTheme;
 import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 
+import DataBase.UserManager;
 import System.Sever;
 import System.UserInfo;
+
 import net.Message.Message;
 
 import java.awt.*;
@@ -74,11 +77,11 @@ class SeverUI extends JFrame {
 	Vector OfflineUsers = new Vector();
 
 	JScrollPane OnlineScroll; // 显示在线用户的列表
-	JList OnlineList;
+	JList<String> OnlineList;
 	DefaultListModel JListOnlineModel;
 
 	JScrollPane OfflineScroll; // 显示不在线用户的列表
-	JList OfflineList;
+	JList<String> OfflineList;
 	DefaultListModel JListOfflineModel;
 
 	JButton dispatchBtn; // 发送按钮
@@ -125,14 +128,32 @@ class SeverUI extends JFrame {
 		// IP_Port.setIcon(new ImageIcon(".\\pics\\lzpaul21.jpg"));
 		IP_Port.setVerticalTextPosition(SwingConstants.BOTTOM);
 
-		JListOnlineModel = new DefaultListModel();
-		OnlineList = new JList(JListOnlineModel);
+		ArrayList<UserInfo> onlineUserInfo = UserManager.getOnlineUser();
+		String[] onlineuser = new String[onlineUserInfo.size()];
+		ArrayList<String> onlineString = new ArrayList<String>();
+		for(int i = 0;i < onlineuser.length; i ++)
+		{
+			onlineuser[i] = onlineUserInfo.get(i).getAccount();
+			onlineString.add(onlineuser[i]);
+		}
+		OnlineList = new JList(onlineuser);
 		OnlineList.setBorder(BorderFactory.createTitledBorder("Online Users:"));
 		// OnlineList.setCellRenderer(new OnlineIconCellRenderer());
 		OnlineScroll = new JScrollPane(OnlineList);
-
-		JListOfflineModel = new DefaultListModel();
-		OfflineList = new JList(JListOfflineModel);
+		
+		ArrayList<UserInfo> alllineUserInfo = UserManager.getUserList();
+		final String[] offlineuser = new String[alllineUserInfo.size()];
+		int j = 0;
+		for(int i = 0;i < offlineuser.length; i ++)
+		{
+			if(!onlineString.contains(alllineUserInfo.get(i).getAccount()))
+			{	
+				offlineuser[j] = alllineUserInfo.get(i).getAccount();
+				j ++;
+			}
+		}
+			
+		OfflineList = new JList<String>(offlineuser);
 		OfflineList.setBorder(BorderFactory
 				.createTitledBorder("Offline Users:"));
 		// OfflineList.setCellRenderer(new OfflineIconCellRenderer());
@@ -143,29 +164,14 @@ class SeverUI extends JFrame {
 				int index;
 				UserInfo tempuser;
 				if (e.getClickCount() == 2) {
-					System.out.println("In OfflineList double click");
-					index = OfflineList.locationToIndex(e.getPoint());
-					System.out.println("doubclick on OfflineList:" + index);
-					if (-1 == index)
-						return;
-					tempuser = (UserInfo) OfflineUsers.get(index);
-					if (tempuser == null)
-						return;
-					/*System.out
-							.println("In OfflineList double click delete user "
-									+ tempuser.getRegName());
-
-					if (JOptionPane.NO_OPTION == JOptionPane.showConfirmDialog(
-							SeverUI.this, "Do you want to del this user: "
-									+ tempuser.getUserName(), "Waring!",
-							JOptionPane.YES_NO_OPTION,
-							JOptionPane.WARNING_MESSAGE))
-						return;
-
-					server.deleteUser(tempuser);*/
-
-					RfreshList();
-
+					int indexofSelect = OfflineList.getSelectedIndex();
+					String searchString = offlineuser[indexofSelect];
+					UserInfoWindow subFrame = new UserInfoWindow(UserManager.getUserInfo(searchString));
+					subFrame.setSize(400, 200);
+					subFrame.setTitle("About Dictionary");
+					subFrame.setLocationRelativeTo(null);//Center the Frame
+					subFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					subFrame.setVisible(true);
 				}// if(e.getClickCount()==2)
 
 			}
@@ -179,22 +185,6 @@ class SeverUI extends JFrame {
 			Message tempPubMsg;
 
 			public void actionPerformed(ActionEvent e) {
-
-				/*if (PubMsgText.getText().trim().equals("")) {
-
-					JOptionPane.showMessageDialog(SeverUI.this, "公告不能为空!",
-							"Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}// if(PubMsgText.getText().trim().equals(""))
-
-				tempPubMsg = new Message(PubMsgText.getText().trim(),
-						System.currentTimeMillis());
-
-				PubMsgText.setText("");
-				SendedPubMsgText.append(tempPubMsg.getstrLocaleDate() + ":\n"
-						+ tempPubMsg.getPubMsg() + "已发布\n");
-				server.PubMsgdispatch(tempPubMsg);*/
-
 			}// public void actionPerformed(ActionEvent e)
 		});
 
@@ -235,7 +225,6 @@ class SeverUI extends JFrame {
 
 		OnlineState.setText(String.valueOf(num)
 				+ "                                           ");
-
 		RfreshList();
 
 	}// public void CurConNum(int num)//将连接数显示出来

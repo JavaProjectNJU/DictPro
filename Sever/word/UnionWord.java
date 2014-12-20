@@ -7,6 +7,27 @@ public class UnionWord implements Serializable{
 	Word wordBaidu;
 	Word wordYoudao;
 	Word wordBing;
+	boolean hasPraisedBaidu;
+	boolean hasPraisedBing;
+	public boolean isHasPraisedBaidu() {
+		return hasPraisedBaidu;
+	}
+	public void setHasPraisedBaidu(boolean hasPraisedBaidu) {
+		this.hasPraisedBaidu = hasPraisedBaidu;
+	}
+	public boolean isHasPraisedBing() {
+		return hasPraisedBing;
+	}
+	public void setHasPraisedBing(boolean hasPraisedBing) {
+		this.hasPraisedBing = hasPraisedBing;
+	}
+	public boolean isHasPraisedYoudao() {
+		return hasPraisedYoudao;
+	}
+	public void setHasPraisedYoudao(boolean hasPraisedYoudao) {
+		this.hasPraisedYoudao = hasPraisedYoudao;
+	}
+	boolean hasPraisedYoudao;
 	int pariseBaidu;
 	int pariseYoudao;
 	public int getPariseBaidu() {

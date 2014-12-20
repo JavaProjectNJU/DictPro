@@ -212,13 +212,14 @@ public class UserManager {
 	}
 	
 	public static UserInfo getUserInfo(String uid){
+		ArrayList<UserInfo> userList = getUserList();
 		UserInfo usrInfo = null;
 		int i;
 		for(i = 0;i < onlineUser.size(); i ++)
 		{
-			if(onlineUser.get(i).getAccount().equals(uid))
+			if(userList.get(i).getAccount().equals(uid))
 			{	
-				usrInfo = onlineUser.get(i);
+				usrInfo = userList.get(i);
 				break;
 			}
 		}

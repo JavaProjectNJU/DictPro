@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Blob;
 
+import javax.lang.model.type.UnionType;
 import javax.smartcardio.CardTerminals;
 import javax.swing.JOptionPane;
 
@@ -21,6 +22,7 @@ import net.FromYoudao;
 import net.WordEngine;
 
 import com.sun.net.httpserver.Authenticator.Success;
+import com.sun.security.auth.UnixPrincipal;
 
 import word.UnionWord;
 import word.Word;
@@ -269,6 +271,45 @@ public class DictionaryManager {
 		return unionWord;
 	}
 	
+	public static boolean hasPrased(String usr,UnionWord uword)
+	{
+		boolean change = false;
+		try {
+			if(uword == null)
+				return false; 
+			String word = uword.getWordstr();
+			if(word == null)
+				return false;
+			
+			PreparedStatement statement;
+			Connection conn = DataBase.connect();
+			statement = conn.prepareStatement("select * from (?) where word = (?) and username = (?);");
+			statement.setString(1, "BaiDuPraise");
+			statement.setString(2, word);
+			statement.setString(3, usr);
+			
+			ResultSet result = statement.executeQuery();
+			if(result.next())
+				uword.setHasPraisedBaidu(true);
+			
+			statement.setString(1, "BingPraise");
+			result = statement.executeQuery();
+			if(result.next())
+				uword.setHasPraisedBing(true);
+			
+			statement.setString(1, "YouDaoPraise");
+			statement.execute();
+			result = statement.executeQuery();
+			if(result.next())
+				uword.setHasPraisedYoudao(true);
+			DataBase.close(conn);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,
+				       "未知的错误，查询点赞错误", "系统信息", JOptionPane.ERROR_MESSAGE);
+		}
+		return true;
+	}
+	
 	public static boolean saveWordCard(String sender,String receiver,byte[] img){
 		boolean change = false;
 		try {
@@ -329,7 +370,11 @@ public class DictionaryManager {
 		DictionaryManager.SetMeaning(word.getWord(),word,BAIDU);
 		DictionaryManager.SetMeaning(word.getWord(),word,YOUDAO);
 		DictionaryManager.SetMeaning(word.getWord(),word,BING);
-		DictionaryManager.SearchWord("good");
+		UnionWord uword = DictionaryManager.SearchWord("good");
+		DictionaryManager.AddPraise("zhangry", "good", DictionaryManager.BAIDU);
+		DictionaryManager.AddPraise("zhangry", "good", DictionaryManager.BING);
+		DictionaryManager.hasPrased("zhangry",uword);
+		System.out.println(""+uword.getPariseBaidu()+uword.getPariseBing()+uword.getPariseYoudao());
 		//DictionaryManager.AddPraise("haohao", "insistence", BAIDU);
 	}
 }

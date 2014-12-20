@@ -118,3 +118,4 @@ insert into USERTABLE(username,password) values('zhangry868','123456');
 Select * from usertable;
 
 Select * from friendrelation;
+Select * from bingpraise;
