@@ -381,6 +381,7 @@ public class UI extends JFrame{
 					 }
 					
 				 }
+
 			}
 		});
 		
@@ -462,6 +463,9 @@ public class UI extends JFrame{
 				if(link.isOnline() && uname!=null){
 					link.addFriend(uname);
 				}
+				else{
+					JOptionPane.showMessageDialog(null,"fail! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
@@ -473,6 +477,9 @@ public class UI extends JFrame{
 				String uname=addFriendField.getText();
 				if(link.isOnline() && uname!=null){
 					link.addFriend(uname);
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"fail! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
