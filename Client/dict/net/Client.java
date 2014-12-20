@@ -17,7 +17,7 @@ import javax.swing.JList;
 import net.Message.Message;
 
 public class Client {
-	public static LinkToServer getLink(JList list, JButton msgButton, JList msgList){
+	public static LinkToServer getLink(JList list, JButton msgButton, JList msgList, ArrayList<Message> msgBox){
 		BufferedInputStream bis;
 		String ip = null;
 		int server_port = 8888;
@@ -57,7 +57,6 @@ public class Client {
 			}
 			
 		}
-		ArrayList<Message> msgBox = new ArrayList<Message>();
 		LinkToServer link = new LinkToServer(requests, socket);
 		
 		ListenMessage msgs = new ListenMessage(requests, socket, msgButton, msgList, msgBox);
