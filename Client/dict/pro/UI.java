@@ -176,7 +176,7 @@ public class UI extends JFrame{
 				YDid.setText(selectid);
 				BYid.setText(selectid);
 				
-				friendInfo fi=new friendInfo((UserInfo)Flist.getSelectedValue());
+				friendInfo fi=new friendInfo(link, (UserInfo)Flist.getSelectedValue());
 				fi.setTitle("Friend Info");
 				fi.setSize(100,300);
 				fi.setLocationRelativeTo(null);
