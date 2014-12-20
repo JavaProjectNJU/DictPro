@@ -44,22 +44,16 @@ public class UserManager {
 			ResultSet result = statement.executeQuery(sql);
 			if(!result.next())
 			{
-				JOptionPane.showMessageDialog(null,"未知的错误，存储单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
 			sql = "insert into FriendRelation(username1,username2) values('"
 					+account1+"','"+account2+"');";
 			change = statement.execute(sql);
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,"关系存在", "系统信息", JOptionPane.ERROR_MESSAGE);
+			System.out.println("FriendShip Exists!");
 		}
 		finally{
 			DataBase.close(conn);
-		}
-		if(change == true)
-			JOptionPane.showMessageDialog(null,"加入成功", "系统信息", JOptionPane.ERROR_MESSAGE);
-		else {
-			JOptionPane.showMessageDialog(null,"加入失败", "系统信息", JOptionPane.ERROR_MESSAGE);
 		}
 		return change;
 	}
