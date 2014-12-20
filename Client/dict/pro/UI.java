@@ -71,7 +71,7 @@ public class UI extends JFrame{
 	public UI(){
 		
 		bDJPanel.setLayout(new BorderLayout(5,0));
-		bDJPanel.add(bDArea,BorderLayout.CENTER);
+		bDJPanel.add(new JScrollPane(bDArea),BorderLayout.CENTER);
 		JPanel bdp=new JPanel();
 		bdp.setLayout(new FlowLayout(FlowLayout.LEFT));
 		bdp.add(BDid);
@@ -80,7 +80,7 @@ public class UI extends JFrame{
 		bDJPanel.add(bdp,BorderLayout.SOUTH);
 		
 		yDJPanel.setLayout(new BorderLayout(5,0));
-		yDJPanel.add(yDArea,BorderLayout.CENTER);
+		yDJPanel.add(new JScrollPane(yDArea),BorderLayout.CENTER);
 		JPanel ydp=new JPanel();
 		ydp.setLayout(new FlowLayout(FlowLayout.LEFT));
 		ydp.add(YDid);
@@ -89,7 +89,7 @@ public class UI extends JFrame{
 		yDJPanel.add(ydp,BorderLayout.SOUTH);		
 	
 		bYJPanel.setLayout(new BorderLayout(5,0));
-		bYJPanel.add(bYArea,BorderLayout.CENTER);
+		bYJPanel.add(new JScrollPane(bYArea),BorderLayout.CENTER);
 		JPanel byp=new JPanel();
 		byp.setLayout(new FlowLayout(FlowLayout.LEFT));
 		byp.add(BYid);
