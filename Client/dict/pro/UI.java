@@ -332,11 +332,13 @@ public class UI extends JFrame{
 				
 				JPanel BDExplain=new JPanel(){
 				    public void paint(Graphics g) {
+				    	uWord.getWordBaidu().getExplain().get(0);
 				    	if(uWord.getWordBaidu().getExplain()!=null){
 				    		for(int i=0;i<uWord.getWordBaidu().getExplain().size();i++)
 				    			g.drawString(uWord.getWordBaidu().getExplain().get(i)+"\n",10,50);
 				    	}
 				    }
+				    
 					
 				};
 
