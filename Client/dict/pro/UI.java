@@ -21,6 +21,8 @@ import org.jvnet.substance.skin.OfficeBlue2007Skin;
 import org.jvnet.substance.theme.SubstanceTerracottaTheme;
 import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 
+import com.mysql.jdbc.log.Jdk14Logger;
+
 import System.UserInfo;
 import word.UnionWord;
 import wordcard.WordCard;
@@ -31,7 +33,10 @@ public class UI extends JFrame{
 	
 	private JList Flist = new JList<UserInfo>(); //flist for online friend
 
-	public LinkToServer link=Client.getLink(Flist);
+	private JButton messageButton=new JButton("No Message");
+	private JList messageList=new JList();
+	
+	public LinkToServer link=Client.getLink(Flist,messageButton,messageList);
 	
 	//private boolean online=link.isOnline();
 	private boolean bdgood=false;
@@ -76,6 +81,8 @@ public class UI extends JFrame{
 	private JPanel addFriendPanel=new JPanel();
 	private JTextField addFriendField=new JTextField(10);
 	private JButton addFriendButton=new JButton("Add Friend");
+	
+
 	
 	
 	
