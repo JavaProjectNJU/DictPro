@@ -60,6 +60,8 @@ public class FromYoudao extends WordEngine{
 					System.out.println(mathcer.group());
 					explain.add(mathcer.group());
 				}
+				if(explain.size() == 0)
+					return null;
 				theWord.setExplain(explain);
 			}
 		}else{

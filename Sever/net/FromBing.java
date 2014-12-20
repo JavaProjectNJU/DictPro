@@ -58,6 +58,8 @@ public class FromBing extends WordEngine{
 					if(str != null && str.length() != 0)
 						explain.add(str);
 				}
+				if(explain.size() == 0)
+					return null;
 				theWord.setExplain(explain);
 			}
 		}else{
