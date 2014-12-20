@@ -126,7 +126,9 @@ public class ServeTask extends Task implements Runnable{
 		msg.reply = true;
 		msg.type = Message.IS_ONLINE;
 		if(user == null || !user.isOn() || uManager.identityVerify(isonline.uid, isonline.psw)){
+			System.out.println(" " + (user == null) + !user.isOn() + "" + uManager.identityVerify(isonline.uid, isonline.psw));
 			isonline.isOnline = false;
+			System.out.println("Failed");
 		}else{
 			isonline.isOnline = true;
 			System.out.println("Is Online!!!!");
