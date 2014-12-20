@@ -365,14 +365,17 @@ public class LinkToServer {
 			objOut.flush();
 			
 			Message reply = waitReply(cardMsg.id);
+			//System.out.println("");
 			if(reply == null)
 				return false;
 			else{
 				String ip = ((Message.IpData)(reply.data)).Ip;
 				System.out.println("the card ip :" + ip);
+				
 				if(ip == null || ip.length() == 0)
 					return false;
 				else{
+					System.out.println(" send Card : ip "+ ip+"---"+ port);
 					Socket cardSocket = new Socket(ip, cardPort);
 					ObjectOutputStream cardStream = new ObjectOutputStream(cardSocket.getOutputStream());
 					data.psw = null;//不能把密码发送出去
@@ -455,7 +458,7 @@ public class LinkToServer {
 				if(reply != null){
 					requestMap.remove(id);
 					return reply;
-				}else if(loop > 40){//10000ms 超时 10s
+				}else if(loop > 4000){//10000ms 超时 10s
 					System.out.println("time out");
 					return null;
 				}
