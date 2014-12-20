@@ -345,6 +345,9 @@ public class UI extends JFrame{
 					 //log out
 					 if(link.logout()){
 						 Login.setText("Log in");
+						 BDgood.setText("good");
+						 YDgood.setText("good");
+						 BYgood.setText("good");
 						 userinfoLabel.setText(" ");
 					 }
 					 
