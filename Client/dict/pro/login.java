@@ -73,7 +73,7 @@ public class login extends JFrame{
 					 }
 					
 					 if(islogin){
-						 JOptionPane.showMessageDialog(null,"success!", "Log reminder!", JOptionPane.YES_OPTION);
+						 JOptionPane.showMessageDialog(null,"success!", "Log reminder!", JOptionPane.OK_OPTION);
 						 dispose();
 
 					 }else{
