@@ -170,128 +170,37 @@ public class UI extends JFrame{
 					
 					//search getString
 					final UnionWord uWord=link.serach(getString);
-					
-					JPanel BDUK = new JPanel() {
-					    @Override
-					    public void paint(Graphics g) {
-					    	if(uWord.getWordBaidu().getPron_EN_UK()!=null)
-					    		g.drawString(uWord.getWordBaidu().getPron_EN_UK(),10,50);
-					    }
-					};
-					
-					JPanel BDUS = new JPanel() {
-					    @Override
-					    public void paint(Graphics g) {
-					    	if(uWord.getWordBaidu().getPron_EN_US()!=null)
-					    		g.drawString(uWord.getWordBaidu().getPron_EN_US(),10,50);
-					    }
-					};	
-					
-					JPanel BDExplain=new JPanel(){
-					    public void paint(Graphics g) {
-					    	if(uWord.getWordBaidu().getExplain()!=null){
-					    		for(int i=0;i<uWord.getWordBaidu().getExplain().size();i++)
-					    			g.drawString(uWord.getWordBaidu().getExplain().get(i)+"\n",10,50);
-					    	}
-					    }
-						
-					}
-					;
-	
-					JPanel BDHeader=new JPanel();
-					BDHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
-					BDHeader.add(BDUK);
-					BDHeader.add(BDUS);
-					
-					JPanel BDBody=new JPanel();
-					BDBody.setLayout(new BorderLayout());
-					BDBody.add(BDHeader,BorderLayout.NORTH);
-					BDBody.add(BDExplain,BorderLayout.CENTER);
-					
-					bDArea.add(BDBody);
-					
-					//====================YOUDAO
-					JPanel YDUK = new JPanel() {
-					    @Override
-					    public void paint(Graphics g) {
-					    	if(uWord.getWordYoudao().getPron_EN_UK()!=null)
-					    		g.drawString(uWord.getWordYoudao().getPron_EN_UK(),10,50);
-					    }
-					};
-					
-					JPanel YDUS = new JPanel() {
-					    @Override
-					    public void paint(Graphics g) {
-					    	if(uWord.getWordYoudao().getPron_EN_US()!=null)
-					    		g.drawString(uWord.getWordYoudao().getPron_EN_US(),10,50);
-					    }
-					};	
-					
-					JPanel YDExplain=new JPanel(){
-					    public void paint(Graphics g) {
-					    	if(uWord.getWordYoudao().getExplain()!=null){
-					    		for(int i=0;i<uWord.getWordYoudao().getExplain().size();i++)
-					    			g.drawString(uWord.getWordYoudao().getExplain().get(i)+"\n",10,50);
-					    	}
-					    }
-						
-					};
-	
-					JPanel YDHeader=new JPanel();
-					YDHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
-					YDHeader.add(YDUK);
-					YDHeader.add(YDUS);
-					
-					JPanel YDBody=new JPanel();
-					YDBody.setLayout(new BorderLayout());
-					YDBody.add(YDHeader,BorderLayout.NORTH);
-					YDBody.add(YDExplain,BorderLayout.CENTER);
-					
-					yDArea.add(YDBody);
-					
-					
-					//===============BING
-					JPanel BYUK = new JPanel() {
-					    @Override
-					    public void paint(Graphics g) {
-					    	if(uWord.getWordBing().getPron_EN_UK()!=null)
-					    		g.drawString(uWord.getWordBing().getPron_EN_UK(),10,50);
-					    }
-					};
-					
-					JPanel BYUS = new JPanel() {
-					    @Override
-					    public void paint(Graphics g) {
-					    	if(uWord.getWordBing().getPron_EN_US()!=null)
-					    		g.drawString(uWord.getWordBing().getPron_EN_US(),10,50);
-					    }
-					};	
-					
-					JPanel BYExplain=new JPanel(){
-					    public void paint(Graphics g) {
-					    	if(uWord.getWordBing().getExplain()!=null){
-					    		for(int i=0;i<uWord.getWordBing().getExplain().size();i++)
-					    			g.drawString(uWord.getWordBing().getExplain().get(i)+"\n",10,50);
-					    	}
-					    }
-						
-					};
-	
-					JPanel BYHeader=new JPanel();
-					BYHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
-					BYHeader.add(BYUK);
-					BYHeader.add(BYUS);
-					
-					JPanel BYBody=new JPanel();
-					BYBody.setLayout(new BorderLayout());
-					BYBody.add(BYHeader,BorderLayout.NORTH);
-					BYBody.add(BYExplain,BorderLayout.CENTER);
-					
-					bYArea.add(BYBody);
-				}
-				
-			}
 
+					StringBuilder bdsb=new StringBuilder();
+					bdsb.append(" UK :"+uWord.getWordBaidu().getPron_EN_UK());
+					bdsb.append(" US :"+uWord.getWordBaidu().getPron_EN_US()+'\n');
+					for(int i=0;i<uWord.getWordBaidu().getExplain().size();i++){
+						bdsb.append(uWord.getWordBaidu().getExplain().get(i)+'\n');
+					}
+					
+					bDArea.setText(bdsb.toString());
+				
+
+					StringBuilder ydsb=new StringBuilder();
+					ydsb.append(" UK :"+uWord.getWordYoudao().getPron_EN_UK());
+					ydsb.append(" US :"+uWord.getWordYoudao().getPron_EN_US()+'\n');
+					for(int i=0;i<uWord.getWordYoudao().getExplain().size();i++){
+						ydsb.append(uWord.getWordYoudao().getExplain().get(i)+'\n');
+					}
+					
+					yDArea.setText(ydsb.toString());
+					
+
+					StringBuilder bysb=new StringBuilder();
+					bysb.append(" UK :"+uWord.getWordBing().getPron_EN_UK());
+					bysb.append(" US :"+uWord.getWordBing().getPron_EN_US()+'\n');
+					for(int i=0;i<uWord.getWordBing().getExplain().size();i++){
+						bysb.append(uWord.getWordBing().getExplain().get(i)+'\n');
+					}
+					
+					bYArea.setText(bysb.toString());
+			}
+			}
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
@@ -300,138 +209,49 @@ public class UI extends JFrame{
 		});
 		
 		//click the search button
+	
 		SearchButton.addActionListener(new ActionListener(){   
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String getString=inputField.getText();
-				
-				bDArea.removeAll();
-				yDArea.removeAll();
-				bYArea.removeAll();
-				
-				//search getString
-				final UnionWord uWord=link.serach(getString);
-				
-				JPanel BDUK = new JPanel() {
-				    @Override
-				    public void paint(Graphics g) {
-				    	if(uWord.getWordBaidu().getPron_EN_UK()!=null)
-				    		g.drawString(uWord.getWordBaidu().getPron_EN_UK(),10,50);
-				    }
-				};
-				
-				JPanel BDUS = new JPanel() {
-				    @Override
-				    public void paint(Graphics g) {
-				    	if(uWord.getWordBaidu().getPron_EN_US()!=null)
-				    		g.drawString(uWord.getWordBaidu().getPron_EN_US(),10,50);
-				    }
-				};	
-				
-				JPanel BDExplain=new JPanel(){
-				    public void paint(Graphics g) {
-				    	uWord.getWordBaidu().getExplain().get(0);
-				    	if(uWord.getWordBaidu().getExplain()!=null){
-				    		for(int i=0;i<uWord.getWordBaidu().getExplain().size();i++)
-				    			g.drawString(uWord.getWordBaidu().getExplain().get(i)+"\n",10,50);
-				    	}
-				    }
-				    
+					String getString=inputField.getText();
 					
-				};
-
-				JPanel BDHeader=new JPanel();
-				BDHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
-				BDHeader.add(BDUK);
-				BDHeader.add(BDUS);
-				
-				JPanel BDBody=new JPanel();
-				BDBody.setLayout(new BorderLayout());
-				BDBody.add(BDHeader,BorderLayout.NORTH);
-				BDBody.add(BDExplain,BorderLayout.CENTER);
-				
-				bDArea.add(BDBody);
-				
-				//====================YOUDAO
-				JPanel YDUK = new JPanel() {
-				    @Override
-				    public void paint(Graphics g) {
-				    	if(uWord.getWordYoudao().getPron_EN_UK()!=null)
-				    		g.drawString(uWord.getWordYoudao().getPron_EN_UK(),10,50);
-				    }
-				};
-				
-				JPanel YDUS = new JPanel() {
-				    @Override
-				    public void paint(Graphics g) {
-				    	if(uWord.getWordYoudao().getPron_EN_US()!=null)
-				    		g.drawString(uWord.getWordYoudao().getPron_EN_US(),10,50);
-				    }
-				};	
-				
-				JPanel YDExplain=new JPanel(){
-				    public void paint(Graphics g) {
-				    	if(uWord.getWordYoudao().getExplain()!=null){
-				    		for(int i=0;i<uWord.getWordYoudao().getExplain().size();i++)
-				    			g.drawString(uWord.getWordYoudao().getExplain().get(i)+"\n",10,50);
-				    	}
-				    }
+					bDArea.removeAll();
+					yDArea.removeAll();
+					bYArea.removeAll();
 					
-				};
+					//search getString
+					final UnionWord uWord=link.serach(getString);
 
-				JPanel YDHeader=new JPanel();
-				YDHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
-				YDHeader.add(YDUK);
-				YDHeader.add(YDUS);
-				
-				JPanel YDBody=new JPanel();
-				YDBody.setLayout(new BorderLayout());
-				YDBody.add(YDHeader,BorderLayout.NORTH);
-				YDBody.add(YDExplain,BorderLayout.CENTER);
-				
-				yDArea.add(YDBody);
-				
-				
-				//===============BING
-				JPanel BYUK = new JPanel() {
-				    @Override
-				    public void paint(Graphics g) {
-				    	if(uWord.getWordBing().getPron_EN_UK()!=null)
-				    		g.drawString(uWord.getWordBing().getPron_EN_UK(),10,50);
-				    }
-				};
-				
-				JPanel BYUS = new JPanel() {
-				    @Override
-				    public void paint(Graphics g) {
-				    	if(uWord.getWordBing().getPron_EN_US()!=null)
-				    		g.drawString(uWord.getWordBing().getPron_EN_US(),10,50);
-				    }
-				};	
-				
-				JPanel BYExplain=new JPanel(){
-				    public void paint(Graphics g) {
-				    	if(uWord.getWordBing().getExplain()!=null){
-				    		for(int i=0;i<uWord.getWordBing().getExplain().size();i++)
-				    			g.drawString(uWord.getWordBing().getExplain().get(i)+"\n",10,50);
-				    	}
-				    }
+					StringBuilder bdsb=new StringBuilder();
+					bdsb.append(" UK :"+uWord.getWordBaidu().getPron_EN_UK());
+					bdsb.append(" US :"+uWord.getWordBaidu().getPron_EN_US()+'\n');
+					for(int i=0;i<uWord.getWordBaidu().getExplain().size();i++){
+						bdsb.append(uWord.getWordBaidu().getExplain().get(i)+'\n');
+					}
 					
-				};
+					bDArea.setText(bdsb.toString());
+				
 
-				JPanel BYHeader=new JPanel();
-				BYHeader.setLayout(new FlowLayout(FlowLayout.LEFT));
-				BYHeader.add(BYUK);
-				BYHeader.add(BYUS);
-				
-				JPanel BYBody=new JPanel();
-				BYBody.setLayout(new BorderLayout());
-				BYBody.add(BYHeader,BorderLayout.NORTH);
-				BYBody.add(BYExplain,BorderLayout.CENTER);
-				
-				bYArea.add(BYBody);
+					StringBuilder ydsb=new StringBuilder();
+					ydsb.append(" UK :"+uWord.getWordYoudao().getPron_EN_UK());
+					ydsb.append(" US :"+uWord.getWordYoudao().getPron_EN_US()+'\n');
+					for(int i=0;i<uWord.getWordYoudao().getExplain().size();i++){
+						ydsb.append(uWord.getWordYoudao().getExplain().get(i)+'\n');
+					}
+					
+					yDArea.setText(ydsb.toString());
+					
+
+					StringBuilder bysb=new StringBuilder();
+					bysb.append(" UK :"+uWord.getWordBing().getPron_EN_UK());
+					bysb.append(" US :"+uWord.getWordBing().getPron_EN_US()+'\n');
+					for(int i=0;i<uWord.getWordBing().getExplain().size();i++){
+						bysb.append(uWord.getWordBing().getExplain().get(i)+'\n');
+					}
+					
+					bYArea.setText(bysb.toString());
 			}
 		});
 		
