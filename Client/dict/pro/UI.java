@@ -21,15 +21,19 @@ import org.jvnet.substance.skin.OfficeBlue2007Skin;
 import org.jvnet.substance.theme.SubstanceTerracottaTheme;
 import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 
+import System.UserInfo;
 import word.UnionWord;
 import wordcard.WordCard;
 
 
 public class UI extends JFrame{
+
 	
-	public LinkToServer link=Client.getLink();
+	private JList Flist = new JList<UserInfo>(); //flist for online friend
+
+	public LinkToServer link=Client.getLink(Flist);
 	
-	private boolean online=link.isOnline();
+	//private boolean online=link.isOnline();
 	private boolean bdgood=false;
 	private boolean ydgood=false;
 	private boolean bygood=false;
@@ -39,14 +43,15 @@ public class UI extends JFrame{
 	private JButton SearchButton = new JButton("search"); //Search Button
 	
 	private JButton Login=new JButton("Log in");//log in button
+
+	
 	private JButton Signin=new JButton("Sign in"); //sign in button
 	
 	private JCheckBox jchkBD=new JCheckBox("百度",true);
 	private JCheckBox jchkYD=new JCheckBox("有道",true);
 	private JCheckBox jchkBY=new JCheckBox("必应",true);
+
 	
-	private String[] FriendList =new String[100];  	//online friend list
-	private JList Flist = new JList(FriendList); //flist for online friend
 	
 	private JTextArea bDArea=new JTextArea("百度");
 	private JTextArea yDArea=new JTextArea("有道");
@@ -116,6 +121,8 @@ public class UI extends JFrame{
 		bar.add(Signin);
 		
 		JPanel bottom=new JPanel();
+		final JLabel userinfoLabel =new JLabel(" ");
+		bottom.add(userinfoLabel,FlowLayout.LEFT);
 		bottom.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		bottom.add(jchkBD);
 		bottom.add(jchkYD);
@@ -261,13 +268,22 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(online == false){
-					login lwin=new login(link);
+				 if(Login.getText().equals("Log in")){
+					login lwin=new login(link,Login,userinfoLabel);
 					lwin.setTitle("DictPro-LogIn");
 					lwin.setSize(250,200);
 					lwin.setLocationRelativeTo(null);
 					lwin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					lwin.setVisible(true); 
+					
+				 }
+				 else{
+					 //log out
+					 if(link.logout()){
+						 Login.setText("Log in");
+						 userinfoLabel.setText(" ");
+					 }
+					 
 				 }
 			}
 		});
@@ -292,7 +308,7 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(online == true){
+				 if(link.isOnline() == true){
 					 //send
 					 if(inputField.getText()!=null && BDid.getText()!=null){
 						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordBaidu(), link.getDetail().getNickname(), BDid.getText());
@@ -306,7 +322,7 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(online == true){
+				 if(link.isOnline() == true){
 					 //give good comment
 					 if(!bdgood){
 						 link.addPrise(inputField.getText(), 0);
@@ -326,7 +342,7 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(online == true){
+				 if(link.isOnline() == true){
 					 //send
 					 if(inputField.getText()!=null && YDid.getText()!=null){
 						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordYoudao(), link.getDetail().getNickname(), BDid.getText());
@@ -340,7 +356,7 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(online == true){
+				 if(link.isOnline() == true){
 					 //give good comment
 					 if(!ydgood){
 						 link.addPrise(inputField.getText(), 1);
@@ -360,7 +376,7 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(online == true){
+				 if(link.isOnline() == true){
 					 //send
 					 if(inputField.getText()!=null && YDid.getText()!=null){
 						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordBing(), link.getDetail().getNickname(), BDid.getText());
@@ -374,7 +390,7 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(online == true){
+				 if(link.isOnline() == true){
 					 //give good comment
 					 if(!bygood){
 						 link.addPrise(inputField.getText(), 2);
@@ -414,7 +430,7 @@ public class UI extends JFrame{
 		
 		UI frame=new UI();
 		frame.setTitle("DictPro");
-		frame.setSize(600,400);
+		frame.setSize(600,500);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);

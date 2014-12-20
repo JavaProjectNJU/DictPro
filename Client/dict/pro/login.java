@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import System.UserInfo;
 import dict.net.LinkToServer;
 import sun.awt.image.ImageWatched.Link;
 
@@ -27,7 +28,7 @@ public class login extends JFrame{
 	
 	private boolean submitEnable=true;
 
-	public login(final LinkToServer link){
+	public login(final LinkToServer link, final JButton Login, final JLabel userinfoLabel){
 		final JTextField uid =new JTextField(20); // Input Field
 		final JTextField psw=new JTextField(20); // input the psw for the first time
 
@@ -57,6 +58,38 @@ public class login extends JFrame{
 		linPanel.add(buttonPanel,BorderLayout.WEST);
 		add(linPanel);
 		
+		psw.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				 if(submitEnable){
+					 String uidString=uid.getText();
+					 String pswString=psw.getText();
+					 Boolean islogin=false;
+					 if(uidString!=null && pswString!=null){
+						 //submit something
+						 islogin=link.login(uidString,pswString);
+						 
+					 }
+					
+					 if(islogin){
+						 JOptionPane.showMessageDialog(null,"success!", "Log reminder!", JOptionPane.INFORMATION_MESSAGE);
+						 dispose();
+						 String sex="Female";
+						 if(link.getDetail().isSex())
+							 sex="Male";
+						 userinfoLabel.setText(link.getDetail().getAccount()+"  "+sex);
+						 Login.setText("Log out");
+						 //I don't know, which windows was been disposed
+					 }else{
+						 JOptionPane.showMessageDialog(null,"fail!", "Log reminder!", JOptionPane.ERROR_MESSAGE);
+					 }
+						 
+						
+				 }
+			}
+		});
 		
 		loginButton.addActionListener(new ActionListener(){
 
@@ -74,7 +107,13 @@ public class login extends JFrame{
 					 }
 					
 					 if(islogin){
+						 JOptionPane.showMessageDialog(null,"success!", "Log reminder!", JOptionPane.INFORMATION_MESSAGE);
 						 dispose();
+						 String sex="Female";
+						 if(link.getDetail().isSex())
+							 sex="Male";
+						 userinfoLabel.setText(link.getDetail().getAccount()+"  "+sex);
+						 Login.setText("Log out");
 						 //I don't know, which windows was been disposed
 					 }else{
 						 JOptionPane.showMessageDialog(null,"fail!", "Log reminder!", JOptionPane.ERROR_MESSAGE);
