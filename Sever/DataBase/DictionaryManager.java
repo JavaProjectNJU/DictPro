@@ -251,10 +251,8 @@ public class DictionaryManager {
 		try {
 			PreparedStatement statement;
 			Connection conn = DataBase.connect();
-			statement = conn.prepareStatement("insert into WordCard(sender,receiver,image) values((?),(?),(?))");
-			statement.setString(1, sender);
-			statement.setString(2, receiver);
-			statement.setObject(3, img);
+			statement = conn.prepareStatement("update Dictionary set UserImg = (?) where user = '"+user+"';");
+			statement.setObject(1, img);
 			statement.execute();
 			DataBase.close(conn);
 		} catch (SQLException e) {
