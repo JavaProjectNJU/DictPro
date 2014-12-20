@@ -430,6 +430,30 @@ public class UI extends JFrame{
 			}
 		});
 
+		addFriendField.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				String uname=addFriendField.getText();
+				if(link.isOnline() && uname!=null){
+					link.addFriend(uname);
+				}
+			}
+		});
+		
+		addFriendButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String uname=addFriendField.getText();
+				if(link.isOnline() && uname!=null){
+					link.addFriend(uname);
+				}
+			}
+		});
 	}
     
 	public static void main(String[] args){
