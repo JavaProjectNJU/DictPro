@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import System.UserInfo;
 import dict.net.LinkToServer;
 import sun.awt.image.ImageWatched.Link;
 
@@ -27,7 +28,7 @@ public class login extends JFrame{
 	
 	private boolean submitEnable=true;
 
-	public login(final LinkToServer link, final JButton Login){
+	public login(final LinkToServer link, final JButton Login, final JLabel userinfoLabel){
 		final JTextField uid =new JTextField(20); // Input Field
 		final JTextField psw=new JTextField(20); // input the psw for the first time
 
@@ -75,6 +76,10 @@ public class login extends JFrame{
 					 if(islogin){
 						 JOptionPane.showMessageDialog(null,"success!", "Log reminder!", JOptionPane.INFORMATION_MESSAGE);
 						 dispose();
+						 String sex="Female";
+						 if(link.getDetail().isSex())
+							 sex="Male";
+						 userinfoLabel.setText(link.getDetail().getAccount()+"  "+sex);
 						 Login.setText("Log out");
 						 //I don't know, which windows was been disposed
 					 }else{

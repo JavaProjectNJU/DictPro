@@ -121,6 +121,8 @@ public class UI extends JFrame{
 		bar.add(Signin);
 		
 		JPanel bottom=new JPanel();
+		final JLabel userinfoLabel =new JLabel(" ");
+		bottom.add(userinfoLabel,FlowLayout.LEFT);
 		bottom.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		bottom.add(jchkBD);
 		bottom.add(jchkYD);
@@ -267,7 +269,7 @@ public class UI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				 if(Login.getText().equals("Log in")){
-					login lwin=new login(link,Login);
+					login lwin=new login(link,Login,userinfoLabel);
 					lwin.setTitle("DictPro-LogIn");
 					lwin.setSize(250,200);
 					lwin.setLocationRelativeTo(null);
@@ -279,6 +281,7 @@ public class UI extends JFrame{
 					 //log out
 					 if(link.logout()){
 						 Login.setText("Log in");
+						 userinfoLabel.setText(" ");
 					 }
 					 
 				 }
