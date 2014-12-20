@@ -212,18 +212,29 @@ public class UserManager {
 	}
 	
 	public static UserInfo getUserInfo(String uid){
-		ArrayList<UserInfo> userList = getUserList();
-		UserInfo usrInfo = null;
-		int i;
-		for(i = 0;i < onlineUser.size(); i ++)
-		{
-			if(userList.get(i).getAccount().equals(uid))
-			{	
-				usrInfo = userList.get(i);
-				break;
+		Connection conn = null;
+		UserInfo usrinfoInfo;
+		try {
+			conn = DataBase.connect();
+			Statement statement = conn.createStatement();
+			System.out.println(uid);
+			String sql = "select * from UserTable where username = '"+ uid +"';";
+			ResultSet result = statement.executeQuery(sql);
+			if(result.next())
+			{
+				usrinfoInfo = new UserInfo(result.getString("nickname") ,result.getString("username"),null);
+				usrinfoInfo.setEmail(result.getString("email"));
+				usrinfoInfo.setOn(result.getBoolean("online"));
+				return usrinfoInfo;
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		finally{
+			DataBase.close(conn);
 		}
-		return usrInfo;
+		return null;
 	}
 	
 	public static void main(String[] args){

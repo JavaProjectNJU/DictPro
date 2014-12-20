@@ -167,7 +167,7 @@ class SeverUI extends JFrame {
 					int indexofSelect = OfflineList.getSelectedIndex();
 					String searchString = offlineuser[indexofSelect];
 					UserInfoWindow subFrame = new UserInfoWindow(UserManager.getUserInfo(searchString));
-					subFrame.setSize(400, 200);
+					subFrame.setSize(300, 400);
 					subFrame.setTitle("About Dictionary");
 					subFrame.setLocationRelativeTo(null);//Center the Frame
 					subFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
