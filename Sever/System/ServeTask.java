@@ -125,8 +125,7 @@ public class ServeTask extends Task implements Runnable{
 		Message.IsOnline isonline = (Message.IsOnline)(msg.data);
 		msg.reply = true;
 		msg.type = Message.IS_ONLINE;
-		if(user == null || !user.isOn() || uManager.identityVerify(isonline.uid, isonline.psw)){
-			System.out.println(" " + (user == null) + !user.isOn() + "" + uManager.identityVerify(isonline.uid, isonline.psw));
+		if(user == null || !user.isOn() || !uManager.identityVerify(isonline.uid, isonline.psw)){
 			isonline.isOnline = false;
 			System.out.println("Failed");
 		}else{
@@ -140,7 +139,7 @@ public class ServeTask extends Task implements Runnable{
 		Message.Info uinfo = (Message.Info)(msg.data);
 		msg.reply = true;
 		msg.type = Message.USER_INFO;
-		if(user == null || !user.isOn() || uManager.identityVerify(uinfo.uid, uinfo.psw)){
+		if(user == null || !user.isOn() || !uManager.identityVerify(uinfo.uid, uinfo.psw)){
 			uinfo.myself = null;
 		}else{
 			uinfo.myself = new UserInfo(user);

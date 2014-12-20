@@ -26,6 +26,8 @@ public class RefreshList implements Runnable {
 				//找到了新的单词列表,那么更新list中的单词
 				DefaultListModel<UserInfo> dlist = new DefaultListModel<UserInfo>();
 				dlist.removeAllElements();
+				if(online == null)
+					continue;
 				for(UserInfo info:online){
 					dlist.addElement(info);
 				}

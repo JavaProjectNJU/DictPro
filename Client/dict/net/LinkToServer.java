@@ -397,6 +397,8 @@ public class LinkToServer {
 		onlineMsg.type = Message.UPDATE_FRIEND_ONLINE;
 		Message.OnlineFriend data = onlineMsg.new OnlineFriend();
 		onlineMsg.data = data;
+		data.uid = uid;
+		data.psw = psw;
 		data.friendList = null;
 		try {
 			
@@ -423,6 +425,8 @@ public class LinkToServer {
 		userInfoMsg.type = Message.USER_INFO;
 		Message.Info data = userInfoMsg.new Info();
 		userInfoMsg.data = data;
+		data.uid = uid;
+		data.psw = psw;
 		data.myself = null;
 		try {
 			
@@ -449,7 +453,7 @@ public class LinkToServer {
 				if(reply != null){
 					requestMap.remove(id);
 					return reply;
-				}else if(loop > 20){//10000ms 超时 10s
+				}else if(loop > 40){//10000ms 超时 10s
 					System.out.println("time out");
 					return null;
 				}
