@@ -373,7 +373,7 @@ public class DictionaryManager {
 		UnionWord uword = DictionaryManager.SearchWord("good");
 		DictionaryManager.AddPraise("zhangry", "good", DictionaryManager.BAIDU);
 		DictionaryManager.AddPraise("zhangry", "good", DictionaryManager.BING);
-		DictionaryManager.hasPrased("zhangry",uword);
+		DictionaryManager.hasPraised("zhangry",uword);
 		System.out.println(""+uword.getPariseBaidu()+uword.getPariseBing()+uword.getPariseYoudao());
 		//DictionaryManager.AddPraise("haohao", "insistence", BAIDU);
 	}
