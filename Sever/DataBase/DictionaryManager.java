@@ -144,6 +144,32 @@ public class DictionaryManager {
 		}
 	}
 	
+	public static boolean hasPrasied(String word,int type)
+	{
+		boolean isValid = false;
+		Connection conn = null;
+		try {
+			conn = DataBase.connect();
+			Statement statement = conn.createStatement();
+			String sql = null; 
+			if(type == DictionaryManager.BAIDU)
+				sql= "select username,password from USERTABLE;";
+			else if(type == DictionaryManager.BING)
+				sql= "select username,password from USERTABLE;";
+			else if(type == DictionaryManager.YOUDAO)
+				sql= "select username,password from USERTABLE;";
+				ResultSet result = statement.executeQuery(sql);
+			if(result.next())
+				;
+		} catch (SQLException e) {
+			System.out.println("identityVerify, Access Failed!");
+		}
+		finally{
+			DataBase.close(conn);
+		}
+		return isValid;
+	}
+	
 	public static UnionWord SearchWord(String word) {	
 		Statement statement;
 		UnionWord unionWord = new UnionWord();

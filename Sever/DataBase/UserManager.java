@@ -5,7 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.sun.javafx.collections.MappingChange.Map;
+
+import System.Sever;
 import System.UserInfo;
 
 public class UserManager {
@@ -86,8 +90,7 @@ public class UserManager {
 		return change;
 	}
 	
-	public static boolean getUserList(String user){
-		boolean change = false;
+	public static ArrayList<UserInfo> getUserList(){
 		Connection conn = null;
 		ArrayList<UserInfo> userList = new ArrayList<UserInfo>();
 		try {
@@ -95,20 +98,24 @@ public class UserManager {
 			Statement statement = conn.createStatement();
 			String sql = "select * from UserTable";
 			ResultSet result = statement.executeQuery(sql);
-			UserInfo usrinfoInfo = new UserInfo(result.getString("nickname"),result.getString("username"),null);
-			userList.add(usrinfoInfo);
+			//UserInfo usrinfoInfo = new UserInfo(result.getString("nickname"),result.getString("username"),null);
+			UserInfo usrinfoInfo;
 			while(result.next())
 			{
-				usrinfoInfo = new UserInfo(result.getString("nickname"),result.getString("username"),null);
+				//
+				usrinfoInfo = new UserInfo(result.getString("nickname") ,result.getString("username"),null);
+				usrinfoInfo.setEmail(result.getString("email"));
+				usrinfoInfo.setOn(result.getBoolean("online"));
 				userList.add(usrinfoInfo);
 			}
 		} catch (SQLException e) {
-			System.out.println("UserList Not Exists!");
-		}
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		finally{
 			DataBase.close(conn);
 		}
-		return change;
+		return userList;
 	}
 	
 	@SuppressWarnings("finally")
@@ -211,5 +218,14 @@ public class UserManager {
 			}
 		}
 		return usrInfo;
+	}
+	
+	public static void main(String[] args){
+		ArrayList<UserInfo> usrlist = UserManager.getUserList();
+		for(int i = 0; i <usrlist.size();i ++)
+		{
+			System.out.println("");
+			usrlist.get(i).display();
+		}
 	}
 }

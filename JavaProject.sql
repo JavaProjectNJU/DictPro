@@ -1,7 +1,19 @@
+
+
 CREATE TABLE USERTABLE(
 username CHAR(20) NOT NULL PRIMARY KEY Unique,
-password CHAR(20) NOT NULL
+password CHAR(20) NOT NULL,
+nickname CHAR(20),
+email CHAR(30),
+sex boolean,
+online boolean,
+image blob,
+logindate blob 
 );
+
+insert into USERTABLE(username,password,nickname,email,sex) values('zhangry','123456','Roy','zhangry868@126.com',true);
+insert into USERTABLE(username,password,nickname,email,sex) values('Haohao','123456','Haohao','Wuhao1994@126.com',true);
+
 
 CREATE TABLE FriendRelation(
 username1 CHAR(20) NOT NULL,
@@ -74,7 +86,7 @@ After DELETE on BingPraise
 for each row
 Update Dictionary
 Set NumZanBing = NumZanBing - 1 where Word = old.Word;
-
+/*
 alter table BaiduPraise add constraint DEL_USER1 foreign key(username)
 references USERTABLE(username) on delete cascade;
 alter table BingPraise add constraint DEL_USER2 foreign key(username)
@@ -86,12 +98,10 @@ alter table FriendRelation add constraint DEL_USER4 foreign key(username1)
 references USERTABLE(username) on delete cascade;
 alter table FriendRelation add constraint DEL_USER5 foreign key(username2)
 references USERTABLE(username) on delete cascade;
-
+*/
 -- Test-------------------------------------------------------------------------
 insert into Dictionary(Word,NumZanBaidu,NumZanYoudao,NumZanBing) values('Good',0,0,0);
 insert into BingPraise(username,Word) values('roy','Good');
-
-insert into Praise(username,Word) values('zhangry868','Hello');
 
 select* from FriendRelation;
 
