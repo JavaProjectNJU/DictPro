@@ -38,6 +38,7 @@ import javax.swing.*;
 import word.Word;
 import net.FromBing;
 import net.WordEngine;
+import net.Message.Message;
 
 public class WordCard {
 	String srcImageFile;
@@ -48,6 +49,11 @@ public class WordCard {
 	static final Font font = new Font("Consola",Font.PLAIN,30);
 	static final Font pronounce = new Font("Consola",Font.PLAIN,20);
 	static final Font explain = new Font("微软雅黑",Font.BOLD,16);
+	public WordCard(byte[] image){
+		buffImage = Message.bytesToImage(image);
+		srcWidth = buffImage.getWidth();
+		srcHeight = buffImage.getHeight();
+	}
 	public WordCard(Word word,String uid1,String uid2){
 		// TODO Auto-generated method stub
 		srcImageFile = "Client\\card2.jpg";
@@ -91,7 +97,7 @@ public class WordCard {
 		}
 	}
 	
-	void display() //Display Wordard in a Frame
+	public void display() //Display Wordard in a Frame
 	{
 		JFrame frame = new ImageViewerFrame(buffImage,srcWidth, srcHeight);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
