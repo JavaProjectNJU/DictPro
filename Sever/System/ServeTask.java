@@ -111,6 +111,7 @@ public class ServeTask extends Task implements Runnable{
 				case Message.DEL_PRAISE:delPrise(msg);break;
 				case Message.UPDATE_FRIEND_ONLINE:updateOnlineFriend(msg);break;
 				case Message.USER_INFO:getUserInfo(msg);break;
+				case Message.IS_ONLINE:getOnlineState(msg);break;
 				default:;
 				}
 				
@@ -118,6 +119,17 @@ public class ServeTask extends Task implements Runnable{
 		
 		}
 	
+	}
+	private void getOnlineState(Message msg){
+		Message.IsOnline isonline = (Message.IsOnline)(msg.data);
+		msg.reply = true;
+		msg.type = Message.IS_ONLINE;
+		if(user == null || !user.isOn() || uManager.identityVerify(isonline.uid, isonline.psw)){
+			isonline.isOnline = false;
+		}else{
+			isonline.isOnline = true;
+		}
+		msgBox.add(msg);
 	}
 	
 	private void getUserInfo(Message msg){

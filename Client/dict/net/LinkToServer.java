@@ -56,6 +56,32 @@ public class LinkToServer {
 	public void setPsw(String psw){
 		this.psw = psw;
 	}
+	public boolean isOnline(){
+		Message online = new Message();
+		online.id = idCreater ++;
+		online.reply = false;
+		online.type = Message.IS_ONLINE;
+		Message.IsOnline data = online.new IsOnline();
+		online.data = data;
+		data.uid = uid;
+		data.psw = psw;
+		try {
+			
+			objOut.writeObject(online);
+			objOut.flush();
+			
+			Message reply = waitReply(online.id);
+			if(reply == null)
+				return false;
+			return	((Message.IsOnline)(reply.data)).isOnline;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		return false;
+		
+	}
 	public boolean login(){
 		Message loginMessage = new Message();
 		loginMessage.id = idCreater ++;

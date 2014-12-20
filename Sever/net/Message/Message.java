@@ -33,6 +33,7 @@ public class Message implements Serializable{
 	public static final int SEND_MESSAGE = 12;
 	public static final int IP_DATA = 13;
 	public static final int USER_INFO = 14;
+	public static final int IS_ONLINE = 15;
 	public MsgData data;
 	
 
@@ -132,9 +133,6 @@ public class Message implements Serializable{
 	}
 	public class ReplyData extends MsgData implements Serializable{
 		public boolean success;
-		public String fortest = "guoruijun";
-		public String fortest1 = "guoruijun";
-		public String fortest2 = "guoruijun";
 	}
 
 	public class IpData extends MsgData implements Serializable{
@@ -146,7 +144,11 @@ public class Message implements Serializable{
 		public String psw;
 		public UserInfo myself;
 	}
-	
+	public class IsOnline extends MsgData implements Serializable{
+		public String uid;
+		public String psw;
+		public boolean isOnline;
+	}
 	
 	public static byte[] imageToBytes(BufferedImage image){
 		byte[] buf = null;

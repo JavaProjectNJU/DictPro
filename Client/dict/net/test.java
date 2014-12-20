@@ -52,6 +52,6 @@ public class test {
 		link.setPsw("guoruijun");
 		System.out.println(link.login());
 		System.out.println(link.addFriend("zhangruiyi"));
-		System.out.println(link.serach("jam"));
+		System.out.println(link.serach("jam").getWordBaidu().getExplain().get(0));
 	}
 }
