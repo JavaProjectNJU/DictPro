@@ -10,7 +10,9 @@ import java.io.*;
 
 import javax.swing.event.*;
 import javax.swing.text.Document;
+import javax.xml.ws.handler.MessageContext;
 
+import net.Message.Message;
 import net.Message.Message.Serach;
 
 import org.jvnet.substance.SubstanceLookAndFeel;
@@ -56,8 +58,6 @@ public class UI extends JFrame{
 	private JCheckBox jchkYD=new JCheckBox("有道",true);
 	private JCheckBox jchkBY=new JCheckBox("必应",true);
 
-	
-	
 	private JTextArea bDArea=new JTextArea("百度");
 	private JTextArea yDArea=new JTextArea("有道");
 	private JTextArea bYArea=new JTextArea("必应");
@@ -540,6 +540,54 @@ public class UI extends JFrame{
 					JOptionPane.showMessageDialog(null,"fail! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
 				}
 
+			}
+		});
+		
+		// private JButton messageButton=new JButton("No Message");
+		// private JList messageList=new JList();
+		
+		messageButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(!messageButton.getText().equals("No Message")){
+					//++++++++++++++++++++++++++++++++++++++++++++++++++
+					JFrame messageFrame=new JFrame();
+					JPanel messagePanel=new JPanel();
+					messagePanel.add(new JScrollPane(messageList));
+					messageFrame.add(messagePanel);
+					
+					messageFrame.setTitle("Message List");
+					messageFrame.setSize(100,500);
+					messageFrame.setLocationRelativeTo(null);
+					messageFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					messageFrame.setVisible(true);
+				}
+			}
+		});
+
+		messageList.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				Message msg=(Message)messageList.getSelectedValue();
+				if(msg.type==Message.SEND_MESSAGE){
+					//send the message
+					JFrame msgFrame=new JFrame();
+					JTextField msgField=new JTextField(20);
+					Message.Send_Message data=(Message.Send_Message)(msg.data);
+					JPanel msgPanel=new JPanel();
+					msgPanel.setLayout(new GridLayout(2,1));
+					msgPanel.add(new JLabel(" From : "+ data.uid+"\n"+ data.dialoge));
+					
+				}
+				else if(msg.type==Message.SEND_CARD){
+					//send the card
+				}
+				
+				
 			}
 		});
 	}
