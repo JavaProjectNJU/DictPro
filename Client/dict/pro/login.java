@@ -109,6 +109,10 @@ public class login extends JFrame{
 					 if(islogin){
 						 JOptionPane.showMessageDialog(null,"success!", "Log reminder!", JOptionPane.INFORMATION_MESSAGE);
 						 dispose();
+						 String sex="Female";
+						 if(link.getDetail().isSex())
+							 sex="Male";
+						 userinfoLabel.setText(link.getDetail().getAccount()+"  "+sex);
 						 Login.setText("Log out");
 						 //I don't know, which windows was been disposed
 					 }else{
