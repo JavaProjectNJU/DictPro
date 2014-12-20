@@ -68,7 +68,7 @@ public class test {
 		tcard.start();
 		System.out.println("start card recevice thread~~~~");
 
-		System.out.println(link.register("jam", "guoruijun", "cruijunguo@gmail.com", 'm'));
+		System.out.println(link.register("jam", "guoruijun", "cruijunguo@gmail.com", true));
 		System.out.println("IP:"+socket.getLocalAddress().getHostAddress()+"post:"+ socket.getLocalPort());
 		link.setUid("jam");
 		link.setPsw("guoruijun");

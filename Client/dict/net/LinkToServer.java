@@ -133,7 +133,7 @@ public class LinkToServer {
 		}
 		return false;
 	}
-	public boolean register(String uid, String psw, String email, char sex){
+	public boolean register(String uid, String psw, String email, boolean sex){
 		Message rigisterMsg = new Message();
 		rigisterMsg.id = idCreater ++;
 		rigisterMsg.reply = false;
