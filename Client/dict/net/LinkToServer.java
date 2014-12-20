@@ -50,12 +50,7 @@ public class LinkToServer {
 		this.uid =uid;
 		this.psw = psw;
 	}
-	public void setUid(String uid){
-		this.uid = uid;
-	}
-	public void setPsw(String psw){
-		this.psw = psw;
-	}
+	
 	public boolean isOnline(){
 		Message online = new Message();
 		online.id = idCreater ++;
@@ -82,7 +77,9 @@ public class LinkToServer {
 		return false;
 		
 	}
-	public boolean login(){
+	public boolean login(String uid, String psw){
+		this.uid = uid;
+		this.psw = psw;
 		Message loginMessage = new Message();
 		loginMessage.id = idCreater ++;
 		loginMessage.reply = false;
@@ -116,6 +113,8 @@ public class LinkToServer {
 		logoutMessage.data = data;
 		data.uid = uid;
 		data.psw = psw;
+		uid = null;
+		psw = null;
 		try {
 			
 			objOut.writeObject(logoutMessage);

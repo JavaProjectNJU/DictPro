@@ -70,9 +70,7 @@ public class test {
 
 		System.out.println(link.register("jam", "guoruijun", "cruijunguo@gmail.com", true));
 		System.out.println("IP:"+socket.getLocalAddress().getHostAddress()+"post:"+ socket.getLocalPort());
-		link.setUid("jam");
-		link.setPsw("guoruijun");
-		System.out.println(link.login());
+		System.out.println(link.login("jam", "guoruijun"));
 		System.out.println(link.addFriend("zhangruiyi"));
 		System.out.println(link.serach("jam").getWordBaidu().getExplain().get(0));
 	}
