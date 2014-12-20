@@ -60,12 +60,15 @@ public class Client {
 		
 		ListenCard card = new ListenCard(card_port);
 	
+		RefreshList refresh = new RefreshList(link, list);
 		Thread tmsg = new Thread(msgs);
 		
 		
 		Thread tcard = new Thread(card);
+		Thread tre = new  Thread(refresh);
 		tmsg.start();
 		tcard.start();
+		tre.start();
 	
 		return link;
 	}

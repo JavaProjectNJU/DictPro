@@ -6,6 +6,8 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.Map;
 
+import javax.swing.JList;
+
 import net.Message.Message;
 
 public class ListenMessage implements Runnable{
@@ -62,6 +64,7 @@ public void run() {
 				synchronized(requestMap){
 					requestMap.put(msg.id, msg);
 				}
+				
 			}else{//then it is a request 
 				System.out.println("a msg from b: id="+msg.id);
 				
