@@ -10,10 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.swing.JList;
+
 import net.Message.Message;
 
 public class Client {
-	public static LinkToServer getLink(){
+	public static LinkToServer getLink(JList list){
 		BufferedInputStream bis;
 		String ip = null;
 		int server_port = 8888;
