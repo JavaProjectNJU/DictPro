@@ -86,7 +86,7 @@ public class User implements Serializable{
 		success = UserManager.friendJudge(this.account, _account) | UserManager.friendJudge(_account, this.account);
 		if(!success)
 		{
-			UserManager.addFriend(this.account, _account);
+			success = UserManager.addFriend(this.account, _account);
 		}
 		return success;
 	}

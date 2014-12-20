@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 import System.Sever;
 import System.UserInfo;
 
@@ -32,23 +34,34 @@ public class UserManager {
 		}
 	}
 	
-	@SuppressWarnings("finally")
 	public static boolean addFriend(String account1, String account2){
 		boolean change = false;
 		Connection conn = null;
 		try {
 			conn = DataBase.connect();
 			Statement statement = conn.createStatement();
-			String sql = "insert into FriendRelation(username1,username2) values('"
+			String sql = "select * from UserTable where username ='"+ account2 +"';";
+			ResultSet result = statement.executeQuery(sql);
+			if(!result.next())
+			{
+				JOptionPane.showMessageDialog(null,"未知的错误，存储单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			sql = "insert into FriendRelation(username1,username2) values('"
 					+account1+"','"+account2+"');";
 			change = statement.execute(sql);
 		} catch (SQLException e) {
-			System.out.println("Friendship Exists!");
+			JOptionPane.showMessageDialog(null,"关系存在", "系统信息", JOptionPane.ERROR_MESSAGE);
 		}
 		finally{
 			DataBase.close(conn);
-			return change;
 		}
+		if(change == true)
+			JOptionPane.showMessageDialog(null,"加入成功", "系统信息", JOptionPane.ERROR_MESSAGE);
+		else {
+			JOptionPane.showMessageDialog(null,"加入失败", "系统信息", JOptionPane.ERROR_MESSAGE);
+		}
+		return change;
 	}
 	
 	@SuppressWarnings("finally")
