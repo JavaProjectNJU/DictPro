@@ -16,6 +16,9 @@ public class UserInfo extends User implements Serializable{
 		IpAddr = ipAddr;
 	}
 
+	public String toString(){
+		return super.getAccount();
+	}
 	int prot;
 	
 	public UserInfo(User usr){
