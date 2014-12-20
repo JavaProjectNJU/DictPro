@@ -1,4 +1,4 @@
-package System;
+package SeverUI;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -21,6 +21,8 @@ import org.jvnet.substance.skin.OfficeBlue2007Skin;
 import org.jvnet.substance.theme.SubstanceTerracottaTheme;
 import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 
+import System.Sever;
+import System.UserInfo;
 import net.Message.Message;
 
 import java.awt.*;

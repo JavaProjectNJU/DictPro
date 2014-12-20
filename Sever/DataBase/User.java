@@ -13,6 +13,7 @@ public class User implements Serializable{
 	protected String nickname;
 	protected String account;
 	protected String pw;
+	protected String email;
 	protected ArrayList<UserInfo> onlineFriend;
 	protected boolean on = false;
 	protected boolean sex = true;
@@ -200,6 +201,12 @@ public class User implements Serializable{
 	}
 	public void setStrdate(String strdate) {
 		this.strdate = strdate;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
 
