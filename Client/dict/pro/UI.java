@@ -403,13 +403,13 @@ public class UI extends JFrame{
 					 {
 						 return;
 					 }
-					 if(!bdgood){
+					 if(BDgood.getText().equals("good")){
 						 link.addPrise(inputField.getText(), 0);
-						 bdgood=true;
+						 BDgood.setText("cancel");
 					 }
 					 else{
 						 link.delPrise(inputField.getText(), 0);
-						 bdgood=false;
+						 BDgood.setText("good");
 					 }
 					
 				 }
@@ -447,15 +447,19 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(link.isOnline() == true){
+				 if(link.isOnline()){
 					 //give good comment
-					 if(!ydgood){
+					 if(inputField.getText().length() == 0)
+					 {
+						 return;
+					 }
+					 if(YDgood.getText().equals("good")){
 						 link.addPrise(inputField.getText(), 1);
-						 ydgood=true;
+						 YDgood.setText("cancel");
 					 }
 					 else{
 						 link.delPrise(inputField.getText(), 1);
-						 ydgood=false;
+						 YDgood.setText("good");
 					 }
 					
 				 }
@@ -481,15 +485,19 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(link.isOnline() == true){
+				 if(link.isOnline()){
 					 //give good comment
-					 if(!bygood){
+					 if(inputField.getText().length() == 0)
+					 {
+						 return;
+					 }
+					 if(BYgood.getText().equals("good")){
 						 link.addPrise(inputField.getText(), 2);
-						 bygood=true;
+						 BYgood.setText("cancel");
 					 }
 					 else{
 						 link.delPrise(inputField.getText(), 2);
-						 bygood=false;
+						 BYgood.setText("good");
 					 }
 					
 				 }
