@@ -6,16 +6,18 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.swing.JButton;
 import javax.swing.JList;
 
 import net.Message.Message;
 
 public class Client {
-	public static LinkToServer getLink(JList list){
+	public static LinkToServer getLink(JList list, JButton msgButton, JList msgList){
 		BufferedInputStream bis;
 		String ip = null;
 		int server_port = 8888;
@@ -55,11 +57,12 @@ public class Client {
 			}
 			
 		}
+		ArrayList<Message> msgBox = new ArrayList<Message>();
 		LinkToServer link = new LinkToServer(requests, socket);
 		
-		ListenMessage msgs = new ListenMessage(requests, socket);
+		ListenMessage msgs = new ListenMessage(requests, socket, msgButton, msgList, msgBox);
 		
-		ListenCard card = new ListenCard(card_port);
+		ListenCard card = new ListenCard(card_port, msgButton, msgList, msgBox);
 	
 		RefreshList refresh = new RefreshList(link, list);
 		Thread tmsg = new Thread(msgs);

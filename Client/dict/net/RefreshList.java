@@ -31,8 +31,6 @@ public class RefreshList implements Runnable {
 				for(UserInfo info:online){
 					dlist.addElement(info);
 				}
-				if(dlist.isEmpty())//如果是空的就不用设置了
-					return;
 				list.setModel(dlist);//更新列表中的元素
 			}else{
 				try {

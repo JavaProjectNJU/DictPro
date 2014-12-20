@@ -56,6 +56,18 @@ public class Message implements Serializable{
 		static final int SEND_CARD = 11;
 		static final int SEND_MESSAGE = 12;
 	*/
+	public String toString(){
+		if(reply)
+			return "repy";
+		else{
+			if(type == Message.SEND_MESSAGE){
+				return "from " + ((Message.Send_Message)data).uid;
+			}else if(type == Message.SEND_CARD){
+				return "from " + ((Message.Send_Card)data).uid;
+			}else
+				return "error!";
+		}
+	}
 	public abstract class MsgData implements Serializable{
 	}
 

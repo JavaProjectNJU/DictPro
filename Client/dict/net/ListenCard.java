@@ -3,10 +3,22 @@ package dict.net;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JList;
+
+import net.Message.Message;
 
 public class ListenCard implements Runnable{
 	private ServerSocket listenSocket;
-	public ListenCard(int port){
+	private JButton msgButton;
+	private JList msgList;
+	private ArrayList msgBox;
+	public ListenCard(int port, JButton msgButton, JList msgList, ArrayList<Message> msgBox){
+		this.msgButton = msgButton;
+		this.msgList = msgList;
+		this.msgBox = msgBox;
 		try {
 			System.out.println("creating listencard~~~");
 			listenSocket = new ServerSocket(port);
@@ -25,7 +37,7 @@ public class ListenCard implements Runnable{
 				System.out.println("running listencard listencard~~~");
 				Socket newCard = listenSocket.accept();
 				newCard.setTcpNoDelay(true);
-				ReceiveCard reveive = new ReceiveCard(newCard);
+				ReceiveCard reveive = new ReceiveCard(newCard, msgButton, msgList, msgBox);
 				Thread t = new Thread(reveive);
 				t.start();
 			}

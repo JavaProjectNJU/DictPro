@@ -4,22 +4,30 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Map;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JList;
 
+import System.UserInfo;
 import net.Message.Message;
 
 public class ListenMessage implements Runnable{
 	private static Map requestMap;
 	private Socket socket;
 	private ObjectInputStream objIn;
-	public ListenMessage(Map requestMap, final Socket socket){
+	private JButton msgButton;
+	private JList msgList;
+	private ArrayList<Message> msgs;
+	public ListenMessage(Map requestMap, final Socket socket, JButton msgButton, JList msgList, ArrayList msgs){
 		System.out.println("ctrating listen msg~~");
 		this.requestMap = requestMap;
 		this.socket = socket;
-		
-		
+		this.msgButton = msgButton;
+		this.msgList = msgList;
+		this.msgs = msgs;
 		System.out.println("ctrated listen msg~~");
 	}
 	@Override
@@ -67,7 +75,21 @@ public void run() {
 				
 			}else{//then it is a request 
 				System.out.println("a msg from b: id="+msg.id);
-				
+				//msgList.add(name, comp);
+				synchronized(msgs){
+					msgs.add(msg);
+				}
+				DefaultListModel<Message> dlist = new DefaultListModel<Message>();
+				dlist.removeAllElements();
+				synchronized(msgs){
+					for(Message m:msgs){
+						dlist.addElement(m);
+					}
+				}
+				msgList.setModel(dlist);//更新列表中的元素
+				synchronized(msgs){
+					msgButton.setText(msgs.size() +" Message");
+				}
 			}
 		
 		}
