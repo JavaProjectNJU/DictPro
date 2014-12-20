@@ -22,7 +22,7 @@ import org.jvnet.substance.theme.SubstanceTerracottaTheme;
 import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 
 import word.UnionWord;
-import word.WordCard;
+import wordcard.WordCard;
 
 
 public class UI extends JFrame{

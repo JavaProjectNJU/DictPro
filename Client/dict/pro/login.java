@@ -12,6 +12,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -26,7 +27,7 @@ public class login extends JFrame{
 	
 	private boolean submitEnable=true;
 
-	public login(LinkToServer link){
+	public login(final LinkToServer link){
 		final JTextField uid =new JTextField(20); // Input Field
 		final JTextField psw=new JTextField(20); // input the psw for the first time
 
@@ -76,15 +77,7 @@ public class login extends JFrame{
 						 dispose();
 						 //I don't know, which windows was been disposed
 					 }else{
-						 JPanel failWarning=new JPanel();
-						 failWarning.add(new JLabel("error!"));
-						 JFrame failFrame=new JFrame();
-						 failFrame.add(failWarning);
-						 failFrame.setTitle("Login Tips");
-						 failFrame.setSize(100,50);
-						 failFrame.setLocationRelativeTo(null);
-						 failFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-						 failFrame.setVisible(true); 
+						 JOptionPane.showMessageDialog(null,"fail!", "Log reminder!", JOptionPane.ERROR_MESSAGE);
 					 }
 						 
 						
@@ -103,13 +96,4 @@ public class login extends JFrame{
 		
 	}
     
-	public static void main(String[] args){
-		
-		login frame=new login();
-		frame.setTitle("DictPro-LogIn");
-		frame.setSize(250,200);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(false);   //test, when click the sign in button, show this window
-	}
 }

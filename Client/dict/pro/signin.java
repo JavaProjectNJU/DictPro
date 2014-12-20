@@ -12,6 +12,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -26,7 +27,7 @@ public class signin extends JFrame{
 	private boolean signEnable=true;
 	private boolean issex=false;
 
-	public signin(LinkToServer link){
+	public signin(final LinkToServer link){
 		final JTextField uid =new JTextField(20); // Input Field
 		final JTextField psw0=new JTextField(20); // input the psw for the first time
 		final JTextField psw1=new JTextField(20); // input the psw for the second time
@@ -91,7 +92,6 @@ public class signin extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				issex=true;
-				
 			}
 		});
 		
@@ -111,13 +111,18 @@ public class signin extends JFrame{
 				// TODO Auto-generated method stub
 				String pswStr0=psw0.getText();
 				String pswStr1=psw1.getText();
-				signEnable=pswStr0.equals(pswStr1);
-				if(signEnable){
+				if(pswStr0!=null && pswStr1!=null &&pswStr0.equals(pswStr1)){
 					String uidStr=uid.getText();
 					String emailStr=email.getText();
-					
-					//send to server
-					
+					if(uidStr!=null && emailStr!=null){
+						link.register(uidStr, pswStr0, emailStr, issex);
+						JOptionPane.showMessageDialog(null,"Success!", "sign in reminder!", JOptionPane.ERROR_MESSAGE);
+					}
+					else
+						JOptionPane.showMessageDialog(null,"fail!", "sign reminder!", JOptionPane.ERROR_MESSAGE);
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"fail!", "sign reminder!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
