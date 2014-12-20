@@ -599,9 +599,13 @@ public class UI extends JFrame{
 				}
 				else if(msg.type==Message.SEND_CARD){
 					//send the card
+					WordCard card=new WordCard(((Message.Send_Card)msg.data).card);
+					card.display();
 				}
 				
-				
+				synchronized(msgBox){
+					msgBox.remove(msg);
+				}
 			}
 		});
 		
