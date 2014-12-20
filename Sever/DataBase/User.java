@@ -97,7 +97,7 @@ public class User implements Serializable{
 		boolean success = false;
 		success = UserManager.friendJudge(this.account, _account);
 		if(success)
-			UserManager.delFriend(this.account, _account);
+			success = UserManager.delFriend(this.account, _account);
 		return success;
 	}
 	
