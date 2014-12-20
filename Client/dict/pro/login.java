@@ -27,7 +27,7 @@ public class login extends JFrame{
 	
 	private boolean submitEnable=true;
 
-	public login(final LinkToServer link){
+	public login(final LinkToServer link, final JButton Login){
 		final JTextField uid =new JTextField(20); // Input Field
 		final JTextField psw=new JTextField(20); // input the psw for the first time
 
@@ -103,6 +103,7 @@ public class login extends JFrame{
 					 if(islogin){
 						 JOptionPane.showMessageDialog(null,"success!", "Log reminder!", JOptionPane.INFORMATION_MESSAGE);
 						 dispose();
+						 Login.setText("Log out");
 						 //I don't know, which windows was been disposed
 					 }else{
 						 JOptionPane.showMessageDialog(null,"fail!", "Log reminder!", JOptionPane.ERROR_MESSAGE);

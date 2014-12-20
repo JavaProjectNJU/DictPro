@@ -266,15 +266,13 @@ public class UI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				 if(!link.isOnline()){
-					login lwin=new login(link);
+					login lwin=new login(link,Login);
 					lwin.setTitle("DictPro-LogIn");
 					lwin.setSize(250,200);
 					lwin.setLocationRelativeTo(null);
 					lwin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					lwin.setVisible(true); 
-					if(link.isOnline()){
-						Login.setText("Log out");
-					}
+					
 				 }
 				 else{
 					 //log out
