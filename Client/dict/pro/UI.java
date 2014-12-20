@@ -140,7 +140,7 @@ public class UI extends JFrame{
 		
 		addFriendButton.setLayout(new FlowLayout());
 		addFriendPanel.add(addFriendField);
-		addFriendButton.add(addFriendButton);
+		addFriendPanel.add(addFriendButton);
 		
 		JPanel dictPro=new JPanel();
 		dictPro.setLayout(new BorderLayout());

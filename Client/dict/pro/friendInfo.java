@@ -1,5 +1,7 @@
 package dict.pro;
 
+import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +25,10 @@ public class friendInfo extends JFrame{
 		JButton chatFriend=new JButton("Chat");
 		JButton delFriend=new JButton("Delet Friend");
 		
+		JPanel fPanel=new JPanel();
+		fPanel.setLayout(new GridLayout(3,1));
+		
+		//+++++++++++++++++++++++++++++++++++++++++
 		//JPanel 
 	
 	}
