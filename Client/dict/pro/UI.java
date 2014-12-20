@@ -44,6 +44,7 @@ public class UI extends JFrame{
 	
 	private JButton Login=new JButton("Log in");//log in button
 
+	
 	private JButton Signin=new JButton("Sign in"); //sign in button
 	
 	private JCheckBox jchkBD=new JCheckBox("百度",true);
