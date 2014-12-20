@@ -164,6 +164,13 @@ public class UI extends JFrame{
 				BDid.setText(selectid);
 				YDid.setText(selectid);
 				BYid.setText(selectid);
+				
+				friendInfo fi=new friendInfo((UserInfo)Flist.getSelectedValue());
+				fi.setTitle("Friend Info");
+				fi.setSize(100,300);
+				fi.setLocationRelativeTo(null);
+				fi.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				fi.setVisible(true);
 			}
 			
 		});
