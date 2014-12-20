@@ -37,10 +37,14 @@ public class DictionaryManager {
 	
 	public static boolean AddWordandMeaning(UnionWord uword)
 	{
-		boolean success1 = DictionaryManager.AddWord(uword.getWordstr());
-		boolean success2 = DictionaryManager.SetMeaning(uword.getWordBaidu().getWord(),uword.getWordBaidu(),BAIDU);
-		boolean success3 = DictionaryManager.SetMeaning(uword.getWordYoudao().getWord(),uword.getWordYoudao(),YOUDAO);
-		boolean success4 = DictionaryManager.SetMeaning(uword.getWordBing().getWord(),uword.getWordBing(),BING);
+		boolean success1 = false,success2 = false,success3 = false,success4 = false;
+			success1 = DictionaryManager.AddWord(uword.getWordstr());
+		if(uword.getWordBaidu()!= null)
+			success2 = DictionaryManager.SetMeaning(uword.getWordBaidu().getWord(),uword.getWordBaidu(),BAIDU);
+		if(uword.getWordYoudao() != null)
+			success3 = DictionaryManager.SetMeaning(uword.getWordYoudao().getWord(),uword.getWordYoudao(),YOUDAO);
+		if(uword.getWordBing() != null)
+			success4 = DictionaryManager.SetMeaning(uword.getWordBing().getWord(),uword.getWordBing(),BING);
 		return success1 & success2 & success3 & success4;
 	}
 	
@@ -183,40 +187,48 @@ public class DictionaryManager {
 			if(result.next()){	
 				exist = true;
 				Blob inblobBaidu = result.getBlob("Baidu");
+				byte[] buff = null;
 				//System.out.println(inblobBaidu);
-				InputStream isBaidu = inblobBaidu.getBinaryStream();
-				BufferedInputStream inputBaidu = new BufferedInputStream(isBaidu);
+				if(inblobBaidu != null)
+				{
+					InputStream isBaidu = inblobBaidu.getBinaryStream();
+					BufferedInputStream inputBaidu = new BufferedInputStream(isBaidu);
 				
-				byte[] buff = new byte[(int)inblobBaidu.length()];
-				while(-1 != (inputBaidu.read(buff, 0, buff.length)));
-				ObjectInputStream inBaidu = new ObjectInputStream(new ByteArrayInputStream(buff));
-				Word baidu = (Word)inBaidu.readObject();
-				System.out.println(baidu.getWord());
-				unionWord.setwordBaidu(baidu);
-
+					buff = new byte[(int)inblobBaidu.length()];
+					while(-1 != (inputBaidu.read(buff, 0, buff.length)));
+					ObjectInputStream inBaidu = new ObjectInputStream(new ByteArrayInputStream(buff));
+					Word baidu = (Word)inBaidu.readObject();
+					System.out.println(baidu.getWord());
+					unionWord.setwordBaidu(baidu);
+				}
 				Blob inblobBing = result.getBlob("Bing");
-				//System.out.println(inblobBing);
-				InputStream isBing = inblobBing.getBinaryStream();
-				BufferedInputStream inputBing = new BufferedInputStream(isBing);
+				if(inblobBing != null)
+				{
+					//System.out.println(inblobBing);
+					InputStream isBing = inblobBing.getBinaryStream();
+					BufferedInputStream inputBing = new BufferedInputStream(isBing);
 				
-				buff = new byte[(int)inblobBing.length()];
-				while(-1 != (inputBing.read(buff, 0, buff.length)));
-				ObjectInputStream inBing = new ObjectInputStream(new ByteArrayInputStream(buff));
-				Word bing = (Word)inBing.readObject();
-				System.out.println(bing.getWord());
-				unionWord.setwordBing(bing);
-				
+					buff = new byte[(int)inblobBing.length()];
+					while(-1 != (inputBing.read(buff, 0, buff.length)));
+					ObjectInputStream inBing = new ObjectInputStream(new ByteArrayInputStream(buff));
+					Word bing = (Word)inBing.readObject();
+					System.out.println(bing.getWord());
+					unionWord.setwordBing(bing);
+				}
 				Blob inblobYouDao = result.getBlob("YouDao");
+				if(inblobYouDao != null)
+				{
 				//System.out.println(inblobYouDao);
-				InputStream isYouDao = inblobYouDao.getBinaryStream();
-				BufferedInputStream inputYouDao = new BufferedInputStream(isYouDao);
+					InputStream isYouDao = inblobYouDao.getBinaryStream();
+					BufferedInputStream inputYouDao = new BufferedInputStream(isYouDao);
 				
-				buff = new byte[(int)inblobYouDao.length()];
-				while(-1 != (inputYouDao.read(buff, 0, buff.length)));
-				ObjectInputStream inYouDao = new ObjectInputStream(new ByteArrayInputStream(buff));
-				Word youdao = (Word)inYouDao.readObject();
-				System.out.println(youdao.getWord());
-				unionWord.setwordYouDao(youdao);
+					buff = new byte[(int)inblobYouDao.length()];
+					while(-1 != (inputYouDao.read(buff, 0, buff.length)));
+					ObjectInputStream inYouDao = new ObjectInputStream(new ByteArrayInputStream(buff));
+					Word youdao = (Word)inYouDao.readObject();
+					System.out.println(youdao.getWord());
+					unionWord.setwordYouDao(youdao);
+				}
 				unionWord.setPariseBaidu(result.getInt("NumZanBaidu"));
 				unionWord.setPariseBing(result.getInt("NumZanBing"));
 				unionWord.setPariseYoudao(result.getInt("NumZanYoudao"));
@@ -245,8 +257,11 @@ public class DictionaryManager {
 			Word baidu = baidusearch.search(word);
 		    Word bing = bingsearch.search(word);
 		    Word youdao = youdaosearch.search(word);
+		    if (baidu == null && bing == null && youdao == null) {
+				return null;
+			}
 		    unionWord.setWordstr(word);
-			unionWord.setwordBaidu(baidu);
+		    unionWord.setwordBaidu(baidu);
 			unionWord.setwordBing(bing);
 			unionWord.setwordYouDao(youdao);
 			AddWordandMeaning(unionWord);//Save into the database
