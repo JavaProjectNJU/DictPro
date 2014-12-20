@@ -266,7 +266,7 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(!link.isOnline()){
+				 if(Login.getText().equals("Log in")){
 					login lwin=new login(link,Login);
 					lwin.setTitle("DictPro-LogIn");
 					lwin.setSize(250,200);
