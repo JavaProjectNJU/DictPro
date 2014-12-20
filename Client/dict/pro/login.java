@@ -101,6 +101,7 @@ public class login extends JFrame{
 					 }
 					
 					 if(islogin){
+						 JOptionPane.showMessageDialog(null,"success!", "Log reminder!", JOptionPane.INFORMATION_MESSAGE);
 						 dispose();
 						 //I don't know, which windows was been disposed
 					 }else{
