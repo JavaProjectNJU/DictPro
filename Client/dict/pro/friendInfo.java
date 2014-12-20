@@ -3,6 +3,7 @@ package dict.pro;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import System.UserInfo;
@@ -22,7 +23,7 @@ public class friendInfo extends JFrame{
 		JButton chatFriend=new JButton("Chat");
 		JButton delFriend=new JButton("Delet Friend");
 		
-		
+		//JPanel 
 	
 	}
 	

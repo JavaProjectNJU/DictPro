@@ -19,11 +19,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import dict.net.LinkToServer;
+import sun.awt.image.ImageWatched.Link;
+
 public class login extends JFrame{
 	
 	private boolean submitEnable=true;
 
-	public login(){
+	public login(LinkToServer link){
 		final JTextField uid =new JTextField(20); // Input Field
 		final JTextField psw=new JTextField(20); // input the psw for the first time
 
@@ -62,10 +65,29 @@ public class login extends JFrame{
 				 if(submitEnable){
 					 String uidString=uid.getText();
 					 String pswString=psw.getText();
-					 if(uidString!=null && pswString!=null)
+					 Boolean islogin=false;
+					 if(uidString!=null && pswString!=null){
 						 //submit something
+						 islogin=link.login(uidString,pswString);
 						 
-						 ;
+					 }
+					
+					 if(islogin){
+						 dispose();
+						 //I don't know, which windows was been disposed
+					 }else{
+						 JPanel failWarning=new JPanel();
+						 failWarning.add(new JLabel("error!"));
+						 JFrame failFrame=new JFrame();
+						 failFrame.add(failWarning);
+						 failFrame.setTitle("Login Tips");
+						 failFrame.setSize(100,50);
+						 failFrame.setLocationRelativeTo(null);
+						 failFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						 failFrame.setVisible(true); 
+					 }
+						 
+						
 				 }
 			}
 		});

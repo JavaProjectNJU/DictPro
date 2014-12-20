@@ -19,18 +19,20 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import dict.net.LinkToServer;
+
 public class signin extends JFrame{
 	
 	private boolean signEnable=true;
-	private char sexch='M';
+	private boolean issex=false;
 
-	public signin(){
+	public signin(LinkToServer link){
 		final JTextField uid =new JTextField(20); // Input Field
 		final JTextField psw0=new JTextField(20); // input the psw for the first time
 		final JTextField psw1=new JTextField(20); // input the psw for the second time
 		final JTextField email=new JTextField(20); // input the email
 		
-		ButtonGroup sex=new ButtonGroup();
+		final ButtonGroup sex=new ButtonGroup();
 		JRadioButton male=new JRadioButton("Male",true);
 		JRadioButton female=new JRadioButton("Female");
 		sex.add(male);
@@ -88,7 +90,8 @@ public class signin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				sexch='M';
+				issex=true;
+				
 			}
 		});
 		
@@ -97,7 +100,7 @@ public class signin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				sexch='F';
+				issex=false;
 			}
 		});
 		
@@ -129,13 +132,5 @@ public class signin extends JFrame{
 		});
 	}
     
-	public static void main(String[] args){
-		
-		signin frame=new signin();
-		frame.setTitle("DictPro-SignIn");
-		frame.setSize(250,400);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);   //test, when click the sign in button, show this window
-	}
+
 }

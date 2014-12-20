@@ -22,7 +22,7 @@ import org.jvnet.substance.theme.SubstanceTerracottaTheme;
 import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 
 import word.UnionWord;
-import wordcard.WordCard;
+import word.WordCard;
 
 
 public class UI extends JFrame{
@@ -440,11 +440,11 @@ public class UI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				 if(online == false){
-					login lwin=new login();
+					login lwin=new login(link);
 					lwin.setTitle("DictPro-LogIn");
 					lwin.setSize(250,200);
 					lwin.setLocationRelativeTo(null);
-					lwin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					lwin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					lwin.setVisible(true); 
 				 }
 			}
@@ -456,11 +456,11 @@ public class UI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 
-				signin swin=new signin();
+				signin swin=new signin(link);
 				swin.setTitle("DictPro-SignIn");
 				swin.setSize(250,400);
 				swin.setLocationRelativeTo(null);
-				swin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				swin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				swin.setVisible(true); 
 			}
 		});
