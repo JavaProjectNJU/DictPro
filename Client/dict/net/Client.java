@@ -24,16 +24,16 @@ public class Client {
 		int card_port = 8005;
 		try {
 			bis = new BufferedInputStream(
-					new FileInputStream("Client/client.conf.properties"));
+					new FileInputStream("Client\\client.conf.properties"));
 			Properties properties = new Properties();
 			properties.load(bis);
 			
 			ip = properties.getProperty("server_ip", "127.0.0.1");
-			System.out.println(ip);
+			System.out.println("the ip is :~~~~~~"+ip);
 			server_port = Integer.valueOf(properties.getProperty("server_port", "8888"));
 			card_port = Integer.valueOf(properties.getProperty("card_port", "8005"));
 		}catch(FileNotFoundException e){
-			
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -45,6 +45,7 @@ public class Client {
 			try {
 				socket = new Socket(ip, server_port);
 				//socket = new Socket("localhost", 8000);
+				System.out.println("hahahah"+ip + " "+server_port);
 				socket.setTcpNoDelay(true);
 				System.out.println("create socket~~~");
 				if(socket != null)

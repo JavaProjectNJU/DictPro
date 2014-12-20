@@ -36,7 +36,7 @@ public class Sever {
 		BufferedInputStream bis;
 		try {
 			bis = new BufferedInputStream(
-					new FileInputStream("Sever/server.conf.properties"));
+					new FileInputStream("Sever\\server.conf.properties"));
 			Properties properties = new Properties();
 			properties.load(bis);
 			port = Integer.valueOf(properties.getProperty("server_port", "8888"));
