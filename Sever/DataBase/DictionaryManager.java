@@ -271,7 +271,7 @@ public class DictionaryManager {
 		return unionWord;
 	}
 	
-	public static boolean hasPraised(String usr,UnionWord uword)
+	public static boolean hasPrased(String usr,UnionWord uword)
 	{
 		boolean change = false;
 		try {
@@ -373,7 +373,7 @@ public class DictionaryManager {
 		UnionWord uword = DictionaryManager.SearchWord("good");
 		DictionaryManager.AddPraise("zhangry", "good", DictionaryManager.BAIDU);
 		DictionaryManager.AddPraise("zhangry", "good", DictionaryManager.BING);
-		DictionaryManager.hasPraised("zhangry",uword);
+		DictionaryManager.hasPrased("zhangry",uword);
 		System.out.println(""+uword.getPariseBaidu()+uword.getPariseBing()+uword.getPariseYoudao());
 		//DictionaryManager.AddPraise("haohao", "insistence", BAIDU);
 	}
