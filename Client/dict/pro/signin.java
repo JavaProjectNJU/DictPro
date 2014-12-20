@@ -116,7 +116,8 @@ public class signin extends JFrame{
 					String emailStr=email.getText();
 					if(uidStr!=null && emailStr!=null){
 						link.register(uidStr, pswStr0, emailStr, issex);
-						JOptionPane.showMessageDialog(null,"Success!", "sign in reminder!", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Success!", "sign in reminder!", JOptionPane.YES_OPTION);
+						dispose();
 					}
 					else
 						JOptionPane.showMessageDialog(null,"fail!", "sign reminder!", JOptionPane.ERROR_MESSAGE);
