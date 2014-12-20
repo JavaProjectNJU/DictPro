@@ -183,47 +183,62 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				// TODO Auto-generated method stub
 				String getString=inputField.getText();
-				if( getString != null){
-					
-					
-					bDArea.removeAll();
-					yDArea.removeAll();
-					bYArea.removeAll();
-					
-					//search getString
-					
-					final UnionWord uWord=link.serach(getString);
-
+				
+				bDArea.removeAll();
+				yDArea.removeAll();
+				bYArea.removeAll();
+				
+				//search getString
+				final UnionWord uWord=link.serach(getString);
+				
+				if(uWord==null){
+					bDArea.setText("The word cannot be found! ");
+					yDArea.setText("The word cannot be found! ");
+					bYArea.setText("The word cannot be found! ");
+				}
+				else{
 					StringBuilder bdsb=new StringBuilder();
-					bdsb.append(" UK :"+uWord.getWordBaidu().getPron_EN_UK());
-					bdsb.append(" US :"+uWord.getWordBaidu().getPron_EN_US()+'\n');
-					for(int i=0;i<uWord.getWordBaidu().getExplain().size();i++){
-						bdsb.append(uWord.getWordBaidu().getExplain().get(i)+'\n');
+					if(uWord.getWordBaidu()!=null){
+						bdsb.append(" UK :"+uWord.getWordBaidu().getPron_EN_UK());
+						bdsb.append(" US :"+uWord.getWordBaidu().getPron_EN_US()+'\n');
+						for(int i=0;i<uWord.getWordBaidu().getExplain().size();i++){
+							bdsb.append(uWord.getWordBaidu().getExplain().get(i)+'\n');
+						}
 					}
-					
+					else{
+						bdsb.append("BaiDu Dict cannot find this word! ");
+					}
 					bDArea.setText(bdsb.toString());
+					
+					
+					StringBuilder ydsb=new StringBuilder();
+					if(uWord.getWordYoudao()!=null){
+						ydsb.append(" UK :"+uWord.getWordYoudao().getPron_EN_UK());
+						ydsb.append(" US :"+uWord.getWordYoudao().getPron_EN_US()+'\n');
+						for(int i=0;i<uWord.getWordYoudao().getExplain().size();i++){
+							ydsb.append(uWord.getWordYoudao().getExplain().get(i)+'\n');
+						}
+					}
+					else{
+						ydsb.append("YouDao Dict cannot find this word! ");
+					}
+				
+					yDArea.setText(ydsb.toString());
 				
 
-					StringBuilder ydsb=new StringBuilder();
-					ydsb.append(" UK :"+uWord.getWordYoudao().getPron_EN_UK());
-					ydsb.append(" US :"+uWord.getWordYoudao().getPron_EN_US()+'\n');
-					for(int i=0;i<uWord.getWordYoudao().getExplain().size();i++){
-						ydsb.append(uWord.getWordYoudao().getExplain().get(i)+'\n');
-					}
-					
-					yDArea.setText(ydsb.toString());
-					
-
 					StringBuilder bysb=new StringBuilder();
-					bysb.append(" UK :"+uWord.getWordBing().getPron_EN_UK());
-					bysb.append(" US :"+uWord.getWordBing().getPron_EN_US()+'\n');
-					for(int i=0;i<uWord.getWordBing().getExplain().size();i++){
-						bysb.append(uWord.getWordBing().getExplain().get(i)+'\n');
+					if(uWord.getWordBing()!=null){
+						bysb.append(" UK :"+uWord.getWordBing().getPron_EN_UK());
+						bysb.append(" US :"+uWord.getWordBing().getPron_EN_US()+'\n');
+						for(int i=0;i<uWord.getWordBing().getExplain().size();i++){
+							bysb.append(uWord.getWordBing().getExplain().get(i)+'\n');
+						}
 					}
-					
+					else{
+						bysb.append("Bing Dict cannot find this word!");
+					}
 					bYArea.setText(bysb.toString());
-	
-				}
+			}
 			}	
 		});
 		
