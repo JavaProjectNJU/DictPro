@@ -129,8 +129,8 @@ public class UI extends JFrame{
 		
 		JPanel bottom=new JPanel();
 		final JLabel userinfoLabel =new JLabel(" ");
-		bottom.add(userinfoLabel,FlowLayout.LEFT);
-		bottom.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		bottom.setLayout(new FlowLayout(FlowLayout.LEFT));
+		bottom.add(userinfoLabel);
 		bottom.add(jchkBD);
 		bottom.add(jchkYD);
 		bottom.add(jchkBY);
