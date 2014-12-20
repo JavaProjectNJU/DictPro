@@ -144,6 +144,7 @@ public class UI extends JFrame{
 		bottom.add(jchkBD);
 		bottom.add(jchkYD);
 		bottom.add(jchkBY);
+		bottom.add(messageButton);
 		
 		headPanel.add(bar,BorderLayout.CENTER);
 		headPanel.add(bottom,BorderLayout.SOUTH);
