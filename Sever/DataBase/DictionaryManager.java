@@ -271,7 +271,7 @@ public class DictionaryManager {
 		return unionWord;
 	}
 	
-	public static boolean hasPrased(String usr,UnionWord uword)
+	public static boolean hasPraised(String usr,UnionWord uword)
 	{
 		boolean change = false;
 		try {
