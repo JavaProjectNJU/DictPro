@@ -463,16 +463,17 @@ public class UI extends JFrame{
 				boolean isadd=false;
 				if(link.isOnline() && uname!=null){
 					isadd=link.addFriend(uname);
+					if(isadd){
+						JOptionPane.showMessageDialog(null,"success! ", "Add friend reminder!", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else{
+						JOptionPane.showMessageDialog(null,"can not be found! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				else{
 					JOptionPane.showMessageDialog(null,"fail! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
 				}
-				if(isadd){
-					JOptionPane.showMessageDialog(null,"success! ", "Add friend reminder!", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else{
-					JOptionPane.showMessageDialog(null,"can not be found! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
-				}
+
 			}
 		});
 		
@@ -485,16 +486,17 @@ public class UI extends JFrame{
 				boolean isadd=false;
 				if(link.isOnline() && uname!=null){
 					isadd=link.addFriend(uname);
+					if(isadd){
+						JOptionPane.showMessageDialog(null,"success! ", "Add friend reminder!", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else{
+						JOptionPane.showMessageDialog(null,"can not be found! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				else{
 					JOptionPane.showMessageDialog(null,"fail! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
 				}
-				if(isadd){
-					JOptionPane.showMessageDialog(null,"success! ", "Add friend reminder!", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else{
-					JOptionPane.showMessageDialog(null,"can not be found! ", "Add friend reminder!", JOptionPane.ERROR_MESSAGE);
-				}
+
 			}
 		});
 	}
