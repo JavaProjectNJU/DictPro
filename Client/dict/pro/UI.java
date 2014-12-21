@@ -110,7 +110,7 @@ public class UI extends JFrame{
 		ydp.add(YDid);
 		ydp.add(YDsend);
 		ydp.add(YDgood);
-		bdp.add(ydGoodLabel);
+		ydp.add(ydGoodLabel);
 		
 		yDJPanel.add(ydp,BorderLayout.SOUTH);		
 	
@@ -121,7 +121,7 @@ public class UI extends JFrame{
 		byp.add(BYid);
 		byp.add(BYsend);
 		byp.add(BYgood);
-		bdp.add(byGoodLabel);
+		byp.add(byGoodLabel);
 		
 		bYJPanel.add(byp,BorderLayout.SOUTH);
 		
@@ -543,7 +543,7 @@ public class UI extends JFrame{
 				
 					
 					if(uWord.getWordBaidu()!=null){
-						if(uWord.isHasPraisedBaidu()){
+						if(!uWord.isHasPraisedBaidu()){
 							 link.addPrise(inputField.getText(), 0);
 							 bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
 							 BDgood.setText("cancel");
@@ -601,7 +601,7 @@ public class UI extends JFrame{
 				
 					
 					if(uWord.getWordYoudao()!=null){
-						if(uWord.isHasPraisedYoudao()){
+						if(!uWord.isHasPraisedYoudao()){
 							 link.addPrise(inputField.getText(), 1);
 							 YDgood.setText("cancel");
 							 ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
@@ -648,7 +648,7 @@ public class UI extends JFrame{
 				
 					
 					if(uWord.getWordBing()!=null){
-						if(uWord.isHasPraisedBing()){
+						if(!uWord.isHasPraisedBing()){
 							 link.addPrise(inputField.getText(), 0);
 							 BYgood.setText("cancel");
 							 byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
