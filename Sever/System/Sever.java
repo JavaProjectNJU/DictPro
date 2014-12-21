@@ -62,6 +62,7 @@ public class Sever {
 		try {
 			ServerSocket serverSocket = new ServerSocket(port);
 			//test();
+			
 			while(true){
 				try {
 					System.out.println("server is running");
