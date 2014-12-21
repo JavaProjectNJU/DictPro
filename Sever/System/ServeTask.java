@@ -153,8 +153,11 @@ public class ServeTask extends Task implements Runnable{
 		Message.OnlineFriend onlineFriend = (Message.OnlineFriend)(msg.data);
 		msg.reply = true;
 		if(user == null || !user.isOn() || !uManager.identityVerify(onlineFriend.uid, onlineFriend.psw)){
+
 			onlineFriend.friendList = null;
+			System.out.println("cant get friend list");
 		}else{
+			System.out.println("then can get friend list");
 			onlineFriend.friendList = user.getFriendOnline();
 		}
 		synchronized(msgBox){
