@@ -99,7 +99,7 @@ class SeverUI extends JFrame {
 	}// public ServerFrame
 
 	public SeverUI() {
-		super("Server of Communication");
+		super("Server Controller");
 		// 创建容器
 		contentPane = this.getContentPane();
 		contentPane.setLayout(new GridBagLayout());

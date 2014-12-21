@@ -7,25 +7,18 @@ import java.util.List;
 /**
 * 线程池
 * 创建线程池，销毁线程池，添加新任务
-* 
 * @author Roy
+* Ref: http://www.infoq.com/cn/articles/java-threadPool/
+* 理解思想后重构
 */
-public class ThreadPool {
-    // private static boolean debug = taskLogger.isInfoEnabled();
-    /* 单例 */
+public class ThreadPool { 
     private static ThreadPool instance = ThreadPool.getInstance();
-
-    public static final int SYSTEM_BUSY_TASK_COUNT = 150;
-    /* 默认池中线程数 */
-    public static int worker_num = 5;
-    /* 已经处理的任务数 */
+    public static final int SYSTEM_BUSY_TASK_COUNT = 150;// 默认池中线程数 
+    public static int worker_num = 5;// 已经处理的任务数 
     private static int taskCounter = 0;
-
     public static boolean systemIsBusy = false;
-
     private static List<Task> taskQueue = Collections
-            .synchronizedList(new LinkedList<Task>());
-    /* 池中的所有线程 */
+            .synchronizedList(new LinkedList<Task>()); // 池中的所有线程 
     public PoolWorker[] workers;
 
     public ThreadPool() {
@@ -50,9 +43,7 @@ public class ThreadPool {
     }
     /**
     * 增加新的任务
-    * 每增加一个新任务，都要唤醒任务队列
-    * @param newTask
-    */
+    * 每增加一个新任务，都要唤醒任务队列*/
     public void addTask(Task newTask) {
         synchronized (taskQueue) {
             newTask.setTaskId(++taskCounter);
@@ -63,8 +54,7 @@ public class ThreadPool {
         }
     }
     /**
-    * 批量增加新任务
-    * @param taskes
+    * 可以批量添加任务
     */
     public void batchAddTask(Task[] taskes) {
         if (taskes == null || taskes.length == 0) {
@@ -83,10 +73,9 @@ public class ThreadPool {
             taskQueue.notifyAll();
         }
     }
-    /**
-    * 线程池信息
-    * @return
-    */
+    /*
+     * 返回线程池信息
+     */
     public String getInfo() {
         StringBuffer sb = new StringBuffer();
         sb.append("\nTask Queue Size:" + taskQueue.size());
@@ -97,7 +86,7 @@ public class ThreadPool {
         return sb.toString();
     }
     /**
-    * 销毁线程池
+    * 摧毁线程池
     */
     public synchronized void destroy() {
         for (int i = 0; i < worker_num; i++) {
@@ -109,14 +98,10 @@ public class ThreadPool {
 
     /**
     * 池中工作线程
-    * 
-    * @author Roy
     */
     private class PoolWorker extends Thread {
-        private int index = -1;
-        /* 该工作线程是否有效 */
-        private boolean isRunning = true;
-        /* 该工作线程是否可以执行新任务 */
+        private int index = -1;// 该工作线程是否有效 
+        private boolean isRunning = true;// 该工作线程是否可以执行新任务 
         private boolean isWaiting = true;
 
         public PoolWorker(int index) {
@@ -131,9 +116,8 @@ public class ThreadPool {
         public boolean isWaiting() {
             return this.isWaiting;
         }
-        /**
+        /*
         * 循环执行任务
-        * 这也许是线程池的关键所在
         */
         public void run() {
             while (isRunning) {
@@ -141,14 +125,12 @@ public class ThreadPool {
                 synchronized (taskQueue) {
                     while (taskQueue.isEmpty()) {
                         try {
-                            /* 任务队列为空，则等待有新任务加入从而被唤醒 */
-                            taskQueue.wait(20);
+                            taskQueue.wait(20);// 任务队列为空，则等待有新任务加入从而被唤醒 
                         } catch (InterruptedException ie) {
                             System.out.println("Task Queue is Empty!");
                         }
                     }
-                    /* 取出任务执行 */
-                    r = (Task) taskQueue.remove(0);
+                    r = (Task) taskQueue.remove(0); // 取出任务执行 
                 }
                 if (r != null) {
                 	isWaiting = false;
