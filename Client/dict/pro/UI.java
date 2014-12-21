@@ -33,7 +33,11 @@ import wordcard.WordCard;
 
 
 public class UI extends JFrame{
-
+	
+	public static int BAIDU = 0;
+	public static int BING = 1;
+	public static int YOUDAO = 2;
+	
 	private ArrayList<Message> msgBox=new ArrayList<Message>();
 	
 	private JList Flist = new JList<UserInfo>(); //flist for online friend
@@ -574,12 +578,12 @@ public class UI extends JFrame{
 					
 					if(uWord.getWordBaidu()!=null){
 						if(!uWord.isHasPraisedBaidu()){
-							 link.addPrise(inputField.getText(), 0);
+							 link.addPrise(inputField.getText(), BAIDU);
 							 bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
 							 BDgood.setText("cancel");
 						}
 						else{
-							 link.delPrise(inputField.getText(), 0);
+							 link.delPrise(inputField.getText(), BAIDU);
 							 bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
 							 BDgood.setText("good");
 						}
@@ -632,12 +636,12 @@ public class UI extends JFrame{
 					
 					if(uWord.getWordYoudao()!=null){
 						if(!uWord.isHasPraisedYoudao()){
-							 link.addPrise(inputField.getText(), 1);
+							 link.addPrise(inputField.getText(), YOUDAO);
 							 YDgood.setText("cancel");
 							 ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
 						}
 						else{
-							 link.delPrise(inputField.getText(), 1);
+							 link.delPrise(inputField.getText(), YOUDAO);
 							 YDgood.setText("good");
 							 ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
 						}
@@ -679,12 +683,12 @@ public class UI extends JFrame{
 					
 					if(uWord.getWordBing()!=null){
 						if(!uWord.isHasPraisedBing()){
-							 link.addPrise(inputField.getText(), 2);
+							 link.addPrise(inputField.getText(), BING);
 							 BYgood.setText("cancel");
 							 byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
 						}
 						else{
-							 link.delPrise(inputField.getText(), 2);
+							 link.delPrise(inputField.getText(), BING);
 							 BYgood.setText("good");
 							 byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
 						}
