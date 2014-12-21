@@ -9,6 +9,7 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
+import javax.swing.border.TitledBorder;
 import javax.swing.event.*;
 import javax.swing.text.Document;
 import javax.xml.ws.handler.MessageContext;
@@ -117,9 +118,13 @@ public class UI extends JFrame{
 		byp.add(BYgood);
 		bYJPanel.add(byp,BorderLayout.SOUTH);
 		
-		JPanel body=new JPanel();
+		final JPanel body=new JPanel();
 		body.setLayout(new GridLayout(3,1));
 // add a sort function
+		
+		bDJPanel.setBorder(new TitledBorder("Baidu"));
+		yDJPanel.setBorder(new TitledBorder("Youdao"));
+		bYJPanel.setBorder(new TitledBorder("Bing"));
 		
 		body.add(bDJPanel);
 		body.add(yDJPanel);
@@ -209,6 +214,63 @@ public class UI extends JFrame{
 					bYArea.setText("The word cannot be found! ");
 				}
 				else{
+					//++++++++++++++++++++++++++++++++++++++++++
+					
+					body.remove(bDJPanel);
+					body.remove(yDJPanel);
+					body.remove(bYJPanel);
+					
+					int bdP=uWord.getPariseBaidu();
+					int ydP=uWord.getPariseYoudao();
+					int byP=uWord.getPariseBing();
+					
+					if(bdP>=ydP && ydP>=byP){
+						if(jchkBD.isSelected())
+							body.add(bDJPanel);
+						if(jchkYD.isSelected())
+							body.add(yDJPanel);
+						if(jchkBY.isSelected())
+							body.add(bYJPanel);
+					}else if(bdP>=byP && byP >=ydP){
+						if(jchkBD.isSelected())
+							body.add(bDJPanel);
+						if(jchkBY.isSelected())
+							body.add(bYJPanel);
+						if(jchkYD.isSelected())
+							body.add(yDJPanel);
+					}else if(ydP>=bdP && bdP>=byP){
+						if(jchkYD.isSelected())
+							body.add(yDJPanel);
+						if(jchkBD.isSelected())
+							body.add(bDJPanel);
+						if(jchkBY.isSelected())
+							body.add(bYJPanel);
+					}else if(ydP>=byP && byP >=bdP){
+						if(jchkYD.isSelected())
+							body.add(yDJPanel);
+						if(jchkBY.isSelected())
+							body.add(bYJPanel);
+						if(jchkBD.isSelected())
+							body.add(bDJPanel);
+					}else if(byP>=bdP && bdP>=ydP){
+						if(jchkBY.isSelected())
+							body.add(bYJPanel);
+						if(jchkBD.isSelected())
+							body.add(bDJPanel);
+						if(jchkYD.isSelected())
+							body.add(yDJPanel);
+					}else if(byP>=ydP && ydP >=bdP){
+						if(jchkBY.isSelected())
+							body.add(bYJPanel);
+						if(jchkYD.isSelected())
+							body.add(yDJPanel);
+						if(jchkBD.isSelected())
+							body.add(bDJPanel);
+					}
+					
+					//++++++++++++++++++++++++++++++++++++++++++
+					
+				
 					StringBuilder bdsb=new StringBuilder();
 					if(uWord.getWordBaidu()!=null){
 						bdsb.append(" UK :"+uWord.getWordBaidu().getPron_EN_UK());
@@ -221,8 +283,7 @@ public class UI extends JFrame{
 						bdsb.append("BaiDu Dict cannot find this word! ");
 					}
 					bDArea.setText(bdsb.toString());
-					
-					
+				
 					StringBuilder ydsb=new StringBuilder();
 					if(uWord.getWordYoudao()!=null){
 						ydsb.append(" UK :"+uWord.getWordYoudao().getPron_EN_UK());
