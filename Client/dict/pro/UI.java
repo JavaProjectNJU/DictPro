@@ -789,16 +789,7 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				
 				Message msg=(Message)messageList.getSelectedValue();
-				synchronized(msgBox){
-					msgBox.remove(msg);
-					DefaultListModel<Message> mb=new DefaultListModel<Message>();
-					for(Message i:msgBox){
-						mb.addElement(i);
-					}
-					messageList.setModel(mb);
-					messageList.repaint();
-					messageButton.setText(msgBox.size()+" Message");
-				}
+
 				
 				if(msg.type==Message.SEND_MESSAGE){
 					//send the message
@@ -817,6 +808,16 @@ public class UI extends JFrame{
 					card.display();
 				}
 				
+				synchronized(msgBox){
+					msgBox.remove(msg);
+					DefaultListModel<Message> mb=new DefaultListModel<Message>();
+					for(Message i:msgBox){
+						mb.addElement(i);
+					}
+					messageList.setModel(mb);
+					messageList.repaint();
+					messageButton.setText(msgBox.size()+" Message");
+				}
 				
 			}
 		});

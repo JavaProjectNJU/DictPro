@@ -94,8 +94,9 @@ public class friendInfo extends JFrame{
 				// TODO Auto-generated method stub
 				if(msgField.getText()!=null && msgField.getText().length()!=0){
 					link.sendText(msgField.getText(), finfo.getAccount());
-					dispose();
+
 				}
+				dispose();
 			}
 		});
 		
@@ -106,8 +107,9 @@ public class friendInfo extends JFrame{
 				// TODO Auto-generated method stub
 				if(msgField.getText()!=null && msgField.getText().length()!=0){
 					link.sendText(msgField.getText(), finfo.getAccount());
-					dispose();
+
 				}
+				dispose();
 			}
 		});
 	}
