@@ -199,6 +199,7 @@ public class UserManager {
 		boolean change = false;
 		synchronized(onlineUser){
 		change = onlineUser.add(user);
+		//user.display();
 		}
 		return change;
 	}
@@ -241,12 +242,22 @@ public class UserManager {
 		return null;
 	}
 	
+	public static UserInfo getOtherOnlineUser(String uid){
+		UserInfo usrinfoInfo = null;
+		for(int i = 0; i < onlineUser.size(); i ++)
+			if(onlineUser.get(i).getAccount().equals(uid))
+			{
+				usrinfoInfo = onlineUser.get(i);
+				break;
+			}
+		return null;
+	}
+	
 	public static void main(String[] args){
-		ArrayList<UserInfo> usrlist = UserManager.getUserList();
-		for(int i = 0; i <usrlist.size();i ++)
-		{
-			System.out.println("");
-			usrlist.get(i).display();
-		}
+		User usr = new User("zhangry","123456");
+		User usr2 = new User("Jam","123456");
+		UserManager.addFriend("zhangry", "Jam");
+		System.out.println(usr2.isFriend("zhangry"));
+		System.out.println(usr.isFriend("Jam"));
 	}
 }

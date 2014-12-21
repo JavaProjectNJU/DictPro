@@ -115,7 +115,7 @@ select* from BaiduPraise;
 Select * from Dictionary;
 insert into USERTABLE(username,password) values('zhangry868','123456');
 
-Select * from usertable where username = 'Jam';
+Select * from usertable;
 
 Select * from friendrelation;
-Select * from bingpraise;
+Select * from wordcard;

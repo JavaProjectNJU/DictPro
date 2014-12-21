@@ -61,6 +61,7 @@ public class User implements Serializable{
 			UserInfo tmpUserInfo = new UserInfo(this);
 			tmpUserInfo.setprot(port);
 			tmpUserInfo.setIpAddr(ip);
+			//tmpUserInfo.display();
 			UserManager.addOnlineUser(tmpUserInfo);
 		}
 		return success;
@@ -71,10 +72,14 @@ public class User implements Serializable{
 		boolean success = false;
 		on = false;
 		success = UserManager.identityVerify(account, pw);
+		System.out.println(success);
 		if(success)
 		{
-			UserInfo tmpUserInfo = new UserInfo(this);
-			UserManager.delOnlineUser(tmpUserInfo);
+			UserInfo tmpUserInfo;
+			ArrayList<UserInfo> uInfos = UserManager.getOnlineUser();
+			for(int i = 0; i < uInfos.size();i ++ )
+				if(uInfos.get(i).getAccount().equals(this.account))
+					UserManager.delOnlineUser(uInfos.get(i));
 		}
 		return success;
 	}
@@ -106,9 +111,11 @@ public class User implements Serializable{
 		boolean success = false;
 		success = UserManager.identityVerify(account, pw);
 		if(success)
+		{	
 			success = UserManager.friendJudge(account, _account);
-		if(!success)
-			success = UserManager.friendJudge(_account, account);
+			if(!success)
+				success = UserManager.friendJudge(_account, account);
+		}
 		return success;
 	}
 	
