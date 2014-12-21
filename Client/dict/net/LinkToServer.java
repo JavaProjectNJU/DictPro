@@ -58,8 +58,8 @@ public class LinkToServer {
 		online.type = Message.IS_ONLINE;
 		Message.IsOnline data = online.new IsOnline();
 		online.data = data;
-		data.uid = uid;
-		data.psw = psw;
+		data.uid = this.uid;
+		data.psw = this.psw;
 		try {
 			
 			objOut.writeObject(online);
@@ -111,8 +111,8 @@ public class LinkToServer {
 		logoutMessage.type = Message.LOGOUT;
 		Message.LogoutMsg data = logoutMessage.new LogoutMsg();
 		logoutMessage.data = data;
-		data.uid = uid;
-		data.psw = psw;
+		data.uid = this.uid;
+		data.psw = this.psw;
 		uid = null;
 		psw = null;
 		try {
@@ -139,8 +139,8 @@ public class LinkToServer {
 		rigisterMsg.type = Message.REGISTER;
 		Message.RegsiterMsg data = rigisterMsg.new RegsiterMsg();
 		rigisterMsg.data = data;
-		data.uid = uid;
-		data.psw = psw;
+		data.uid = this.uid;
+		data.psw = this.psw;
 		data.email = email;
 		data.sex = sex;
 		try {
@@ -169,8 +169,8 @@ public class LinkToServer {
 		changeMsg.type = Message.CHANGE_PSW;
 		Message.ChangePsw data = changeMsg.new ChangePsw();
 		changeMsg.data = data;
-		data.uid = uid;
-		data.oldpsw = psw;
+		data.uid = this.uid;
+		data.oldpsw = this.psw;
 		data.newpsw = newpsw;
 		try {
 			
@@ -223,8 +223,8 @@ public class LinkToServer {
 		addPriseMsg.type = Message.ADD_PRAISE;
 		Message.Add_Praise data = addPriseMsg.new Add_Praise();
 		addPriseMsg.data = data;
-		data.uid = uid;
-		data.psw = psw;
+		data.uid = this.uid;
+		data.psw = this.psw;
 		data.word = word;
 		data.source = type;
 		try {
@@ -250,8 +250,8 @@ public class LinkToServer {
 		delPriseMsg.type = Message.DEL_PRAISE;
 		Message.Del_Praise data = delPriseMsg.new Del_Praise();
 		delPriseMsg.data = data;
-		data.uid = uid;
-		data.psw = psw;
+		data.uid = this.uid;
+		data.psw = this.psw;
 		data.word = word;
 		data.source = type;
 		try {
@@ -277,8 +277,8 @@ public class LinkToServer {
 		addFriendMsg.type = Message.ADD_FRIEND;
 		Message.AddFriend data = addFriendMsg.new AddFriend();
 		addFriendMsg.data = data;
-		data.uid = uid;
-		data.psw = psw;
+		data.uid = this.uid;
+		data.psw = this.psw;
 		data.friend_uid = friendUid;
 		try {
 			
@@ -303,8 +303,8 @@ public class LinkToServer {
 		delFriendMsg.type = Message.DEL_FRIEND;
 		Message.DelFriend data = delFriendMsg.new DelFriend();
 		delFriendMsg.data = data;
-		data.uid = uid;
-		data.psw = psw;
+		data.uid = this.uid;
+		data.psw = this.psw;
 		data.friend_uid = friendUid;
 		try {
 			
@@ -331,7 +331,7 @@ public class LinkToServer {
 		sendTextMsg.data = data;
 		data.uid = this.uid;
 		data.targetuid = tuid;
-		data.psw = psw;
+		data.psw = this.psw;
 		data.dialoge = text;
 		try {
 			
@@ -349,7 +349,7 @@ public class LinkToServer {
 		}
 		return false;
 	}
-	public boolean sendCard(BufferedImage image, String uid){
+	public boolean sendCard(BufferedImage image, String tuid){
 		Message cardMsg = new Message();
 		cardMsg.id = idCreater ++;
 		cardMsg.reply = false;
@@ -357,8 +357,8 @@ public class LinkToServer {
 		Message.Send_Card data = cardMsg.new Send_Card();
 		cardMsg.data = data;
 		data.uid = this.uid;
-		data.psw = psw;
-		data.targetuid = uid;
+		data.psw = this.psw;
+		data.targetuid = tuid;
 		data.card = Message.imageToBytes(image);
 		try {
 			
@@ -403,8 +403,8 @@ public class LinkToServer {
 		onlineMsg.type = Message.UPDATE_FRIEND_ONLINE;
 		Message.OnlineFriend data = onlineMsg.new OnlineFriend();
 		onlineMsg.data = data;
-		data.uid = uid;
-		data.psw = psw;
+		data.uid = this.uid;
+		data.psw = this.psw;
 		data.friendList = null;
 		try {
 			
