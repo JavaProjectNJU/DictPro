@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import DataBase.DictionaryManager;
+import DataBase.User;
 import DataBase.UserManager;
 import net.Message.*;
 
@@ -60,6 +61,7 @@ public class Sever {
 	public void start(){
 		try {
 			ServerSocket serverSocket = new ServerSocket(port);
+			//test();
 			
 			while(true){
 				try {
@@ -88,4 +90,25 @@ public class Sever {
 		}
 	}
 	
+	
+	public void test(){
+		User u1 = new User("jam", "guoruijun");
+		User u2 = new User("hlz", "hlz");
+		u1.login("u1 ip", 1);
+		u2.login("u2 ip", 2);
+		ArrayList<UserInfo> u1f = u1.getFriendOnline();
+		ArrayList<UserInfo> u2f = u2.getFriendOnline();
+		System.out.println("u1 is online?" + u1.isOn());
+		System.out.println("u2 is online?" +u2.isOn());
+		System.out.println("u1 friends");
+		for(UserInfo u:u1f){
+			System.out.println(u.getAccount());
+		}
+		System.out.println("u2 friends");
+		for(UserInfo u:u2f){
+			System.out.println(u.getAccount());
+		}
+	}
 }
+
+
