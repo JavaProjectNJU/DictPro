@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import sun.net.www.content.text.plain;
 import word.UnionWord;
 import DataBase.DictionaryManager;
@@ -265,6 +267,9 @@ public class ServeTask extends Task implements Runnable{
 			
 			System.out.println("card dont save!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}else{//认证成功
+			System.out.println("target id:" + sendCard.targetuid);
+			//ipdata.Ip = uManager.getOtherOnlineUser(sendCard.targetuid).IpAddr;
+			uManager.getOtherOnlineUser(sendCard.targetuid).display();
 			
 			ipdata.Ip = uManager.getOtherOnlineUser(sendCard.targetuid).IpAddr;
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + ipdata.Ip);

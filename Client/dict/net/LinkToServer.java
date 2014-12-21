@@ -9,6 +9,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import net.Message.Message;
 import System.UserInfo;
 import word.UnionWord;
@@ -376,14 +378,15 @@ public class LinkToServer {
 				if(ip == null || ip.length() == 0)
 					return false;
 				else{
-					System.out.println(" send Card : ip "+ ip+"---"+ port);
+					System.out.println(" send Card : ip "+ ip+"---"+ cardPort);
 					Socket cardSocket = new Socket(ip, cardPort);
+					
 					ObjectOutputStream cardStream = new ObjectOutputStream(cardSocket.getOutputStream());
 					data.psw = null;//不能把密码发送出去
 					cardStream.writeObject(cardMsg);
 					cardStream.flush();
 					cardStream.close();
-					socket.close();
+					cardSocket.close();
 					return true;
 				}
 			}
