@@ -130,8 +130,15 @@ public class User implements Serializable{
 		onlineFriend.clear();
 		ArrayList<UserInfo> temp = UserManager.getOnlineUser();
 		for(int i = 0;i < temp.size();i ++)
-			if(temp.get(i).isFriend(this.account))
+		{
+			//System.out.println(temp.get(i).getAccount()+" "+ this.account +" "+ temp.get(i).isFriend(this.account));
+			
+			if(isFriend(temp.get(i).getAccount()))
+			{	
 				onlineFriend.add(temp.get(i));
+				//temp.get(i).display();
+			}
+		}
 	}
 	
 	public ArrayList<UserInfo> getFriendOnline()

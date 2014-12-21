@@ -26,7 +26,7 @@ public class DataBase {
     	conn = dBPool.getConnection();
     	try {
 			if(!conn.isClosed()){
-			    System.out.println("成功连接数据库！");
+			    //System.out.println("成功连接数据库！");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -256,8 +256,11 @@ public class UserManager {
 	public static void main(String[] args){
 		User usr = new User("zhangry","123456");
 		User usr2 = new User("Jam","123456");
+		usr.login("ip1", 1);
+		usr2.login("ip2", 1);
 		UserManager.addFriend("zhangry", "Jam");
 		System.out.println(usr2.isFriend("zhangry"));
-		System.out.println(usr.isFriend("Jam"));
+		System.out.println(usr.getFriendOnline().size());
+		System.out.println(usr2.getFriendOnline().size());
 	}
 }

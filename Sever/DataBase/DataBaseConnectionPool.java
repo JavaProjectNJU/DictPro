@@ -90,7 +90,7 @@ public class DataBaseConnectionPool
 		if(con != null)
 		{
 			this.inUsed ++;
-			System.out.println("得到　" + this.name + "　的连接，现有" + inUsed + "个连接在使用!");
+			//System.out.println("得到　" + this.name + "　的连接，现有" + inUsed + "个连接在使用!");
 		}
 		return con;
 	}
