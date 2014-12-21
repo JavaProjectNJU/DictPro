@@ -36,6 +36,7 @@ public class RefreshList implements Runnable {
 					System.out.println("no friend online");
 				}
 				list.setModel(dlist);//更新列表中的元素
+				list.repaint();
 			}else{
 				try {
 					Thread.sleep(5000);
