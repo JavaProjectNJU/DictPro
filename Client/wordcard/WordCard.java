@@ -86,7 +86,7 @@ public class WordCard {
 				g.drawString(word.getExplain().get(i), 120, height += 20);
 			}
 			
-			g.drawString(uid1 +" 发给  " + uid2, 350, 50);
+			g.drawString(uid1 +" 发给  " + uid2, 450, 50);
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -101,6 +101,7 @@ public class WordCard {
 	{
 		JFrame frame = new ImageViewerFrame(buffImage,srcWidth, srcHeight);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 	}
 

@@ -41,8 +41,8 @@ public class ListenCard implements Runnable{
 				ReceiveCard reveive = new ReceiveCard(newCard, msgButton, msgList, msgBox);
 				Thread t = new Thread(reveive);
 				t.start();
-				JOptionPane.showMessageDialog(null,
-					       "开始接受", "系统信息", JOptionPane.ERROR_MESSAGE);
+				//JOptionPane.showMessageDialog(null,
+				//	       "开始接受", "系统信息", JOptionPane.ERROR_MESSAGE);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
