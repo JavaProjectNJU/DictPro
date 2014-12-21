@@ -92,7 +92,7 @@ public class friendInfo extends JFrame{
 				msgPanel.add(new JLabel(" To: "+ finfo.getAccount()),FlowLayout.LEFT);
 				
 				msgFrame.setTitle("Message");
-				msgFrame.setSize(200,100);
+				msgFrame.setSize(400,200);
 				msgFrame.setLocationRelativeTo(null);
 				msgFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				msgFrame.setVisible(true);
