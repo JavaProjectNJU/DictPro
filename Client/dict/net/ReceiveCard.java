@@ -22,7 +22,7 @@ public class ReceiveCard implements Runnable{
 	private JButton msgButton;
 	private JList msgList;
 	private ArrayList<Message> msgBox;
-	public ReceiveCard(Socket socket, JButton mshButton, JList msgList, ArrayList<Message> msgBox){
+	public ReceiveCard(Socket socket, JButton msgButton, JList msgList, ArrayList<Message> msgBox){
 		this.socket = socket;
 		this.msgButton = msgButton;
 		this.msgList = msgList;
