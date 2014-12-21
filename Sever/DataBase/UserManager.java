@@ -284,9 +284,7 @@ public class UserManager {
 		usr2.login("ip2", 1);
 		usr3.login("ip3", 1);
 		usr.addFriend("Haohao");
-		for(int i = 0; i < usr.getFriendOnline().size(); i++)
-			usr.getFriendOnline().get(i).display();
-		System.out.println(usr.getFriendOnline().size());
-		System.out.println(usr.getFriendOnline().size());
+		UserInfo usrinfo = UserManager.getOtherOnlineUser("zhangry");
+		usrinfo.display();
 	}
 }
