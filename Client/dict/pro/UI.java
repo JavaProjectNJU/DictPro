@@ -33,10 +33,6 @@ import System.UserInfo;
 import word.UnionWord;
 import wordcard.WordCard;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
 
 public class UI extends JFrame{
 	
@@ -831,7 +827,7 @@ public class UI extends JFrame{
 	
 	}
     
-	public static void main(String[] args) throws IOException, URISyntaxException{
+	public static void main(String[] args){
 		
 
 		 
