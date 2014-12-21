@@ -412,8 +412,11 @@ public class LinkToServer {
 			objOut.flush();
 			
 			Message reply = waitReply(onlineMsg.id);
-			if(reply == null)
+			if(reply == null){
+				System.out.println("refrehs friend reply is null");
 				return null;
+			}
+		//	System.out.println("refresh friendlist success" +((Message.OnlineFriend)(reply.data)).friendList.get(0));
 			return	((Message.OnlineFriend)(reply.data)).friendList;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
