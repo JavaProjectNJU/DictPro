@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,9 +35,14 @@ public class Client {
 			System.out.println("the ip is :~~~~~~"+ip);
 			server_port = Integer.valueOf(properties.getProperty("server_port", "8888"));
 			card_port = Integer.valueOf(properties.getProperty("card_port", "8005"));
+			 URI uri = new java.net.URI(properties.getProperty("welcome_path"));
+			 java.awt.Desktop.getDesktop().browse(uri);
 		}catch(FileNotFoundException e){
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
