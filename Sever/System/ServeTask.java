@@ -255,7 +255,7 @@ public class ServeTask extends Task implements Runnable{
 		ipReply.type = Message.IP_DATA;
 		Message.IpData ipdata = ipReply.new IpData();
 		ipReply.data = ipdata;
-		if(user == null || !user.isOn() 
+		if(user == null || !user.isOn() || !uManager.identityVerify(sendCard.uid, sendCard.psw)
 				|| !dictManager.saveWordCard(sendCard.uid, sendCard.targetuid, sendCard.card)){
 			ipdata.Ip = null;
 			System.out.println("card user is null?"+(user == null));
