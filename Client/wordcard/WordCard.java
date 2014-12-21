@@ -51,8 +51,8 @@ public class WordCard {
 	static final Font explain = new Font("微软雅黑",Font.BOLD,16);
 	public WordCard(byte[] image){
 		buffImage = Message.bytesToImage(image);
-		srcWidth = buffImage.getWidth();
-		srcHeight = buffImage.getHeight();
+		srcWidth = buffImage.getHeight();
+		srcHeight = buffImage.getWidth();
 	}
 	public WordCard(Word word,String uid1,String uid2){
 		// TODO Auto-generated method stub
