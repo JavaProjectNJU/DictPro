@@ -333,7 +333,7 @@ public class DictionaryManager {
 			JOptionPane.showMessageDialog(null,
 				       "未知的错误，存储单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
 		}
-		return change;
+		return true;
 	}
 	
 	public static boolean saveUserImage(String user,byte[] img){
