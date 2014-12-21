@@ -221,12 +221,13 @@ class SeverUI extends JFrame {
 				ArrayList<UserInfo> temp = UserManager.getOnlineUser();
 				for(int i = 0;i < temp.size();i ++)
 				{
+					temp.get(i).display();
 					//System.out.println(temp.get(i).getAccount()+" "+ this.account +" "+ temp.get(i).isFriend(this.account));
-					
+					System.out.println("Hello");
 					if(UserManager.friendJudge("zhangry", temp.get(i).getAccount()))
 					{	
 						onlineFriend.add(temp.get(i));
-						temp.get(i).display();
+						System.out.println("Is Friend!!!");
 					}
 				}
 			}// public void actionPerformed(ActionEvent e)
