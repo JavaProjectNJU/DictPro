@@ -259,7 +259,7 @@ public class ServeTask extends Task implements Runnable{
 			System.out.println("card dont save!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}else{//认证成功
 			
-			ipdata.Ip = uManager.getUserInfo(sendCard.targetuid).IpAddr;
+			ipdata.Ip = uManager.getOtherOnlineUser(sendCard.targetuid).IpAddr;
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + ipdata.Ip);
 		}
 					
