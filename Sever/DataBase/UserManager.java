@@ -26,6 +26,7 @@ public class UserManager {
 					+account+"','"+Pw+"');";
 			change = statement.execute(sql);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("User Exists!");
 		}
 		finally{
@@ -34,22 +35,44 @@ public class UserManager {
 		}
 	}
 	
+	public static boolean createUser(String account,String Pw,String email){
+		boolean change = false;
+		Connection conn = null;
+		try {
+			conn = DataBase.connect();
+			Statement statement = conn.createStatement();
+			String sql = "insert into USERTABLE(username,password,email) values('"
+					+account+"','"+Pw+"','"+email+"');";
+			change = statement.execute(sql);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,
+				       "好友关系存在", "系统信息", JOptionPane.ERROR_MESSAGE);
+		}
+		finally{
+			DataBase.close(conn);
+		}
+		return change;
+	}
+	
 	public static boolean addFriend(String account1, String account2){
 		boolean change = false;
 		Connection conn = null;
 		try {
 			conn = DataBase.connect();
 			Statement statement = conn.createStatement();
-			String sql = "select * from UserTable where username ='"+ account2 +"';";
+			String sql = null;/*"select * from UserTable where username ='"+ account2 +"';";
 			ResultSet result = statement.executeQuery(sql);
 			if(!result.next())
 			{
+				System.out.println("User not exists");
 				return false;
-			}
+			}*/
 			sql = "insert into FriendRelation(username1,username2) values('"
 					+account1+"','"+account2+"');";
-			change = statement.execute(sql);
+			change = true;
+			statement.execute(sql);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("FriendShip Exists!");
 		}
 		finally{
@@ -256,11 +279,14 @@ public class UserManager {
 	public static void main(String[] args){
 		User usr = new User("zhangry","123456");
 		User usr2 = new User("Jam","123456");
+		User usr3 = new User("Haohao","123456");
 		usr.login("ip1", 1);
 		usr2.login("ip2", 1);
-		UserManager.addFriend("zhangry", "Jam");
-		System.out.println(usr2.isFriend("zhangry"));
+		usr3.login("ip3", 1);
+		usr.addFriend("Haohao");
+		for(int i = 0; i < usr.getFriendOnline().size(); i++)
+			usr.getFriendOnline().get(i).display();
 		System.out.println(usr.getFriendOnline().size());
-		System.out.println(usr2.getFriendOnline().size());
+		System.out.println(usr.getFriendOnline().size());
 	}
 }

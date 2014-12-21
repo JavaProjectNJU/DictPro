@@ -41,7 +41,7 @@ public class User implements Serializable{
 		// TODO Auto-generated constructor stub
 		nickname = usr.nickname;
 		account = usr.account;
-		pw = null;
+		pw = usr.pw;
 		onlineFriend = usr.onlineFriend;
 		on = usr.on;
 		sex = usr.sex;
@@ -87,13 +87,16 @@ public class User implements Serializable{
 	public boolean addFriend(String _account)
 	{
 		//A more complex Implement Needed!!!!!!!!!!!!!!!!!!!!!!!
-		boolean success = false;
-		success = UserManager.friendJudge(this.account, _account) | UserManager.friendJudge(_account, this.account);
+		boolean success,success1 = false,success2 = false;
+		success = UserManager.friendJudge(this.account, _account);
 		if(!success)
-		{
-			success = UserManager.addFriend(this.account, _account);
+		{			
+			System.out.println("OK1");
+			success1 = UserManager.addFriend(this.account, _account);
+			System.out.println("OK2");
+			success2 = UserManager.addFriend(_account,this.account);
 		}
-		return success;
+		return success1 & success2;
 	}
 	
 	public boolean delFriend(String _account)
@@ -102,20 +105,15 @@ public class User implements Serializable{
 		boolean success = false;
 		success = UserManager.friendJudge(this.account, _account);
 		if(success)
-			success = UserManager.delFriend(this.account, _account);
+			success = UserManager.delFriend(this.account, _account) && UserManager.delFriend(_account,this.account);
 		return success;
 	}
 	
 	public boolean isFriend(String _account)
 	{
 		boolean success = false;
-		success = UserManager.identityVerify(account, pw);
-		if(success)
-		{	
-			success = UserManager.friendJudge(account, _account);
-			if(!success)
-				success = UserManager.friendJudge(_account, account);
-		}
+		//success = UserManager.identityVerify(account, pw);
+		success = UserManager.friendJudge(account, _account);
 		return success;
 	}
 	

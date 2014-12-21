@@ -13,6 +13,7 @@ logindate blob
 
 insert into USERTABLE(username,password,nickname,email,sex) values('zhangry','123456','Roy','zhangry868@126.com',true);
 insert into USERTABLE(username,password,nickname,email,sex) values('Haohao','123456','Haohao','Wuhao1994@126.com',true);
+insert into USERTABLE(username,password,nickname,email,sex) values('Jam','123456','Haohao','Jam@126.com',true);
 
 
 CREATE TABLE FriendRelation(
