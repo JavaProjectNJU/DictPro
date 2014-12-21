@@ -188,7 +188,7 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				if(Flist.getSelectedValue()==null) return;
 				//====
-				String selectid = (String)Flist.getSelectedValue();
+				String selectid = Flist.getSelectedValue().toString();
 				BDid.setText(selectid);
 				YDid.setText(selectid);
 				BYid.setText(selectid);
