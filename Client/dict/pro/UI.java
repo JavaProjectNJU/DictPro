@@ -90,6 +90,8 @@ public class UI extends JFrame{
 	private JLabel ydGoodLabel=new JLabel("Great number : ");
 	private JLabel byGoodLabel=new JLabel("Great number : ");
 	
+	//Font labelFont=new Font("", style, size)
+	
 	public UI(){
 	
 		bDJPanel.setLayout(new BorderLayout(5,0));
