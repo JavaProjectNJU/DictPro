@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Blob;
+import java.util.ArrayList;
 
 import javax.lang.model.type.UnionType;
 import javax.smartcardio.CardTerminals;
@@ -319,7 +320,7 @@ public class DictionaryManager {
 			statement.setString(1, sender);
 			statement.setString(2, receiver);
 			statement.setObject(3, img);
-			statement.execute();
+			change = statement.execute();
 			DataBase.close(conn);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,
@@ -335,7 +336,7 @@ public class DictionaryManager {
 			Connection conn = DataBase.connect();
 			statement = conn.prepareStatement("update Dictionary set UserImg = (?) where user = '"+user+"';");
 			statement.setObject(1, img);
-			statement.execute();
+			change = statement.execute();
 			DataBase.close(conn);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,
@@ -344,23 +345,44 @@ public class DictionaryManager {
 		return change;
 	}
 	
-	public static byte[] getWordCard(String uid){
+	public static ArrayList<byte[]> getWordCard(String uid){
 		boolean change = false;
-		byte[] card = null;
+		ArrayList<byte[]> CardSet = new ArrayList<byte[]>();
 		try {
 			PreparedStatement statement;
 			Connection conn = DataBase.connect();
-			statement = conn.prepareStatement("insert into WordCard(sender,receiver,image) values((?),(?),(?))");
-			//statement.setString(1, sender);
-			//statement.setString(2, receiver);
-			//statement.setObject(3, img);
-			statement.execute();
+			statement = conn.prepareStatement("select * from WordCard where receiver = (?);");
+			statement.setString(1, uid);
+			ResultSet result = statement.executeQuery();
+			while(result.next())
+			{
+				Blob inCard = result.getBlob("Baidu");
+				byte[] buff = null;
+				//System.out.println(inblobBaidu);
+				if(inCard != null)
+				{
+					InputStream isCard = inCard.getBinaryStream();
+					BufferedInputStream inputCard = new BufferedInputStream(isCard);
+				
+					buff = new byte[(int)inCard.length()];
+					try {
+						while(-1 != (inputCard.read(buff, 0, buff.length)));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					CardSet.add(buff);
+					//ObjectInputStream inCard = new ObjectInputStream(new ByteArrayInputStream(buff));
+					//Word baidu = (Word)inCard.readObject();
+					
+				}
+			}
 			DataBase.close(conn);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,
 				       "未知的错误，取出单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
 		}
-		return card;
+		return CardSet;
 	}
 	
 	public static void main(String[] args){
