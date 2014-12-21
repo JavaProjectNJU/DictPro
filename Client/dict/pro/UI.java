@@ -2,12 +2,13 @@ package dict.pro;
 
 import dict.net.*;
 
-
 import javax.swing.*;
 
 import java.awt.event.*;
 import java.awt.*;
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import javax.swing.border.TitledBorder;
@@ -31,6 +32,10 @@ import com.mysql.jdbc.log.Jdk14Logger;
 import System.UserInfo;
 import word.UnionWord;
 import wordcard.WordCard;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 
 public class UI extends JFrame{
@@ -789,7 +794,9 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				
 				Message msg=(Message)messageList.getSelectedValue();
-
+				
+				if(msg==null)
+					return;
 				
 				if(msg.type==Message.SEND_MESSAGE){
 					//send the message
@@ -824,8 +831,10 @@ public class UI extends JFrame{
 	
 	}
     
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException, URISyntaxException{
 		
+
+		 
 		try {
             UIManager.setLookAndFeel(new SubstanceLookAndFeel());
             JFrame.setDefaultLookAndFeelDecorated(true);
