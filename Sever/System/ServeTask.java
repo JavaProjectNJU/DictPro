@@ -249,7 +249,9 @@ public class ServeTask extends Task implements Runnable{
 				|| !dictManager.saveWordCard(sendCard.uid, sendCard.targetuid, sendCard.card)){
 			ipdata.Ip = null;
 		}else{//认证成功
+			
 			ipdata.Ip = uManager.getUserInfo(sendCard.targetuid).IpAddr;
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + ipdata.Ip);
 		}
 					
 		synchronized(msgBox){

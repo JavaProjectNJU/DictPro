@@ -432,8 +432,8 @@ public class UI extends JFrame{
 							 JOptionPane.showMessageDialog(null,"Can't get the meaning of word from youdao!", "Error", JOptionPane.ERROR_MESSAGE);
 							 return;
 						 }
-						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordBaidu(), link.getDetail().getAccount(), BDid.getText());
-						 success = link.sendCard(wcCard.getBuffImage(), BDid.getText());
+						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordYoudao(),link.getDetail().getAccount(), YDid.getText());
+						 success = link.sendCard(wcCard.getBuffImage(), YDid.getText());
 						 if(success)
 							 JOptionPane.showMessageDialog(null,"Send Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
 						 else {
@@ -474,8 +474,8 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				 if(link.isOnline() == true){
 					 //send
-					 if(inputField.getText()!=null && YDid.getText()!=null){
-						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordBing(), link.getDetail().getNickname(), BDid.getText());
+					 if(inputField.getText()!=null && BYid.getText()!=null){
+						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordBing(), link.getDetail().getAccount(), BYid.getText());
 						 link.sendCard(wcCard.getBuffImage(), BYid.getText());
 					 }
 				 }
