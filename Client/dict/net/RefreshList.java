@@ -30,6 +30,7 @@ public class RefreshList implements Runnable {
 					continue;
 				for(UserInfo info:online){
 					dlist.addElement(info);
+					System.out.println("refresh friend list : friend:" + info.getAccount());
 				}
 				list.setModel(dlist);//更新列表中的元素
 			}else{
