@@ -11,7 +11,7 @@ import word.Word;
 
 public class RefreshList implements Runnable {
 
-	private JList list;
+	private JList<UserInfo> list;
 	private LinkToServer link;
 	public RefreshList(final LinkToServer link, JList list){
 		this.list = list;
