@@ -202,8 +202,6 @@ public class UI extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				// TODO Auto-generated method stub
 				String getString=inputField.getText();
 				if(getString.length() == 0)
 					return;
@@ -221,6 +219,7 @@ public class UI extends JFrame{
 					bYArea.setText("The word cannot be found! ");
 				}
 				else{
+					
 					//++++++++++++++++++++++++++++++++++++++++++
 					
 					body.remove(bDJPanel);
@@ -277,8 +276,6 @@ public class UI extends JFrame{
 					
 					//++++++++++++++++++++++++++++++++++++++++++
 					
-					
-				
 					StringBuilder bdsb=new StringBuilder();
 					if(uWord.getWordBaidu()!=null){
 						bdsb.append(" UK :"+uWord.getWordBaidu().getPron_EN_UK());
@@ -292,6 +289,11 @@ public class UI extends JFrame{
 					}
 					bDArea.setText(bdsb.toString());
 					bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
+					if(uWord.isHasPraisedBaidu())
+						BDgood.setText("cancel");
+					else{
+						BDgood.setText("good");
+					}
 					
 					StringBuilder ydsb=new StringBuilder();
 					if(uWord.getWordYoudao()!=null){
@@ -307,8 +309,11 @@ public class UI extends JFrame{
 				
 					yDArea.setText(ydsb.toString());
 					ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
-					
-					
+					if(uWord.isHasPraisedYoudao())
+						YDgood.setText("cancel");
+					else{
+						YDgood.setText("good");
+					}
 
 					StringBuilder bysb=new StringBuilder();
 					if(uWord.getWordBing()!=null){
@@ -323,6 +328,11 @@ public class UI extends JFrame{
 					}
 					bYArea.setText(bysb.toString());
 					byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
+					if(uWord.isHasPraisedBing())
+						BYgood.setText("cancel");
+					else{
+						BYgood.setText("good");
+					}
 				}
 			}	
 		});
@@ -422,6 +432,11 @@ public class UI extends JFrame{
 						}
 						bDArea.setText(bdsb.toString());
 						bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
+						if(uWord.isHasPraisedBaidu())
+							BDgood.setText("cancel");
+						else{
+							BDgood.setText("good");
+						}
 						
 						StringBuilder ydsb=new StringBuilder();
 						if(uWord.getWordYoudao()!=null){
@@ -437,6 +452,11 @@ public class UI extends JFrame{
 					
 						yDArea.setText(ydsb.toString());
 						ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
+						if(uWord.isHasPraisedYoudao())
+							YDgood.setText("cancel");
+						else{
+							YDgood.setText("good");
+						}
 
 						StringBuilder bysb=new StringBuilder();
 						if(uWord.getWordBing()!=null){
@@ -451,6 +471,11 @@ public class UI extends JFrame{
 						}
 						bYArea.setText(bysb.toString());
 						byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
+						if(uWord.isHasPraisedBing())
+							BYgood.setText("cancel");
+						else{
+							BYgood.setText("good");
+						}
 					}
 			}
 		});
