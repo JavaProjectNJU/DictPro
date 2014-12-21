@@ -159,6 +159,8 @@ public class ServeTask extends Task implements Runnable{
 		}else{
 			System.out.println("then can get friend list");
 			onlineFriend.friendList = user.getFriendOnline();
+			for(UserInfo i :user.getFriendOnline())
+				i.display();
 		}
 		synchronized(msgBox){
 			msgBox.add(msg);

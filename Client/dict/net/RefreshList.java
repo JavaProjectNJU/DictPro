@@ -31,7 +31,8 @@ public class RefreshList implements Runnable {
 				if(online != null){
 					for(UserInfo info:online){
 						dlist.addElement(info);
-						System.out.println("refresh friend list : friend:" + info.getAccount());
+						info.display();
+						//System.out.println("refresh friend list : friend:" + info.getAccount());
 					}
 				}else{
 					System.out.println("no friend online");
