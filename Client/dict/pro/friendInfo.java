@@ -21,6 +21,8 @@ public class friendInfo extends JFrame{
 	private JButton msgSend=new JButton("Send");
 	private JTextField msgField=new JTextField(20);
 	
+	
+	
 	public friendInfo(final LinkToServer link,final UserInfo finfo){
 		JLabel uidLabel=new JLabel("姓名 : "+finfo.getAccount());
 		JLabel emailLabel=new JLabel("邮箱 : "+finfo.getEmail());
@@ -45,6 +47,8 @@ public class friendInfo extends JFrame{
 		fPanel.add(emailLabel,FlowLayout.LEFT);
 		fPanel.add(sexLabel,FlowLayout.LEFT);
 		fPanel.add(buttonPanel,FlowLayout.LEFT);
+		
+		this.add(fPanel);
 		//+++++++++++++++++++++++++++++++++++++++++
 		//JPanel 
 		delFriend.addActionListener(new ActionListener() {
