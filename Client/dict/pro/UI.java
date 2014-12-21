@@ -1,7 +1,7 @@
 package dict.pro;
 
 import dict.net.*;
-import javafx.scene.layout.Border;
+
 
 import javax.swing.*;
 
