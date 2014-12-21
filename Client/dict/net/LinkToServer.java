@@ -322,14 +322,15 @@ public class LinkToServer {
 		}
 		return false;
 	}
-	public boolean sendText(String text){
+	public boolean sendText(String text, String tuid){
 		Message sendTextMsg = new Message();
 		sendTextMsg.id = idCreater ++;
 		sendTextMsg.reply = false;
 		sendTextMsg.type = Message.SEND_MESSAGE;
 		Message.Send_Message data = sendTextMsg.new Send_Message();
 		sendTextMsg.data = data;
-		data.uid = uid;
+		data.uid = this.uid;
+		data.targetuid = tuid;
 		data.psw = psw;
 		data.dialoge = text;
 		try {

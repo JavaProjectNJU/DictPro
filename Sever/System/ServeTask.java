@@ -226,7 +226,8 @@ public class ServeTask extends Task implements Runnable{
 		Message.ReplyData data = reply.new ReplyData();
 		
 		reply.data = data;
-		if(user == null || !user.isOn() || !uManager.identityVerify(addFriend.uid, addFriend.psw) || !user.addFriend(addFriend.friend_uid)){
+		if(user == null || !user.isOn() || !uManager.identityVerify(addFriend.uid, addFriend.psw) 
+				|| !user.addFriend(addFriend.friend_uid)){
 			data.success = false;
 		}else{
 			data.success = true;
@@ -241,28 +242,18 @@ public class ServeTask extends Task implements Runnable{
 		Message ipReply = new Message();
 		ipReply.id = msg.id;
 		ipReply.reply = true;
-		if(dictManager.saveWordCard(sendCard.uid, sendCard.targetuid, sendCard.card)){
-			ipReply.type = Message.IP_DATA;
-			Message.IpData ipdata = ipReply.new IpData();
-			ipReply.data = ipdata;
-			if(user == null || !user.isOn() || !uManager.identityVerify(sendCard.uid, sendCard.psw)){
-				ipdata.Ip = null;
-			}else{//认证成功
-				ipdata.Ip = uManager.getUserInfo(sendCard.targetuid).IpAddr;
-			}
-			//save card
-		
-			/*
-			 * 
-			 * 
-			 * 
-			 * 
-			 * 
-			 */
-		
+		ipReply.type = Message.IP_DATA;
+		Message.IpData ipdata = ipReply.new IpData();
+		ipReply.data = ipdata;
+		if(user == null || !user.isOn() || !uManager.identityVerify(sendCard.uid, sendCard.psw) 
+				|| !dictManager.saveWordCard(sendCard.uid, sendCard.targetuid, sendCard.card)){
+			ipdata.Ip = null;
+		}else{//认证成功
+			ipdata.Ip = uManager.getUserInfo(sendCard.targetuid).IpAddr;
+		}
+					
 		synchronized(msgBox){
 			msgBox.add(ipReply);
-		}
 		}
 	}
 	private void sendMsg(Message msg) {
