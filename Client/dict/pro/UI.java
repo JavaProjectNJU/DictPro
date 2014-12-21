@@ -170,7 +170,7 @@ public class UI extends JFrame{
 		addFriendPanel.add(addFriendField);
 		addFriendPanel.add(addFriendButton);
 		
-		JPanel dictPro=new JPanel();
+		final JPanel dictPro=new JPanel();
 		dictPro.setLayout(new BorderLayout());
 		
 		Flist.setFixedCellWidth(150);
@@ -346,6 +346,7 @@ public class UI extends JFrame{
 					}
 				}
 				body.repaint();
+				dictPro.repaint();
 			}	
 		});
 		
@@ -493,6 +494,7 @@ public class UI extends JFrame{
 					}
 				}
 				body.repaint();
+				dictPro.repaint();
 			}
 		});
 		
@@ -785,7 +787,19 @@ public class UI extends JFrame{
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				// TODO Auto-generated method stub
+				
 				Message msg=(Message)messageList.getSelectedValue();
+				synchronized(msgBox){
+					msgBox.remove(msg);
+					DefaultListModel<Message> mb=new DefaultListModel<Message>();
+					for(Message i:msgBox){
+						mb.addElement(i);
+					}
+					messageList.setModel(mb);
+					messageList.repaint();
+					messageButton.setText(msgBox.size()+" Message");
+				}
+				
 				if(msg.type==Message.SEND_MESSAGE){
 					//send the message
 					ReplyFrame msgFrame=new ReplyFrame(link,msg);
@@ -803,9 +817,7 @@ public class UI extends JFrame{
 					card.display();
 				}
 				
-				synchronized(msgBox){
-					msgBox.remove(msg);
-				}
+				
 			}
 		});
 	
