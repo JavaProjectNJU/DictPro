@@ -674,12 +674,12 @@ public class UI extends JFrame{
 					
 					if(uWord.getWordBing()!=null){
 						if(!uWord.isHasPraisedBing()){
-							 link.addPrise(inputField.getText(), 0);
+							 link.addPrise(inputField.getText(), 2);
 							 BYgood.setText("cancel");
 							 byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
 						}
 						else{
-							 link.delPrise(inputField.getText(), 0);
+							 link.delPrise(inputField.getText(), 2);
 							 BYgood.setText("good");
 							 byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
 						}
