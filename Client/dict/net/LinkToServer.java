@@ -380,8 +380,7 @@ public class LinkToServer {
 				else{
 					System.out.println(" send Card : ip "+ ip+"---"+ cardPort);
 					Socket cardSocket = new Socket(ip, cardPort);
-					JOptionPane.showMessageDialog(null,
-						       "连接建立", "系统信息", JOptionPane.ERROR_MESSAGE);
+					
 					ObjectOutputStream cardStream = new ObjectOutputStream(cardSocket.getOutputStream());
 					data.psw = null;//不能把密码发送出去
 					cardStream.writeObject(cardMsg);
