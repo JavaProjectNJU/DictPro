@@ -24,13 +24,16 @@ public class RefreshList implements Runnable {
 			if(link.isOnline()){
 				ArrayList<UserInfo> online = link.getOnlineFriend();
 				//找到了新的单词列表,那么更新list中的单词
+			
 				DefaultListModel<UserInfo> dlist = new DefaultListModel<UserInfo>();
 				dlist.removeAllElements();
-				if(online == null)
-					continue;
-				for(UserInfo info:online){
-					dlist.addElement(info);
-					System.out.println("refresh friend list : friend:" + info.getAccount());
+				if(online != null){
+					for(UserInfo info:online){
+						dlist.addElement(info);
+						System.out.println("refresh friend list : friend:" + info.getAccount());
+					}
+				}else{
+					System.out.println("no friend online");
 				}
 				list.setModel(dlist);//更新列表中的元素
 			}else{

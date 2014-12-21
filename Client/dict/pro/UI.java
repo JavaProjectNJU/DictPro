@@ -340,6 +340,63 @@ public class UI extends JFrame{
 						bYArea.setText("The word cannot be found! ");
 					}
 					else{
+						
+						//++++++++++++++++++++++++++++++++++++++++++
+						
+						body.remove(bDJPanel);
+						body.remove(yDJPanel);
+						body.remove(bYJPanel);
+						
+						int bdP=uWord.getPariseBaidu();
+						int ydP=uWord.getPariseYoudao();
+						int byP=uWord.getPariseBing();
+						
+						if(bdP>=ydP && ydP>=byP){
+							if(jchkBD.isSelected())
+								body.add(bDJPanel);
+							if(jchkYD.isSelected())
+								body.add(yDJPanel);
+							if(jchkBY.isSelected())
+								body.add(bYJPanel);
+						}else if(bdP>=byP && byP >=ydP){
+							if(jchkBD.isSelected())
+								body.add(bDJPanel);
+							if(jchkBY.isSelected())
+								body.add(bYJPanel);
+							if(jchkYD.isSelected())
+								body.add(yDJPanel);
+						}else if(ydP>=bdP && bdP>=byP){
+							if(jchkYD.isSelected())
+								body.add(yDJPanel);
+							if(jchkBD.isSelected())
+								body.add(bDJPanel);
+							if(jchkBY.isSelected())
+								body.add(bYJPanel);
+						}else if(ydP>=byP && byP >=bdP){
+							if(jchkYD.isSelected())
+								body.add(yDJPanel);
+							if(jchkBY.isSelected())
+								body.add(bYJPanel);
+							if(jchkBD.isSelected())
+								body.add(bDJPanel);
+						}else if(byP>=bdP && bdP>=ydP){
+							if(jchkBY.isSelected())
+								body.add(bYJPanel);
+							if(jchkBD.isSelected())
+								body.add(bDJPanel);
+							if(jchkYD.isSelected())
+								body.add(yDJPanel);
+						}else if(byP>=ydP && ydP >=bdP){
+							if(jchkBY.isSelected())
+								body.add(bYJPanel);
+							if(jchkYD.isSelected())
+								body.add(yDJPanel);
+							if(jchkBD.isSelected())
+								body.add(bDJPanel);
+						}
+						
+						//++++++++++++++++++++++++++++++++++++++++++
+						
 						StringBuilder bdsb=new StringBuilder();
 						if(uWord.getWordBaidu()!=null){
 							bdsb.append(" UK :"+uWord.getWordBaidu().getPron_EN_UK());
@@ -459,23 +516,30 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(link.isOnline()){
-					 //give good comment
-					 if(inputField.getText().length() == 0)
-					 {
-						 return;
-					 }
-					 if(BDgood.getText().equals("good")){
-						 link.addPrise(inputField.getText(), 0);
-						 BDgood.setText("cancel");
-					 }
-					 else{
-						 link.delPrise(inputField.getText(), 0);
-						 BDgood.setText("good");
-					 }
+			
+				if(link.isOnline()){
+					String getString=inputField.getText();
+				
+					if(getString==null || getString.length() == 0)
+						return;
+				
+					final UnionWord uWord=link.serach(getString);
+				
+					if(uWord==null)
+						return;
+				
 					
-				 }
-
+					if(uWord.getWordBaidu()!=null){
+						if(uWord.isHasPraisedBaidu()){
+							 link.addPrise(inputField.getText(), 0);
+							 BDgood.setText("cancel");
+						}
+						else{
+							 link.delPrise(inputField.getText(), 0);
+							 BDgood.setText("good");
+						}
+					}
+				}
 			}
 		});
 		
@@ -509,22 +573,29 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(link.isOnline()){
-					 //give good comment
-					 if(inputField.getText().length() == 0)
-					 {
-						 return;
-					 }
-					 if(YDgood.getText().equals("good")){
-						 link.addPrise(inputField.getText(), 1);
-						 YDgood.setText("cancel");
-					 }
-					 else{
-						 link.delPrise(inputField.getText(), 1);
-						 YDgood.setText("good");
-					 }
+				if(link.isOnline()){
+					String getString=inputField.getText();
+				
+					if(getString==null || getString.length() == 0)
+						return;
+				
+					final UnionWord uWord=link.serach(getString);
+				
+					if(uWord==null)
+						return;
+				
 					
-				 }
+					if(uWord.getWordYoudao()!=null){
+						if(uWord.isHasPraisedYoudao()){
+							 link.addPrise(inputField.getText(), 1);
+							 YDgood.setText("cancel");
+						}
+						else{
+							 link.delPrise(inputField.getText(), 1);
+							 YDgood.setText("good");
+						}
+					}
+				}
 			}
 		});
 		
@@ -547,22 +618,29 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(link.isOnline()){
-					 //give good comment
-					 if(inputField.getText().length() == 0)
-					 {
-						 return;
-					 }
-					 if(BYgood.getText().equals("good")){
-						 link.addPrise(inputField.getText(), 2);
-						 BYgood.setText("cancel");
-					 }
-					 else{
-						 link.delPrise(inputField.getText(), 2);
-						 BYgood.setText("good");
-					 }
+				if(link.isOnline()){
+					String getString=inputField.getText();
+				
+					if(getString==null || getString.length() == 0)
+						return;
+				
+					final UnionWord uWord=link.serach(getString);
+				
+					if(uWord==null)
+						return;
+				
 					
-				 }
+					if(uWord.getWordBing()!=null){
+						if(uWord.isHasPraisedBing()){
+							 link.addPrise(inputField.getText(), 0);
+							 BYgood.setText("cancel");
+						}
+						else{
+							 link.delPrise(inputField.getText(), 0);
+							 BYgood.setText("good");
+						}
+					}
+				}
 			}
 		});
 
