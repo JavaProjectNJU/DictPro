@@ -213,8 +213,11 @@ public class UI extends JFrame{
 					return;
 				
 				bDArea.removeAll();
+				//bDArea.setText("");
 				yDArea.removeAll();
+				//yDArea.setText("");
 				bYArea.removeAll();
+				//bYArea.setText("");
 				
 				//search getString
 				final UnionWord uWord=link.serach(getString);
@@ -227,14 +230,15 @@ public class UI extends JFrame{
 				else{
 					
 					//++++++++++++++++++++++++++++++++++++++++++
-					
+				
+
 					body.remove(bDJPanel);
 					body.remove(yDJPanel);
 					body.remove(bYJPanel);
 					
-					int bdP=uWord.getPariseBaidu();
-					int ydP=uWord.getPariseYoudao();
-					int byP=uWord.getPariseBing();
+					int bdP=((uWord.getWordBaidu()==null)?(-1):uWord.getPariseBaidu());
+					int ydP=((uWord.getWordYoudao()==null)?(-1):uWord.getPariseYoudao());
+					int byP=((uWord.getWordBing()==null)?(-1):uWord.getPariseBing());
 					
 					if(bdP>=ydP && ydP>=byP){
 						if(jchkBD.isSelected())
@@ -340,6 +344,7 @@ public class UI extends JFrame{
 						BYgood.setText("good");
 					}
 				}
+				body.repaint();
 			}	
 		});
 		
@@ -350,142 +355,143 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				String getString=inputField.getText();
+				if(getString.length() == 0)
+					return;
 				
-					String getString=inputField.getText();
-					if(getString.length() == 0)
-						return;
+				bDArea.removeAll();
+				//bDArea.setText("");
+				yDArea.removeAll();
+				//yDArea.setText("");
+				bYArea.removeAll();
+				//bYArea.setText("");
+				
+				//search getString
+				final UnionWord uWord=link.serach(getString);
+				
+				if(uWord==null){
+					bDArea.setText("The word cannot be found! ");
+					yDArea.setText("The word cannot be found! ");
+					bYArea.setText("The word cannot be found! ");
+				}
+				else{
 					
-					bDArea.removeAll();
-					yDArea.removeAll();
-					bYArea.removeAll();
+					//++++++++++++++++++++++++++++++++++++++++++
+				
+
+					body.remove(bDJPanel);
+					body.remove(yDJPanel);
+					body.remove(bYJPanel);
 					
-					//search getString
-					final UnionWord uWord=link.serach(getString);
+					int bdP=((uWord.getWordBaidu()==null)?(-1):uWord.getPariseBaidu());
+					int ydP=((uWord.getWordYoudao()==null)?(-1):uWord.getPariseYoudao());
+					int byP=((uWord.getWordBing()==null)?(-1):uWord.getPariseBing());
 					
-					if(uWord==null){
-						bDArea.setText("The word cannot be found! ");
-						yDArea.setText("The word cannot be found! ");
-						bYArea.setText("The word cannot be found! ");
+					if(bdP>=ydP && ydP>=byP){
+						if(jchkBD.isSelected())
+							body.add(bDJPanel);
+						if(jchkYD.isSelected())
+							body.add(yDJPanel);
+						if(jchkBY.isSelected())
+							body.add(bYJPanel);
+					}else if(bdP>=byP && byP >=ydP){
+						if(jchkBD.isSelected())
+							body.add(bDJPanel);
+						if(jchkBY.isSelected())
+							body.add(bYJPanel);
+						if(jchkYD.isSelected())
+							body.add(yDJPanel);
+					}else if(ydP>=bdP && bdP>=byP){
+						if(jchkYD.isSelected())
+							body.add(yDJPanel);
+						if(jchkBD.isSelected())
+							body.add(bDJPanel);
+						if(jchkBY.isSelected())
+							body.add(bYJPanel);
+					}else if(ydP>=byP && byP >=bdP){
+						if(jchkYD.isSelected())
+							body.add(yDJPanel);
+						if(jchkBY.isSelected())
+							body.add(bYJPanel);
+						if(jchkBD.isSelected())
+							body.add(bDJPanel);
+					}else if(byP>=bdP && bdP>=ydP){
+						if(jchkBY.isSelected())
+							body.add(bYJPanel);
+						if(jchkBD.isSelected())
+							body.add(bDJPanel);
+						if(jchkYD.isSelected())
+							body.add(yDJPanel);
+					}else if(byP>=ydP && ydP >=bdP){
+						if(jchkBY.isSelected())
+							body.add(bYJPanel);
+						if(jchkYD.isSelected())
+							body.add(yDJPanel);
+						if(jchkBD.isSelected())
+							body.add(bDJPanel);
+					}
+					
+					//++++++++++++++++++++++++++++++++++++++++++
+					
+					StringBuilder bdsb=new StringBuilder();
+					if(uWord.getWordBaidu()!=null){
+						bdsb.append(" UK :"+uWord.getWordBaidu().getPron_EN_UK());
+						bdsb.append(" US :"+uWord.getWordBaidu().getPron_EN_US()+'\n');
+						for(int i=0;i<uWord.getWordBaidu().getExplain().size();i++){
+							bdsb.append(uWord.getWordBaidu().getExplain().get(i)+'\n');
+						}
 					}
 					else{
-						
-						//++++++++++++++++++++++++++++++++++++++++++
-						
-						body.remove(bDJPanel);
-						body.remove(yDJPanel);
-						body.remove(bYJPanel);
-						
-						int bdP=uWord.getPariseBaidu();
-						int ydP=uWord.getPariseYoudao();
-						int byP=uWord.getPariseBing();
-						
-						if(bdP>=ydP && ydP>=byP){
-							if(jchkBD.isSelected())
-								body.add(bDJPanel);
-							if(jchkYD.isSelected())
-								body.add(yDJPanel);
-							if(jchkBY.isSelected())
-								body.add(bYJPanel);
-						}else if(bdP>=byP && byP >=ydP){
-							if(jchkBD.isSelected())
-								body.add(bDJPanel);
-							if(jchkBY.isSelected())
-								body.add(bYJPanel);
-							if(jchkYD.isSelected())
-								body.add(yDJPanel);
-						}else if(ydP>=bdP && bdP>=byP){
-							if(jchkYD.isSelected())
-								body.add(yDJPanel);
-							if(jchkBD.isSelected())
-								body.add(bDJPanel);
-							if(jchkBY.isSelected())
-								body.add(bYJPanel);
-						}else if(ydP>=byP && byP >=bdP){
-							if(jchkYD.isSelected())
-								body.add(yDJPanel);
-							if(jchkBY.isSelected())
-								body.add(bYJPanel);
-							if(jchkBD.isSelected())
-								body.add(bDJPanel);
-						}else if(byP>=bdP && bdP>=ydP){
-							if(jchkBY.isSelected())
-								body.add(bYJPanel);
-							if(jchkBD.isSelected())
-								body.add(bDJPanel);
-							if(jchkYD.isSelected())
-								body.add(yDJPanel);
-						}else if(byP>=ydP && ydP >=bdP){
-							if(jchkBY.isSelected())
-								body.add(bYJPanel);
-							if(jchkYD.isSelected())
-								body.add(yDJPanel);
-							if(jchkBD.isSelected())
-								body.add(bDJPanel);
-						}
-						
-						//++++++++++++++++++++++++++++++++++++++++++
-						
-						StringBuilder bdsb=new StringBuilder();
-						if(uWord.getWordBaidu()!=null){
-							bdsb.append(" UK :"+uWord.getWordBaidu().getPron_EN_UK());
-							bdsb.append(" US :"+uWord.getWordBaidu().getPron_EN_US()+'\n');
-							for(int i=0;i<uWord.getWordBaidu().getExplain().size();i++){
-								bdsb.append(uWord.getWordBaidu().getExplain().get(i)+'\n');
-							}
-						}
-						else{
-							bdsb.append("BaiDu Dict cannot find this word! ");
-						}
-						bDArea.setText(bdsb.toString());
-						bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
-						if(uWord.isHasPraisedBaidu())
-						{
-							
-							BDgood.setText("cancel");
-						}
-						else{
-							BDgood.setText("good");
-						}
-						
-						StringBuilder ydsb=new StringBuilder();
-						if(uWord.getWordYoudao()!=null){
-							ydsb.append(" UK :"+uWord.getWordYoudao().getPron_EN_UK());
-							ydsb.append(" US :"+uWord.getWordYoudao().getPron_EN_US()+'\n');
-							for(int i=0;i<uWord.getWordYoudao().getExplain().size();i++){
-								ydsb.append(uWord.getWordYoudao().getExplain().get(i)+'\n');
-							}
-						}
-						else{
-							ydsb.append("YouDao Dict cannot find this word! ");
-						}
+						bdsb.append("BaiDu Dict cannot find this word! ");
+					}
+					bDArea.setText(bdsb.toString());
+					bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
+					if(uWord.isHasPraisedBaidu())
+						BDgood.setText("cancel");
+					else{
+						BDgood.setText("good");
+					}
 					
-						yDArea.setText(ydsb.toString());
-						ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
-						if(uWord.isHasPraisedYoudao())
-							YDgood.setText("cancel");
-						else{
-							YDgood.setText("good");
-						}
-
-						StringBuilder bysb=new StringBuilder();
-						if(uWord.getWordBing()!=null){
-							bysb.append(" UK :"+uWord.getWordBing().getPron_EN_UK());
-							bysb.append(" US :"+uWord.getWordBing().getPron_EN_US()+'\n');
-							for(int i=0;i<uWord.getWordBing().getExplain().size();i++){
-								bysb.append(uWord.getWordBing().getExplain().get(i)+'\n');
-							}
-						}
-						else{
-							bysb.append("Bing Dict cannot find this word!");
-						}
-						bYArea.setText(bysb.toString());
-						byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
-						if(uWord.isHasPraisedBing())
-							BYgood.setText("cancel");
-						else{
-							BYgood.setText("good");
+					StringBuilder ydsb=new StringBuilder();
+					if(uWord.getWordYoudao()!=null){
+						ydsb.append(" UK :"+uWord.getWordYoudao().getPron_EN_UK());
+						ydsb.append(" US :"+uWord.getWordYoudao().getPron_EN_US()+'\n');
+						for(int i=0;i<uWord.getWordYoudao().getExplain().size();i++){
+							ydsb.append(uWord.getWordYoudao().getExplain().get(i)+'\n');
 						}
 					}
+					else{
+						ydsb.append("YouDao Dict cannot find this word! ");
+					}
+				
+					yDArea.setText(ydsb.toString());
+					ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
+					if(uWord.isHasPraisedYoudao())
+						YDgood.setText("cancel");
+					else{
+						YDgood.setText("good");
+					}
+
+					StringBuilder bysb=new StringBuilder();
+					if(uWord.getWordBing()!=null){
+						bysb.append(" UK :"+uWord.getWordBing().getPron_EN_UK());
+						bysb.append(" US :"+uWord.getWordBing().getPron_EN_US()+'\n');
+						for(int i=0;i<uWord.getWordBing().getExplain().size();i++){
+							bysb.append(uWord.getWordBing().getExplain().get(i)+'\n');
+						}
+					}
+					else{
+						bysb.append("Bing Dict cannot find this word!");
+					}
+					bYArea.setText(bysb.toString());
+					byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
+					if(uWord.isHasPraisedBing())
+						BYgood.setText("cancel");
+					else{
+						BYgood.setText("good");
+					}
+				}
+				body.repaint();
 			}
 		});
 		
