@@ -74,7 +74,6 @@ public class Client {
 		tmsg.start();
 		tcard.start();
 		tre.start();
-	
 		return link;
 	}
 }

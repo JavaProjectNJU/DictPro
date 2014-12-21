@@ -248,6 +248,12 @@ public class ServeTask extends Task implements Runnable{
 		if(user == null || !user.isOn() || !uManager.identityVerify(sendCard.uid, sendCard.psw) 
 				|| !dictManager.saveWordCard(sendCard.uid, sendCard.targetuid, sendCard.card)){
 			ipdata.Ip = null;
+			System.out.println("card user is null?"+(user == null));
+			if(user != null)
+				System.out.println("card user is on?" + user.isOn());
+			System.out.println("identity ?"  +uManager.identityVerify(sendCard.uid, sendCard.psw) );
+			
+			System.out.println("card dont save!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}else{//认证成功
 			
 			ipdata.Ip = uManager.getUserInfo(sendCard.targetuid).IpAddr;
