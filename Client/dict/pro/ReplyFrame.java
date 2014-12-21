@@ -31,7 +31,7 @@ public class ReplyFrame extends JFrame{
 		
 		JPanel msgPanel=new JPanel();
 		msgPanel.setLayout(new GridLayout(2,1));
-		msgPanel.add(new JLabel(" From : "+ data.uid+"\n"+ data.dialoge));
+		msgPanel.add(new JLabel(" From : "+ data.uid+"     "+ data.dialoge));
 		JPanel msgbtmPanel=new JPanel();
 		msgbtmPanel.setLayout(new BorderLayout());
 		msgbtmPanel.add(msgField,BorderLayout.CENTER);

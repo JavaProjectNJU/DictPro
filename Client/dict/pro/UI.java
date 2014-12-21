@@ -1,6 +1,7 @@
 package dict.pro;
 
 import dict.net.*;
+import javafx.scene.layout.Border;
 
 import javax.swing.*;
 
@@ -766,12 +767,13 @@ public class UI extends JFrame{
 					//++++++++++++++++++++++++++++++++++++++++++++++++++
 					JFrame messageFrame=new JFrame();
 					JPanel messagePanel=new JPanel();
-					messagePanel.add(new JScrollPane(messageList));
+					messagePanel.setLayout(new BorderLayout());
+					messagePanel.add(new JScrollPane(messageList),BorderLayout.CENTER);
 					messageFrame.add(messagePanel);
 					
 					messageFrame.setTitle("Message List");
-					messageFrame.setSize(100,500);
-					messageFrame.setLocationRelativeTo(null);
+					messageFrame.setSize(400,300);
+					messageFrame.setLocationRelativeTo(messageButton);
 					messageFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					messageFrame.setVisible(true);
 				}
