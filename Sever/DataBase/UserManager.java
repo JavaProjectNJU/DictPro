@@ -197,13 +197,17 @@ public class UserManager {
 	
 	public static boolean addOnlineUser(UserInfo user){
 		boolean change = false;
+		synchronized(onlineUser){
 		change = onlineUser.add(user);
+		}
 		return change;
 	}
 	
 	public static boolean delOnlineUser(UserInfo user){
 		boolean change = false;
+		synchronized(onlineUser){
 		change = onlineUser.remove(user);
+		}
 		return change;
 	}
 	

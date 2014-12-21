@@ -25,7 +25,6 @@ import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 import DataBase.UserManager;
 import System.Sever;
 import System.UserInfo;
-
 import net.Message.Message;
 
 import java.awt.*;
@@ -85,6 +84,7 @@ class SeverUI extends JFrame {
 	DefaultListModel JListOfflineModel;
 
 	JButton dispatchBtn; // 发送按钮
+	JButton freshUserBtn; // 发送按钮
 
 	/***************************** 以上组件 ********************************/
 	public SeverUI(Sever server) {
@@ -180,7 +180,39 @@ class SeverUI extends JFrame {
 
 		dispatchBtn = new JButton("Dispatch");
 		dispatchBtn.setVerticalTextPosition(SwingConstants.BOTTOM);
-
+		
+		freshUserBtn  = new JButton("Fresh User");
+		dispatchBtn.setVerticalTextPosition(SwingConstants.BOTTOM);
+		
+		freshUserBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<UserInfo> onlineUserInfo = UserManager.getOnlineUser();
+				String[] onlineuser = new String[onlineUserInfo.size()];
+				ArrayList<String> onlineString = new ArrayList<String>();
+				for(int i = 0;i < onlineuser.length; i ++)
+				{
+					onlineuser[i] = onlineUserInfo.get(i).getAccount();
+					onlineString.add(onlineuser[i]);
+				}
+				
+				OnlineList.setListData(onlineuser);
+				
+				ArrayList<UserInfo> alllineUserInfo = UserManager.getUserList();
+				String[] offlineuser = new String[alllineUserInfo.size()];
+				int j = 0;
+				for(int i = 0;i < offlineuser.length; i ++)
+				{
+					if(!onlineString.contains(alllineUserInfo.get(i).getAccount()))
+					{	
+						offlineuser[j] = alllineUserInfo.get(i).getAccount();
+						j ++;
+					}
+				}
+					
+				OfflineList.setListData(offlineuser);
+			}// public void actionPerformed(ActionEvent e)
+		});
+		
 		dispatchBtn.addActionListener(new ActionListener() {
 			Message tempPubMsg;
 
@@ -205,6 +237,8 @@ class SeverUI extends JFrame {
 				GridBagConstraints.CENTER, 1, 1, 2, 8, 1, 1);
 		LayoutUtil.add(contentPane, dispatchBtn, GridBagConstraints.NONE,
 				GridBagConstraints.CENTER, 1, 1, 4, 8, 1, 1);
+		LayoutUtil.add(contentPane, freshUserBtn, GridBagConstraints.NONE,
+				GridBagConstraints.CENTER, 1, 1, 6, 8, 1, 1);
 
 		// 窗体居中设置
 		setSize(500, 500);
@@ -248,11 +282,17 @@ class SeverUI extends JFrame {
           SubstanceLookAndFeel.setCurrentWatermark(new SubstanceBubblesWatermark());
           SubstanceLookAndFeel.setCurrentBorderPainter(new StandardBorderPainter());
             SubstanceLookAndFeel.setCurrentGradientPainter(new StandardGradientPainter());
+            
+        		
             //SubstanceLookAndFeel.setCurrentTitlePainter(new FlatTitePainter());
         } catch (Exception e) {
             System.err.println("Something went wrong!");
         }
 		new SeverUI().setVisible(true);
+		Sever sever = new Sever();
+		System.out.println("server is starting");
+		sever.start();
+		
 	}// main()
 
 }// class ServerFrame
