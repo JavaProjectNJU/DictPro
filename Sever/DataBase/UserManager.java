@@ -273,7 +273,7 @@ public class UserManager {
 				usrinfoInfo = onlineUser.get(i);
 				break;
 			}
-		return null;
+		return usrinfoInfo;
 	}
 	
 	public static void main(String[] args){
