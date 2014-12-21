@@ -78,6 +78,8 @@ public class friendInfo extends JFrame{
 				msgbtmPanel.add(msgSend);
 				msgPanel.add(msgbtmPanel,FlowLayout.LEFT);
 				
+				msgFrame.add(msgPanel);
+				
 				msgFrame.setTitle("Message");
 				msgFrame.setSize(400,200);
 				msgFrame.setLocationRelativeTo(null);
