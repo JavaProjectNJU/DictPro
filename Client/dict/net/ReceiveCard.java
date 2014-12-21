@@ -11,7 +11,9 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
+import wordcard.WordCard;
 import net.Message.Message;
 
 public class ReceiveCard implements Runnable{
@@ -35,6 +37,10 @@ public class ReceiveCard implements Runnable{
 			synchronized(msgBox){
 				msgBox.add(msg);
 			}
+			WordCard wCard = new WordCard(((Message.Send_Card)msg.data).card);
+			wCard.display();
+			JOptionPane.showMessageDialog(null,
+				       "接收成功", "系统信息", JOptionPane.ERROR_MESSAGE);
 			DefaultListModel<Message> dlist = new DefaultListModel<Message>();
 			dlist.removeAllElements();
 			synchronized(msgBox){
