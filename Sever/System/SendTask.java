@@ -69,23 +69,23 @@ public class SendTask extends Task implements Runnable{
 
 				synchronized(msgBox){
 					if(!msgBox.isEmpty()){
-						System.out.println("server send task is sending");
+						//System.out.println("server send task is sending");
 					
 					
 						//socket.setSendBufferSize(2);
 						toTarget.writeObject(msgBox.get(0));
 					//	byte[] gb = new byte[10000];
 					//	socket.getOutputStream().write(gb);
-						System.out.println("ip:"+socket.getInetAddress().getHostAddress()+"port:"+socket.getPort());
+					//	System.out.println("ip:"+socket.getInetAddress().getHostAddress()+"port:"+socket.getPort());
 					//	socket.connect(new SocketAddress(socket.getLocalAddress().getHostAddress(),socket.getPort() - 1));
 						toTarget.flush();
 						
 						//socket.getOutputStream().flush();
-						System.out.println("the msg id:" + msgBox.get(0).id);
+						//System.out.println("the msg id:" + msgBox.get(0).id);
 						msgBox.remove(0);
 					
 					
-						System.out.println("server send task is sended");
+						//System.out.println("server send task is sended");
 					//toTarget.close();
 				
 					}

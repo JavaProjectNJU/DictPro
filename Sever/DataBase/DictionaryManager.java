@@ -191,6 +191,7 @@ public class DictionaryManager {
 				exist = true;
 				Blob inblobBaidu = result.getBlob("Baidu");
 				byte[] buff = null;
+				unionWord.setWordstr(word);
 				//System.out.println(inblobBaidu);
 				if(inblobBaidu != null)
 				{
@@ -275,7 +276,9 @@ public class DictionaryManager {
 	public static boolean hasPraised(String usr,UnionWord uword)
 	{
 		boolean change = false;
+		//System.out.println("*************************"+uword.getPariseBaidu()+uword.getPariseBing()+uword.getPariseYoudao());
 		try {
+			System.out.println(uword.getWordstr());
 			if(uword == null)
 				return false; 
 			String word = uword.getWordstr();
@@ -284,27 +287,31 @@ public class DictionaryManager {
 			
 			PreparedStatement statement;
 			Connection conn = DataBase.connect();
-			statement = conn.prepareStatement("select * from (?) where word = (?) and username = (?);");
-			statement.setString(1, "BaiDuPraise");
-			statement.setString(2, word);
-			statement.setString(3, usr);
+			statement = conn.prepareStatement("select * from BaiDuPraise where word = (?) and username = (?);");
+			statement.setString(1, word);
+			statement.setString(2, usr);
 			
 			ResultSet result = statement.executeQuery();
 			if(result.next())
 				uword.setHasPraisedBaidu(true);
 			
-			statement.setString(1, "BingPraise");
+			statement = conn.prepareStatement("select * from BingPraise where word = (?) and username = (?);");
+			statement.setString(1, word);
+			statement.setString(2, usr);
 			result = statement.executeQuery();
 			if(result.next())
 				uword.setHasPraisedBing(true);
 			
-			statement.setString(1, "YouDaoPraise");
-			statement.execute();
+			statement = conn.prepareStatement("select * from YoudaoPraise where word = (?) and username = (?);");
+			statement.setString(1, word);
+			statement.setString(2, usr);
 			result = statement.executeQuery();
 			if(result.next())
 				uword.setHasPraisedYoudao(true);
 			DataBase.close(conn);
+			System.out.println(usr+"~~~"+ word +"~~~~~~~~~~"+uword.getPariseBaidu()+uword.getPariseBing()+uword.getPariseYoudao());
 		} catch (SQLException e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 				       "未知的错误，查询点赞错误", "系统信息", JOptionPane.ERROR_MESSAGE);
 		}
@@ -316,7 +323,7 @@ public class DictionaryManager {
 		try {
 			PreparedStatement statement;
 			Connection conn = DataBase.connect();
-			statement = conn.prepareStatement("insert into WordCard(sender,receiver,image) values((?),(?),(?))");
+			statement = conn.prepareStatement("insert into WordCard(sender,receiver,image) values((?),(?),(?));");
 			statement.setString(1, sender);
 			statement.setString(2, receiver);
 			statement.setObject(3, img);
@@ -393,8 +400,8 @@ public class DictionaryManager {
 		DictionaryManager.SetMeaning(word.getWord(),word,YOUDAO);
 		DictionaryManager.SetMeaning(word.getWord(),word,BING);
 		UnionWord uword = DictionaryManager.SearchWord("good");
-		DictionaryManager.AddPraise("zhangry", "good", DictionaryManager.BAIDU);
-		DictionaryManager.AddPraise("zhangry", "good", DictionaryManager.BING);
+		//DictionaryManager.AddPraise("zhangry", "good", DictionaryManager.BAIDU);
+		//Dictionar/yManager.AddPraise("zhangry", "good", DictionaryManager.BING);
 		DictionaryManager.hasPraised("zhangry",uword);
 		System.out.println(""+uword.getPariseBaidu()+uword.getPariseBing()+uword.getPariseYoudao());
 		//DictionaryManager.AddPraise("haohao", "insistence", BAIDU);

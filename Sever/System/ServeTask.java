@@ -314,6 +314,7 @@ public class ServeTask extends Task implements Runnable{
 		reply.data = ans;
 		
 		ans.word = dictManager.SearchWord(request.word.getWordstr());
+		//System.out.println(user.isOn());
 		if(user != null && user.isOn()){
 			dictManager.hasPraised(user.getAccount() ,ans.word);
 		}

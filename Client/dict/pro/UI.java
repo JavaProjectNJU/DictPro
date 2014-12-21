@@ -433,7 +433,10 @@ public class UI extends JFrame{
 						bDArea.setText(bdsb.toString());
 						bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
 						if(uWord.isHasPraisedBaidu())
+						{
+							
 							BDgood.setText("cancel");
+						}
 						else{
 							BDgood.setText("good");
 						}
