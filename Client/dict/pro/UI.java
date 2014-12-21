@@ -86,11 +86,12 @@ public class UI extends JFrame{
 	private JButton addFriendButton=new JButton("Add Friend");
 	
 
-	
+	private JLabel bdGoodLabel=new JLabel("Great number : ");
+	private JLabel ydGoodLabel=new JLabel("Great number : ");
+	private JLabel byGoodLabel=new JLabel("Great number : ");
 	
 	public UI(){
 	
-		
 		bDJPanel.setLayout(new BorderLayout(5,0));
 		bDJPanel.add(new JScrollPane(bDArea),BorderLayout.CENTER);
 		JPanel bdp=new JPanel();
@@ -98,6 +99,8 @@ public class UI extends JFrame{
 		bdp.add(BDid);
 		bdp.add(BDsend);
 		bdp.add(BDgood);
+		bdp.add(bdGoodLabel);
+		
 		bDJPanel.add(bdp,BorderLayout.SOUTH);
 		
 		yDJPanel.setLayout(new BorderLayout(5,0));
@@ -107,6 +110,8 @@ public class UI extends JFrame{
 		ydp.add(YDid);
 		ydp.add(YDsend);
 		ydp.add(YDgood);
+		bdp.add(ydGoodLabel);
+		
 		yDJPanel.add(ydp,BorderLayout.SOUTH);		
 	
 		bYJPanel.setLayout(new BorderLayout(5,0));
@@ -116,6 +121,8 @@ public class UI extends JFrame{
 		byp.add(BYid);
 		byp.add(BYsend);
 		byp.add(BYgood);
+		bdp.add(byGoodLabel);
+		
 		bYJPanel.add(byp,BorderLayout.SOUTH);
 		
 		final JPanel body=new JPanel();
@@ -270,6 +277,7 @@ public class UI extends JFrame{
 					
 					//++++++++++++++++++++++++++++++++++++++++++
 					
+					
 				
 					StringBuilder bdsb=new StringBuilder();
 					if(uWord.getWordBaidu()!=null){
@@ -283,7 +291,8 @@ public class UI extends JFrame{
 						bdsb.append("BaiDu Dict cannot find this word! ");
 					}
 					bDArea.setText(bdsb.toString());
-				
+					bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
+					
 					StringBuilder ydsb=new StringBuilder();
 					if(uWord.getWordYoudao()!=null){
 						ydsb.append(" UK :"+uWord.getWordYoudao().getPron_EN_UK());
@@ -297,7 +306,9 @@ public class UI extends JFrame{
 					}
 				
 					yDArea.setText(ydsb.toString());
-				
+					ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
+					
+					
 
 					StringBuilder bysb=new StringBuilder();
 					if(uWord.getWordBing()!=null){
@@ -311,7 +322,8 @@ public class UI extends JFrame{
 						bysb.append("Bing Dict cannot find this word!");
 					}
 					bYArea.setText(bysb.toString());
-			}
+					byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
+				}
 			}	
 		});
 		
@@ -409,7 +421,7 @@ public class UI extends JFrame{
 							bdsb.append("BaiDu Dict cannot find this word! ");
 						}
 						bDArea.setText(bdsb.toString());
-						
+						bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
 						
 						StringBuilder ydsb=new StringBuilder();
 						if(uWord.getWordYoudao()!=null){
@@ -424,7 +436,7 @@ public class UI extends JFrame{
 						}
 					
 						yDArea.setText(ydsb.toString());
-					
+						ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
 
 						StringBuilder bysb=new StringBuilder();
 						if(uWord.getWordBing()!=null){
@@ -438,7 +450,8 @@ public class UI extends JFrame{
 							bysb.append("Bing Dict cannot find this word!");
 						}
 						bYArea.setText(bysb.toString());
-				}
+						byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
+					}
 			}
 		});
 		
@@ -532,10 +545,12 @@ public class UI extends JFrame{
 					if(uWord.getWordBaidu()!=null){
 						if(uWord.isHasPraisedBaidu()){
 							 link.addPrise(inputField.getText(), 0);
+							 bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
 							 BDgood.setText("cancel");
 						}
 						else{
 							 link.delPrise(inputField.getText(), 0);
+							 bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
 							 BDgood.setText("good");
 						}
 					}
@@ -589,10 +604,12 @@ public class UI extends JFrame{
 						if(uWord.isHasPraisedYoudao()){
 							 link.addPrise(inputField.getText(), 1);
 							 YDgood.setText("cancel");
+							 ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
 						}
 						else{
 							 link.delPrise(inputField.getText(), 1);
 							 YDgood.setText("good");
+							 ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
 						}
 					}
 				}
@@ -634,10 +651,12 @@ public class UI extends JFrame{
 						if(uWord.isHasPraisedBing()){
 							 link.addPrise(inputField.getText(), 0);
 							 BYgood.setText("cancel");
+							 byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
 						}
 						else{
 							 link.delPrise(inputField.getText(), 0);
 							 BYgood.setText("good");
+							 byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
 						}
 					}
 				}
