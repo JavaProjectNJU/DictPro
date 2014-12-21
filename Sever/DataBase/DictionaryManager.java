@@ -70,11 +70,12 @@ public class DictionaryManager {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
 		finally{
 			DataBase.close(conn);
 		}
-		return change;
+		return true;
 	}
 	
 	public static boolean AddWord(String word) //Add New Word into Dictionary
@@ -91,11 +92,12 @@ public class DictionaryManager {
 			change = true;
 		} catch (SQLException e) {
 			System.out.println("Word Exists!");
+			return false;
 		}
 		finally{
 			DataBase.close(conn);
 		}
-		return change;
+		return true;
 	}
 	
 	@SuppressWarnings("finally")
@@ -117,10 +119,11 @@ public class DictionaryManager {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,
 				       "你已经点过赞了，不要重复点击!", "系统信息", JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
 		finally{
 			DataBase.close(conn);
-			return change;
+			return true;
 		}
 		
 	}
@@ -144,11 +147,12 @@ public class DictionaryManager {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,
 				       "你还没点过赞", "系统信息", JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
 		finally{
 			DataBase.close(conn);
-			return change;
 		}
+		return true;
 	}
 	
 	public static boolean hasPrasied(String word,int type)
@@ -170,11 +174,12 @@ public class DictionaryManager {
 				;
 		} catch (SQLException e) {
 			System.out.println("identityVerify, Access Failed!");
+			return false;
 		}
 		finally{
 			DataBase.close(conn);
 		}
-		return isValid;
+		return true;
 	}
 	
 	public static UnionWord SearchWord(String word) {	
@@ -314,6 +319,7 @@ public class DictionaryManager {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 				       "未知的错误，查询点赞错误", "系统信息", JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
 		return true;
 	}
@@ -332,6 +338,7 @@ public class DictionaryManager {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,
 				       "未知的错误，存储单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
 		return true;
 	}
@@ -348,8 +355,9 @@ public class DictionaryManager {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,
 				       "未知的错误，存储单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
-		return change;
+		return true;
 	}
 	
 	public static ArrayList<byte[]> getWordCard(String uid){
@@ -388,6 +396,7 @@ public class DictionaryManager {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,
 				       "未知的错误，取出单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
+			return null;
 		}
 		return CardSet;
 	}
