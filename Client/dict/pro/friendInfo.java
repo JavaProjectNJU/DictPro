@@ -21,9 +21,11 @@ public class friendInfo extends JFrame{
 	private JButton msgSend=new JButton("Send");
 	private JTextField msgField=new JTextField(20);
 	
+	
+	
 	public friendInfo(final LinkToServer link,final UserInfo finfo){
 		JLabel uidLabel=new JLabel("姓名 : "+finfo.getAccount());
-//		JLabel emailLabel=new JLabel("邮箱 : "+finfo.getEmail());
+		JLabel emailLabel=new JLabel("邮箱 : "+finfo.getEmail());
 		JLabel sexLabel;
 		if(finfo.isSex()){
 			sexLabel=new JLabel("性别 ：Female");
@@ -40,10 +42,13 @@ public class friendInfo extends JFrame{
 		buttonPanel.add(delFriend);
 		
 		JPanel fPanel=new JPanel();
-		fPanel.setLayout(new GridLayout(3,1));
-		fPanel.add(uidLabel,FlowLayout.LEFT);
-		fPanel.add(sexLabel,FlowLayout.LEFT);
+		fPanel.setLayout(new GridLayout(4,1));
 		fPanel.add(buttonPanel,FlowLayout.LEFT);
+		fPanel.add(sexLabel,FlowLayout.LEFT);	
+		fPanel.add(emailLabel,FlowLayout.LEFT);
+		fPanel.add(uidLabel,FlowLayout.LEFT);
+		
+		this.add(fPanel);
 		//+++++++++++++++++++++++++++++++++++++++++
 		//JPanel 
 		delFriend.addActionListener(new ActionListener() {
@@ -64,8 +69,7 @@ public class friendInfo extends JFrame{
 
 				JPanel msgPanel=new JPanel();
 				msgPanel.setLayout(new GridLayout(2,1));
-				
-				msgPanel.add(new JLabel(" To: "+ finfo.getAccount()),FlowLayout.LEFT);
+			
 				
 				JPanel msgbtmPanel=new JPanel();
 				msgbtmPanel.setLayout(new FlowLayout());
@@ -73,11 +77,38 @@ public class friendInfo extends JFrame{
 				msgbtmPanel.add(msgSend);
 				msgPanel.add(msgbtmPanel,FlowLayout.LEFT);
 				
+				msgFrame.add(msgPanel);
+				msgPanel.add(new JLabel(" To: "+ finfo.getAccount()),FlowLayout.LEFT);
+				
 				msgFrame.setTitle("Message");
 				msgFrame.setSize(400,200);
 				msgFrame.setLocationRelativeTo(null);
 				msgFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				msgFrame.setVisible(true);
+			}
+		});
+		
+		msgSend.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(msgField.getText()!=null && msgField.getText().length()!=0){
+					link.sendText(msgField.getText(), finfo.getAccount());
+					dispose();
+				}
+			}
+		});
+		
+		msgField.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(msgField.getText()!=null && msgField.getText().length()!=0){
+					link.sendText(msgField.getText(), finfo.getAccount());
+					dispose();
+				}
 			}
 		});
 	}

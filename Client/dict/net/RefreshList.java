@@ -21,12 +21,13 @@ public class RefreshList implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		while(true){
+			DefaultListModel<UserInfo> dlist = new DefaultListModel<UserInfo>();
+			dlist.removeAllElements();
 			if(link.isOnline()){
 				ArrayList<UserInfo> online = link.getOnlineFriend();
 				//找到了新的单词列表,那么更新list中的单词
 			
-				DefaultListModel<UserInfo> dlist = new DefaultListModel<UserInfo>();
-				dlist.removeAllElements();
+				
 				if(online != null){
 					for(UserInfo info:online){
 						dlist.addElement(info);
@@ -38,8 +39,11 @@ public class RefreshList implements Runnable {
 				list.setModel(dlist);//更新列表中的元素
 				list.repaint();
 			}else{
+				list.setModel(dlist);//更新列表中的元素
+				list.repaint();
+				System.out.println("refresh friend -----self not online");
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
