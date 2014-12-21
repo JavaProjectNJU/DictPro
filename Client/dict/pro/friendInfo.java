@@ -20,7 +20,7 @@ import System.UserInfo;
 public class friendInfo extends JFrame{
 	
 	//new added
-	private Font msgFont=new Font("Consolas",Font.BOLD,16);
+	private Font msgFont=new Font("微软雅黑",Font.BOLD,16);
 	
 	private JButton msgSend=new JButton("Send");
 	
