@@ -371,7 +371,7 @@ public class LinkToServer {
 				return false;
 			else{
 				String ip = ((Message.IpData)(reply.data)).Ip;
-				System.out.println("the card ip :" + ip);
+				System.out.println("the card ip()()()()()() :" + ip);
 				
 				if(ip == null || ip.length() == 0)
 					return false;
@@ -416,7 +416,8 @@ public class LinkToServer {
 				System.out.println("refrehs friend reply is null");
 				return null;
 			}
-		//	System.out.println("refresh friendlist success" +((Message.OnlineFriend)(reply.data)).friendList.get(0));
+			
+			System.out.println("refresh friendlist success//////" +((Message.OnlineFriend)(reply.data)).friendList.size());
 			return	((Message.OnlineFriend)(reply.data)).friendList;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

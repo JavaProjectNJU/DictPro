@@ -247,6 +247,7 @@ public class ServeTask extends Task implements Runnable{
 	}
 	private void sendCard(Message msg) {
 		// TODO Auto-generated method stub
+		System.out.println("Enter Send card^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 		Message.Send_Card sendCard = (Message.Send_Card)(msg.data);
 		Message ipReply = new Message();
 		ipReply.id = msg.id;
@@ -254,7 +255,7 @@ public class ServeTask extends Task implements Runnable{
 		ipReply.type = Message.IP_DATA;
 		Message.IpData ipdata = ipReply.new IpData();
 		ipReply.data = ipdata;
-		if(user == null || !user.isOn() || !uManager.identityVerify(sendCard.uid, sendCard.psw) 
+		if(user == null || !user.isOn() 
 				|| !dictManager.saveWordCard(sendCard.uid, sendCard.targetuid, sendCard.card)){
 			ipdata.Ip = null;
 			System.out.println("card user is null?"+(user == null));

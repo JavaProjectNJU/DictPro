@@ -14,6 +14,7 @@ import java.util.Properties;
 import javax.swing.JButton;
 import javax.swing.JList;
 
+import System.UserInfo;
 import net.Message.Message;
 
 public class Client {
@@ -71,9 +72,31 @@ public class Client {
 		
 		Thread tcard = new Thread(card);
 		Thread tre = new  Thread(refresh);
-		tmsg.start();
+		
+		//test(link);
 		tcard.start();
+		tmsg.start();
 		tre.start();
+		
+		
 		return link;
+	}
+	public static void test(LinkToServer link){
+		
+		System.out.println("login is"+link.login("jam", "guoruijun"));
+		while(true){
+			ArrayList<UserInfo> friend = link.getOnlineFriend();
+			System.out.println("jam get the test::::::::");
+			System.out.println("friendlist:" +(friend!=null));
+			for(UserInfo i:friend)
+				i.display();
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 	}
 }

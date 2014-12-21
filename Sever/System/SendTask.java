@@ -74,6 +74,10 @@ public class SendTask extends Task implements Runnable{
 					
 						//socket.setSendBufferSize(2);
 						toTarget.writeObject(msgBox.get(0));
+						if(msgBox.get(0).type == Message.UPDATE_FRIEND_ONLINE){
+							System.out.println("when send  the friend list :!!!!!!!!!!!!!!!!!!!!!!");
+							System.out.println(((Message.OnlineFriend)msgBox.get(0).data).friendList.size());
+						}
 					//	byte[] gb = new byte[10000];
 					//	socket.getOutputStream().write(gb);
 					//	System.out.println("ip:"+socket.getInetAddress().getHostAddress()+"port:"+socket.getPort());
@@ -83,6 +87,7 @@ public class SendTask extends Task implements Runnable{
 						//socket.getOutputStream().flush();
 						//System.out.println("the msg id:" + msgBox.get(0).id);
 						msgBox.remove(0);
+						
 					
 					
 						//System.out.println("server send task is sended");
