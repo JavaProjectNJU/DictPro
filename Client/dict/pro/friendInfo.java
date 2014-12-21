@@ -23,7 +23,7 @@ public class friendInfo extends JFrame{
 	
 	public friendInfo(final LinkToServer link,final UserInfo finfo){
 		JLabel uidLabel=new JLabel("姓名 : "+finfo.getAccount());
-//		JLabel emailLabel=new JLabel("邮箱 : "+finfo.getEmail());
+		JLabel emailLabel=new JLabel("邮箱 : "+finfo.getEmail());
 		JLabel sexLabel;
 		if(finfo.isSex()){
 			sexLabel=new JLabel("性别 ：Female");
@@ -40,8 +40,9 @@ public class friendInfo extends JFrame{
 		buttonPanel.add(delFriend);
 		
 		JPanel fPanel=new JPanel();
-		fPanel.setLayout(new GridLayout(3,1));
+		fPanel.setLayout(new GridLayout(4,1));
 		fPanel.add(uidLabel,FlowLayout.LEFT);
+		fPanel.add(emailLabel,FlowLayout.LEFT);
 		fPanel.add(sexLabel,FlowLayout.LEFT);
 		fPanel.add(buttonPanel,FlowLayout.LEFT);
 		//+++++++++++++++++++++++++++++++++++++++++
