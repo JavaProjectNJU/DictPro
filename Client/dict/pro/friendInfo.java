@@ -43,10 +43,10 @@ public class friendInfo extends JFrame{
 		
 		JPanel fPanel=new JPanel();
 		fPanel.setLayout(new GridLayout(4,1));
-		fPanel.add(uidLabel,FlowLayout.LEFT);
-		fPanel.add(emailLabel,FlowLayout.LEFT);
-		fPanel.add(sexLabel,FlowLayout.LEFT);
 		fPanel.add(buttonPanel,FlowLayout.LEFT);
+		fPanel.add(sexLabel,FlowLayout.LEFT);	
+		fPanel.add(emailLabel,FlowLayout.LEFT);
+		fPanel.add(uidLabel,FlowLayout.LEFT);
 		
 		this.add(fPanel);
 		//+++++++++++++++++++++++++++++++++++++++++
@@ -69,8 +69,7 @@ public class friendInfo extends JFrame{
 
 				JPanel msgPanel=new JPanel();
 				msgPanel.setLayout(new GridLayout(2,1));
-				
-				msgPanel.add(new JLabel(" To: "+ finfo.getAccount()),FlowLayout.LEFT);
+			
 				
 				JPanel msgbtmPanel=new JPanel();
 				msgbtmPanel.setLayout(new FlowLayout());
@@ -79,12 +78,37 @@ public class friendInfo extends JFrame{
 				msgPanel.add(msgbtmPanel,FlowLayout.LEFT);
 				
 				msgFrame.add(msgPanel);
+				msgPanel.add(new JLabel(" To: "+ finfo.getAccount()),FlowLayout.LEFT);
 				
 				msgFrame.setTitle("Message");
 				msgFrame.setSize(400,200);
 				msgFrame.setLocationRelativeTo(null);
 				msgFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				msgFrame.setVisible(true);
+			}
+		});
+		
+		msgSend.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(msgField.getText()!=null && msgField.getText().length()!=0){
+					link.sendText(msgField.getText(), finfo.getAccount());
+					dispose();
+				}
+			}
+		});
+		
+		msgField.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(msgField.getText()!=null && msgField.getText().length()!=0){
+					link.sendText(msgField.getText(), finfo.getAccount());
+					dispose();
+				}
 			}
 		});
 	}
