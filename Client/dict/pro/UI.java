@@ -85,8 +85,6 @@ public class UI extends JFrame{
 	private JButton addFriendButton=new JButton("Add Friend");
 	
 
-	private JButton msgSend=new JButton("Send");
-	private JTextField msgField=new JTextField(20);
 	
 	
 	public UI(){
@@ -590,18 +588,8 @@ public class UI extends JFrame{
 				Message msg=(Message)messageList.getSelectedValue();
 				if(msg.type==Message.SEND_MESSAGE){
 					//send the message
-					JFrame msgFrame=new JFrame();
+					ReplyFrame msgFrame=new ReplyFrame(link,msg);
 
-					Message.Send_Message data=(Message.Send_Message)(msg.data);
-					JPanel msgPanel=new JPanel();
-					msgPanel.setLayout(new GridLayout(2,1));
-					msgPanel.add(new JLabel(" From : "+ data.uid+"\n"+ data.dialoge));
-					JPanel msgbtmPanel=new JPanel();
-					msgbtmPanel.setLayout(new BorderLayout());
-					msgbtmPanel.add(msgField,BorderLayout.CENTER);
-					msgbtmPanel.add(msgSend,BorderLayout.EAST);
-					msgPanel.add(msgbtmPanel);
-					
 					msgFrame.setTitle("Message");
 					msgFrame.setSize(400,200);
 					msgFrame.setLocationRelativeTo(null);
@@ -617,40 +605,6 @@ public class UI extends JFrame{
 				
 				synchronized(msgBox){
 					msgBox.remove(msg);
-				}
-			}
-		});
-		
-		//JButton msgSend=new JButton("Send");
-		msgSend.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if(msgField.getText()!=null && msgField.getText().length()!=0){
-					boolean issuccess=link.sendText(msgField.getText());
-					if(issuccess){
-						JOptionPane.showMessageDialog(null,"send sussefully! ", "Message Reminder!", JOptionPane.INFORMATION_MESSAGE);
-					}else{
-						JOptionPane.showMessageDialog(null, "cannot send!","Message Remainder",JOptionPane.ERROR_MESSAGE);
-					}
-					dispose();
-				}
-			}
-		});
-		msgField.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if(msgField.getText()!=null && msgField.getText().length()!=0){
-					boolean issuccess=link.sendText(msgField.getText());
-					if(issuccess){
-						JOptionPane.showMessageDialog(null,"send sussefully! ", "Message Reminder!", JOptionPane.INFORMATION_MESSAGE);
-					}else{
-						JOptionPane.showMessageDialog(null, "cannot send!","Message Remainder",JOptionPane.ERROR_MESSAGE);
-					}
-					dispose();
 				}
 			}
 		});
