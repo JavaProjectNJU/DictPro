@@ -390,6 +390,9 @@ public class UI extends JFrame{
 					int ydP=((uWord.getWordYoudao()==null)?(-1):uWord.getPariseYoudao());
 					int byP=((uWord.getWordBing()==null)?(-1):uWord.getPariseBing());
 					
+					body.repaint();
+					dictPro.repaint();
+					
 					if(bdP>=ydP && ydP>=byP){
 						if(jchkBD.isSelected())
 							body.add(bDJPanel);
@@ -596,12 +599,12 @@ public class UI extends JFrame{
 					if(uWord.getWordBaidu()!=null){
 						if(!uWord.isHasPraisedBaidu()){
 							 link.addPrise(inputField.getText(), BAIDU);
-							 bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
+							 bdGoodLabel.setText("Great number : "+ (uWord.getPariseBaidu()+1));
 							 BDgood.setText("cancel");
 						}
 						else{
 							 link.delPrise(inputField.getText(), BAIDU);
-							 bdGoodLabel.setText("Great number : "+ uWord.getPariseBaidu());
+							 bdGoodLabel.setText("Great number : "+ (uWord.getPariseBaidu()-1));
 							 BDgood.setText("good");
 						}
 					}
@@ -661,12 +664,12 @@ public class UI extends JFrame{
 						if(!uWord.isHasPraisedYoudao()){
 							 link.addPrise(inputField.getText(), YOUDAO);
 							 YDgood.setText("cancel");
-							 ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
+							 ydGoodLabel.setText("Great number : "+ (uWord.getPariseYoudao()+1));
 						}
 						else{
 							 link.delPrise(inputField.getText(), YOUDAO);
 							 YDgood.setText("good");
-							 ydGoodLabel.setText("Great number : "+ uWord.getPariseYoudao());
+							 ydGoodLabel.setText("Great number : "+ (uWord.getPariseYoudao()-1));
 						}
 					}
 				}
@@ -726,12 +729,12 @@ public class UI extends JFrame{
 						if(!uWord.isHasPraisedBing()){
 							 link.addPrise(inputField.getText(), BING);
 							 BYgood.setText("cancel");
-							 byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
+							 byGoodLabel.setText("Great number : "+ (uWord.getPariseBing()+1));
 						}
 						else{
 							 link.delPrise(inputField.getText(), BING);
 							 BYgood.setText("good");
-							 byGoodLabel.setText("Great number : "+ uWord.getPariseBing());
+							 byGoodLabel.setText("Great number : "+ (uWord.getPariseBing()-1));
 						}
 					}
 				}
