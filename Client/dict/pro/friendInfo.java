@@ -30,7 +30,7 @@ public class friendInfo extends JFrame{
 		JLabel uidLabel=new JLabel("姓名 : "+finfo.getAccount());
 		JLabel emailLabel=new JLabel("邮箱 : "+finfo.getEmail());
 		JLabel sexLabel;
-		if(finfo.isSex()){
+		if(!finfo.isSex()){
 			sexLabel=new JLabel("性别 ：Female");
 		}
 		else {
