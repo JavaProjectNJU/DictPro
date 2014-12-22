@@ -100,7 +100,7 @@ public class WordCard {
 	public void display() //Display Wordard in a Frame
 	{
 		JFrame frame = new ImageViewerFrame(buffImage,srcWidth, srcHeight);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 	}
