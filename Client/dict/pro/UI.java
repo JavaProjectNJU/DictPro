@@ -533,13 +533,17 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
-				signin swin=new signin(link);
-				swin.setTitle("DictPro-SignIn");
-				swin.setSize(250,400);
-				swin.setLocationRelativeTo(null);
-				swin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				swin.setVisible(true); 
+				
+				if(!link.isOnline()){
+					signin swin=new signin(link);
+					swin.setTitle("DictPro-SignIn");
+					swin.setSize(250,400);
+					swin.setLocationRelativeTo(null);
+					swin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					swin.setVisible(true);
+				}else{
+					JOptionPane.showMessageDialog(null,"Online account cannot use this function!", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 	
