@@ -466,13 +466,13 @@ public class LinkToServer {
 				if(reply != null){
 					requestMap.remove(id);
 					return reply;
-				}else if(loop > 4000){//10000ms 超时 10s
+				}else if(loop > 80){//4s超时
 					System.out.println("time out");
 					return null;
 				}
 			}
 			try {
-				Thread.sleep(100);
+				Thread.sleep(50);
 				loop ++;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

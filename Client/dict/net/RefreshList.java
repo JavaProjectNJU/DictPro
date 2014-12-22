@@ -24,6 +24,7 @@ public class RefreshList implements Runnable {
 			DefaultListModel<UserInfo> dlist = new DefaultListModel<UserInfo>();
 			dlist.removeAllElements();
 			
+			System.out.println("try to refresh list $$$$$$$$$$$$$$$$$$$");
 				//找到了新的单词列表,那么更新list中的单词
 			if(link.isOnline()){
 				ArrayList<UserInfo> online = link.getOnlineFriend();
@@ -42,7 +43,9 @@ public class RefreshList implements Runnable {
 			}
 	
 			try {
-				Thread.sleep(2000);
+				list.setModel(dlist);//更新列表中的元素
+				list.repaint();
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
