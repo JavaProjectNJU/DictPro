@@ -24,6 +24,7 @@ import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 
 import DataBase.UserManager;
 import System.Sever;
+import System.ThreadPool;
 import System.UserInfo;
 import net.Message.Message;
 
@@ -82,22 +83,12 @@ class SeverUI extends JFrame {
 	JScrollPane OfflineScroll; // 显示不在线用户的列表
 	JList<String> OfflineList;
 	DefaultListModel JListOfflineModel;
-
+	String[] offlineuser;
+	String[] onlineuser;
 	JButton dispatchBtn; // 发送按钮
 	JButton freshUserBtn; // 发送按钮
 
 	/***************************** 以上组件 ********************************/
-	public SeverUI(Sever server) {
-		this();
-		this.server = server;
-
-		// 显示服务器端的IP和端口port
-		// IP_Port.setText(server.getIPAddr()+":"+Integer.toString(server.getServerPort()));
-		IP_Port.setText("192.168.0.1: 8000");
-		// 这里有破坏界面与代码分开原则的嫌疑
-
-	}// public ServerFrame
-
 	public SeverUI() {
 		super("Server Controller");
 		// 创建容器
@@ -127,9 +118,9 @@ class SeverUI extends JFrame {
 		IP_Port.setBorder(BorderFactory.createTitledBorder("Cur IP+Port:"));
 		// IP_Port.setIcon(new ImageIcon(".\\pics\\lzpaul21.jpg"));
 		IP_Port.setVerticalTextPosition(SwingConstants.BOTTOM);
-
+		IP_Port.setText("192.168.0.1: 8000");
 		ArrayList<UserInfo> onlineUserInfo = UserManager.getOnlineUser();
-		String[] onlineuser = new String[onlineUserInfo.size()];
+		onlineuser = new String[onlineUserInfo.size()];
 		ArrayList<String> onlineString = new ArrayList<String>();
 		for(int i = 0;i < onlineuser.length; i ++)
 		{
@@ -142,7 +133,7 @@ class SeverUI extends JFrame {
 		OnlineScroll = new JScrollPane(OnlineList);
 		
 		ArrayList<UserInfo> alllineUserInfo = UserManager.getUserList();
-		final String[] offlineuser = new String[alllineUserInfo.size()];
+		offlineuser = new String[alllineUserInfo.size()];
 		int j = 0;
 		for(int i = 0;i < offlineuser.length; i ++)
 		{
@@ -178,6 +169,26 @@ class SeverUI extends JFrame {
 
 		});
 
+		
+		OnlineList.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int index;
+				UserInfo tempuser;
+				if (e.getClickCount() == 2) {
+					int indexofSelect = OnlineList.getSelectedIndex();
+					String searchString = onlineuser[indexofSelect];
+					UserInfoWindow subFrame = new UserInfoWindow(UserManager.getOtherOnlineUser(searchString));
+					subFrame.setSize(300, 400);
+					subFrame.setTitle("About Dictionary");
+					subFrame.setLocationRelativeTo(null);//Center the Frame
+					subFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					subFrame.setVisible(true);
+				}// if(e.getClickCount()==2)
+
+			}
+
+		});
+		
 		dispatchBtn = new JButton("Dispatch");
 		dispatchBtn.setVerticalTextPosition(SwingConstants.BOTTOM);
 		
@@ -208,7 +219,7 @@ class SeverUI extends JFrame {
 						j ++;
 					}
 				}
-					
+				CurConNum(onlineString.size());
 				OfflineList.setListData(offlineuser);
 			}// public void actionPerformed(ActionEvent e)
 		});
@@ -217,7 +228,7 @@ class SeverUI extends JFrame {
 			Message tempPubMsg;
 
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<UserInfo>onlineFriend = new ArrayList<UserInfo>();
+				/*ArrayList<UserInfo>onlineFriend = new ArrayList<UserInfo>();
 				ArrayList<UserInfo> temp = UserManager.getOnlineUser();
 				for(int i = 0;i < temp.size();i ++)
 				{
@@ -229,7 +240,14 @@ class SeverUI extends JFrame {
 						onlineFriend.add(temp.get(i));
 						System.out.println("Is Friend!!!");
 					}
+				}*/
+				ArrayList<UserInfo> onlineUserInfo = UserManager.getOnlineUser();
+				String[] onlineuser = new String[onlineUserInfo.size()];
+				for(int i = 0;i < onlineuser.length; i ++)
+				{
+					onlineUserInfo.get(i).display();
 				}
+				//ThreadPool.workers.
 			}// public void actionPerformed(ActionEvent e)
 		});
 
@@ -246,8 +264,8 @@ class SeverUI extends JFrame {
 
 		LayoutUtil.add(contentPane, OnlineState, GridBagConstraints.NONE,
 				GridBagConstraints.CENTER, 1, 1, 0, 8, 1, 1);
-		LayoutUtil.add(contentPane, IP_Port, GridBagConstraints.NONE,
-				GridBagConstraints.CENTER, 1, 1, 2, 8, 1, 1);
+		//LayoutUtil.add(contentPane, IP_Port, GridBagConstraints.NONE,
+		//		GridBagConstraints.CENTER, 1, 1, 2, 8, 1, 1);
 		LayoutUtil.add(contentPane, dispatchBtn, GridBagConstraints.NONE,
 				GridBagConstraints.CENTER, 1, 1, 4, 8, 1, 1);
 		LayoutUtil.add(contentPane, freshUserBtn, GridBagConstraints.NONE,

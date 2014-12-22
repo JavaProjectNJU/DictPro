@@ -15,7 +15,7 @@ import System.UserInfo;
 public class UserManager {
 	private static ArrayList<UserInfo> onlineUser = new ArrayList<UserInfo>();
 	
-	@SuppressWarnings("finally")
+	
 	public static boolean createUser(String account,String Pw){
 		boolean change = false;
 		Connection conn = null;
@@ -26,25 +26,27 @@ public class UserManager {
 					+account+"','"+Pw+"');";
 			change = statement.execute(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			System.out.println("User Exists!");
+			return false;
 		}
 		finally{
 			DataBase.close(conn);
-			return change;
 		}
+		return true;
 	}
 	
-	public static boolean createUser(String account,String Pw,String email){
+	public static boolean createUser(String account,String Pw,String email, boolean sex){
 		boolean change = false;
 		Connection conn = null;
 		try {
 			conn = DataBase.connect();
 			Statement statement = conn.createStatement();
-			String sql = "insert into USERTABLE(username,password,email) values('"
-					+account+"','"+Pw+"','"+email+"');";
+			String sql = "insert into USERTABLE(username,password,email,sex) values('"
+					+account+"','"+Pw+"','"+email+"',"+(sex?"true":"false")+");";
 			change = statement.execute(sql);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 				       "好友关系存在", "系统信息", JOptionPane.ERROR_MESSAGE);
 		}
@@ -72,16 +74,17 @@ public class UserManager {
 			change = true;
 			statement.execute(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			System.out.println("FriendShip Exists!");
+			return false;
 		}
 		finally{
 			DataBase.close(conn);
 		}
-		return change;
+		return true;
 	}
 	
-	@SuppressWarnings("finally")
+	
 	public static boolean delFriend(String account1, String account2){
 		boolean change = false;
 		Connection conn = null;
@@ -93,11 +96,12 @@ public class UserManager {
 			change = statement.execute(sql);	
 		} catch (SQLException e) {
 			System.out.println("Not Exists!");
+			return false;
 		}
 		finally{
 			DataBase.close(conn);
-			return change;
 		}
+		return true;
 	}
 	
 	public static boolean delUser(String user){
@@ -111,11 +115,12 @@ public class UserManager {
 			change = statement.execute(sql);	
 		} catch (SQLException e) {
 			System.out.println("Delete User Not Exists!");
+			return false;
 		}
 		finally{
 			DataBase.close(conn);
 		}
-		return change;
+		return true;
 	}
 	
 	public static ArrayList<UserInfo> getUserList(){
@@ -139,6 +144,7 @@ public class UserManager {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		} 
 		finally{
 			DataBase.close(conn);
@@ -146,7 +152,7 @@ public class UserManager {
 		return userList;
 	}
 	
-	@SuppressWarnings("finally")
+	
 	public static boolean changePassword(String account,String oldPw,String newPw){
 		boolean change = false;
 		Connection conn = null;
@@ -164,14 +170,15 @@ public class UserManager {
 			}
 		} catch (SQLException e) {
 			System.out.println("Change Password Failed!");
+			return false;
 		}
 		finally{
 			DataBase.close(conn);
-			return change;
 		}
+		return true;
 	}
 	
-	@SuppressWarnings("finally")
+	
 	public static boolean identityVerify(String account,String Pw){
 		boolean isValid = false;
 		Connection conn = null;
@@ -192,11 +199,11 @@ public class UserManager {
 		}
 		finally{
 			DataBase.close(conn);
-			return isValid;
 		}
+		return isValid;
 	}
 	
-	@SuppressWarnings("finally")
+	
 	public static boolean friendJudge(String account1,String account2){
 		boolean isFriend = false;
 		Connection conn = null;
@@ -214,15 +221,22 @@ public class UserManager {
 		}
 		finally{
 			DataBase.close(conn);
-			return isFriend;
 		}
+		return isFriend;
 	}
 	
 	public static boolean addOnlineUser(UserInfo user){
 		boolean change = false;
 		synchronized(onlineUser){
-		change = onlineUser.add(user);
-		//user.display();
+		int i;
+		for(i = 0;i < onlineUser.size();i ++)
+			if(onlineUser.get(i).getAccount().equals(user.getAccount()))
+				break;
+		if(i == onlineUser.size())
+			change = onlineUser.add(user);
+		else {
+			change = true;
+		}
 		}
 		return change;
 	}

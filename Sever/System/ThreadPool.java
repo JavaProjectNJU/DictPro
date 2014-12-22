@@ -19,7 +19,7 @@ public class ThreadPool {
     public static boolean systemIsBusy = false;
     private static List<Task> taskQueue = Collections
             .synchronizedList(new LinkedList<Task>()); // 池中的所有线程 
-    public PoolWorker[] workers;
+    public static PoolWorker[] workers;
 
     public ThreadPool() {
         workers = new PoolWorker[5];

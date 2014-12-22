@@ -141,8 +141,8 @@ public class LinkToServer {
 		rigisterMsg.type = Message.REGISTER;
 		Message.RegsiterMsg data = rigisterMsg.new RegsiterMsg();
 		rigisterMsg.data = data;
-		data.uid = this.uid;
-		data.psw = this.psw;
+		data.uid = uid;
+		data.psw = psw;
 		data.email = email;
 		data.sex = sex;
 		try {
