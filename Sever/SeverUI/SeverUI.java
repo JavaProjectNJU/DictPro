@@ -176,6 +176,7 @@ class SeverUI extends JFrame {
 				UserInfo tempuser;
 				if (e.getClickCount() == 2) {
 					int indexofSelect = OnlineList.getSelectedIndex();
+					System.out.println(indexofSelect +"," + onlineuser.length);
 					String searchString = onlineuser[indexofSelect];
 					UserInfoWindow subFrame = new UserInfoWindow(UserManager.getOtherOnlineUser(searchString));
 					subFrame.setSize(300, 400);
@@ -198,7 +199,7 @@ class SeverUI extends JFrame {
 		freshUserBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<UserInfo> onlineUserInfo = UserManager.getOnlineUser();
-				String[] onlineuser = new String[onlineUserInfo.size()];
+				onlineuser = new String[onlineUserInfo.size()];
 				ArrayList<String> onlineString = new ArrayList<String>();
 				for(int i = 0;i < onlineuser.length; i ++)
 				{
@@ -209,7 +210,7 @@ class SeverUI extends JFrame {
 				OnlineList.setListData(onlineuser);
 				
 				ArrayList<UserInfo> alllineUserInfo = UserManager.getUserList();
-				String[] offlineuser = new String[alllineUserInfo.size()];
+				offlineuser = new String[alllineUserInfo.size()];
 				int j = 0;
 				for(int i = 0;i < offlineuser.length; i ++)
 				{
