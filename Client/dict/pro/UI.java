@@ -555,7 +555,7 @@ public class UI extends JFrame{
 				boolean success = false;
 				 if(link.isOnline()){
 					 //send
-					 if(inputField.getText().length() != 0 && BDid.getText().length() != 0 ){
+					 if(inputField.getText()!=null && BDid.getText()!=null && inputField.getText().length() != 0 && BDid.getText().length() != 0 ){
 						 if(link.serach(inputField.getText())== null)
 						 {
 							 JOptionPane.showMessageDialog(null,"Can't get the meaning of word from baidu!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -569,6 +569,9 @@ public class UI extends JFrame{
 							 JOptionPane.showMessageDialog(null,"Send Fail", "Fail", JOptionPane.ERROR_MESSAGE);
 						}
 					 }
+				 }
+				 else{
+					 JOptionPane.showMessageDialog(null,"Please log in !", "Fail", JOptionPane.ERROR_MESSAGE);
 				 }
 			}
 		});
@@ -603,6 +606,9 @@ public class UI extends JFrame{
 						}
 					}
 				}
+				 else{
+					 JOptionPane.showMessageDialog(null,"Please log in !", "Fail", JOptionPane.ERROR_MESSAGE);
+				 }
 			}
 		});
 		
@@ -614,7 +620,7 @@ public class UI extends JFrame{
 				boolean success = false;
 				 if(link.isOnline()){
 					 //send
-					 if(inputField.getText().length() != 0 && YDid.getText().length() != 0 ){
+					 if(inputField.getText()!=null && YDid.getText()!=null && inputField.getText().length() != 0 && YDid.getText().length() != 0 ){
 						 if(link.serach(inputField.getText())== null)
 						 {
 							 JOptionPane.showMessageDialog(null,"Can't get the meaning of word from youdao!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -628,6 +634,9 @@ public class UI extends JFrame{
 							 JOptionPane.showMessageDialog(null,"Send Fail", "Fail", JOptionPane.ERROR_MESSAGE);
 						}
 					 }
+				 }
+				 else{
+					 JOptionPane.showMessageDialog(null,"Please log in !", "Fail", JOptionPane.ERROR_MESSAGE);
 				 }
 			}
 		});
@@ -661,6 +670,9 @@ public class UI extends JFrame{
 						}
 					}
 				}
+				 else{
+					 JOptionPane.showMessageDialog(null,"Please log in !", "Fail", JOptionPane.ERROR_MESSAGE);
+				 }
 			}
 		});
 		
@@ -669,15 +681,30 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				 if(link.isOnline() == true){
+				boolean success = false;
+				 if(link.isOnline()){
 					 //send
-					 if(inputField.getText()!=null && BYid.getText()!=null){
-						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordBing(), link.getDetail().getAccount(), BYid.getText());
-						 link.sendCard(wcCard.getBuffImage(), BYid.getText());
+					 if(inputField.getText()!=null && BYid.getText()!=null && inputField.getText().length() != 0 && BYid.getText().length() != 0 ){
+						 if(link.serach(inputField.getText())== null)
+						 {
+							 JOptionPane.showMessageDialog(null,"Can't get the meaning of word from Bing!", "Error", JOptionPane.ERROR_MESSAGE);
+							 return;
+						 }
+						 WordCard wcCard=new WordCard(link.serach(inputField.getText()).getWordYoudao(),link.getDetail().getAccount(), BYid.getText());
+						 success = link.sendCard(wcCard.getBuffImage(), BYid.getText());
+						 if(success)
+							 JOptionPane.showMessageDialog(null,"Send Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+						 else {
+							 JOptionPane.showMessageDialog(null,"Send Fail", "Fail", JOptionPane.ERROR_MESSAGE);
+						}
 					 }
+				 }
+				 else{
+					 JOptionPane.showMessageDialog(null,"Please log in !", "Fail", JOptionPane.ERROR_MESSAGE);
 				 }
 			}
 		});
+		
 		BYgood.addActionListener(new ActionListener(){
 
 			@Override
@@ -708,6 +735,9 @@ public class UI extends JFrame{
 						}
 					}
 				}
+				 else{
+					 JOptionPane.showMessageDialog(null,"Please log in !", "Fail", JOptionPane.ERROR_MESSAGE);
+				 }
 			}
 		});
 
