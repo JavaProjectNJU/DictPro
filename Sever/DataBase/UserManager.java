@@ -94,6 +94,9 @@ public class UserManager {
 			String sql = "delete from FriendRelation where username1='"
 					+account1+"' and username2='"+account2+"';";
 			change = statement.execute(sql);	
+			sql = "delete from FriendRelation where username1='"
+					+account2+"' and username2='"+account1+"';";
+			change = statement.execute(sql);	
 		} catch (SQLException e) {
 			System.out.println("Not Exists!");
 			return false;
@@ -298,7 +301,8 @@ public class UserManager {
 		usr2.login("ip2", 1);
 		usr3.login("ip3", 1);
 		usr.addFriend("Haohao");
-		UserInfo usrinfo = UserManager.getOtherOnlineUser("zhangry");
-		usrinfo.display();
+		usr.delFriend("zhangry");
+		//UserInfo usrinfo = UserManager.getOtherOnlineUser("zhangry");
+		//usrinfo.display();
 	}
 }

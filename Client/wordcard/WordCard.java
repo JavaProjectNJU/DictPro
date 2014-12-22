@@ -66,8 +66,8 @@ public class WordCard {
         srcHeight = bi.getWidth(); // 源图高度
         //System.out.println(srcWidth+ "," +srcHeight);
         
-        uid1 = "Roy";
-        uid2 = "Guo";
+        //uid1 = "Roy";
+       // uid2 = "Guo";
         //WordEngine baidu = new FromBing();
         //Word word = baidu.search("give");
         try {     	
