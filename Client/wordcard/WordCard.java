@@ -78,7 +78,7 @@ public class WordCard {
 			g.drawString(word.getWord(), 100, 130);
 			g.setFont(pronounce);
 			if(word.getPron_EN_UK() != null &&word.getPron_EN_US() != null)
-				g.drawString("["+word.getPron_EN_UK()+"]   ["+ word.getPron_EN_US()+ "]", 120, 160);
+				g.drawString(" UK : ["+word.getPron_EN_UK()+"]   US : ["+ word.getPron_EN_US()+ "]", 120, 160);
 			g.setFont(explain);
 			int height = 165;
 			for(int i = 0; i < word.getExplain().size(); i ++)
