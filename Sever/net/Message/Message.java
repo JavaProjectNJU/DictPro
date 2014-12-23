@@ -166,6 +166,9 @@ public class Message implements Serializable{
 	
 	public static byte[] imageToBytes(BufferedImage image){
 		byte[] buf = null;
+		
+		if(image == null)
+			return null;
 		try {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ImageIO.write(image, "jpg", baos);
@@ -179,6 +182,8 @@ public class Message implements Serializable{
 	
 	public static BufferedImage bytesToImage(byte[] buf){
 		BufferedImage image = null;
+		if(buf == null)
+			return null;
 		try{
 			ByteArrayInputStream baos = new ByteArrayInputStream(buf);
 			image = ImageIO.read(baos);
