@@ -420,7 +420,7 @@ public class LinkToServer {
 				return null;
 			}
 			
-			System.out.println("refresh friendlist success//////" +((Message.OnlineFriend)(reply.data)).friendList.size());
+		//	System.out.println("refresh friendlist success//////" +((Message.OnlineFriend)(reply.data)).friendList.size());
 			return	((Message.OnlineFriend)(reply.data)).friendList;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
