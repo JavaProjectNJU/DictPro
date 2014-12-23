@@ -199,7 +199,7 @@ public class UI extends JFrame{
 				
 				friendInfo fi=new friendInfo(link, (UserInfo)Flist.getSelectedValue());
 				fi.setTitle("Friend Info");
-				fi.setSize(300,200);
+				fi.setSize(300,400);
 				fi.setLocationRelativeTo(null);
 				fi.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				fi.setVisible(true);
