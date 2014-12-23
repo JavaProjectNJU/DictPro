@@ -63,7 +63,9 @@ public class LinkToServer {
 		data.uid = this.uid;
 		data.psw = this.psw;
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(online.id, null);
+			}
 			objOut.writeObject(online);
 			objOut.flush();
 			
@@ -91,7 +93,9 @@ public class LinkToServer {
 		data.uid = uid;
 		data.psw = psw;
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(loginMessage.id, null);
+			}
 			objOut.writeObject(loginMessage);
 			objOut.flush();
 			
@@ -118,7 +122,9 @@ public class LinkToServer {
 		uid = null;
 		psw = null;
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(logoutMessage.id, null);
+			}
 			objOut.writeObject(logoutMessage);
 			objOut.flush();
 			
@@ -148,7 +154,9 @@ public class LinkToServer {
 		data.head = Message.imageToBytes(head);
 		try {
 			System.out.println("sending a register msg");
-			
+			synchronized(requestMap){
+				requestMap.put(rigisterMsg.id , null);
+			}
 			objOut.writeObject(rigisterMsg);
 			objOut.flush();
 			
@@ -176,7 +184,9 @@ public class LinkToServer {
 		data.oldpsw = this.psw;
 		data.newpsw = newpsw;
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(changeMsg.id, null);
+			}
 			objOut.writeObject(changeMsg);
 			objOut.flush();
 			
@@ -202,7 +212,9 @@ public class LinkToServer {
 		data.word = new UnionWord(); 
 		data.word.setWordstr(word);
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(serachMsg.id, null);
+			}
 			objOut.writeObject(serachMsg);
 			objOut.flush();
 			
@@ -231,7 +243,9 @@ public class LinkToServer {
 		data.word = word;
 		data.source = type;
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(addPriseMsg.id, null);
+			}
 			objOut.writeObject(addPriseMsg);
 			objOut.flush();
 			
@@ -258,7 +272,9 @@ public class LinkToServer {
 		data.word = word;
 		data.source = type;
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(delPriseMsg.id, null);
+			}
 			objOut.writeObject(delPriseMsg);
 			objOut.flush();
 			
@@ -284,7 +300,9 @@ public class LinkToServer {
 		data.psw = this.psw;
 		data.friend_uid = friendUid;
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(addFriendMsg.id, null);
+			}
 			objOut.writeObject(addFriendMsg);
 			objOut.flush();
 			
@@ -310,7 +328,9 @@ public class LinkToServer {
 		data.psw = this.psw;
 		data.friend_uid = friendUid;
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(delFriendMsg.id, null);
+			}
 			objOut.writeObject(delFriendMsg);
 			objOut.flush();
 			
@@ -337,7 +357,9 @@ public class LinkToServer {
 		data.psw = this.psw;
 		data.dialoge = text;
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(sendTextMsg.id, null);
+			}
 			objOut.writeObject(sendTextMsg);
 			objOut.flush();
 			
@@ -364,7 +386,9 @@ public class LinkToServer {
 		data.targetuid = tuid;
 		data.card = Message.imageToBytes(image);
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(cardMsg.id, null);
+			}
 			objOut.writeObject(cardMsg);
 			objOut.flush();
 			
@@ -411,7 +435,9 @@ public class LinkToServer {
 		data.psw = this.psw;
 		data.friendList = new ArrayList<UserInfo>();
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(onlineMsg.id, null);
+			}
 			objOut.writeObject(onlineMsg);
 			objOut.flush();
 			
@@ -443,7 +469,9 @@ public class LinkToServer {
 		data.psw = psw;
 		data.myself = null;
 		try {
-			
+			synchronized(requestMap){
+				requestMap.put(userInfoMsg.id, null);
+			}
 			objOut.writeObject(userInfoMsg);
 			objOut.flush();
 			
@@ -469,6 +497,7 @@ public class LinkToServer {
 					return reply;
 				}else if(loop > 160){//4s超时
 					System.out.println("time out");
+					requestMap.remove(id);//删除注册请求
 					return null;
 				}
 			}
