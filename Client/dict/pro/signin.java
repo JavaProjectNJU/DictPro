@@ -5,10 +5,15 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -20,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import sun.security.util.Password;
 import dict.net.LinkToServer;
@@ -28,13 +34,19 @@ public class signin extends JFrame{
 	
 	private boolean signEnable=true;
 	private boolean issex=false;
+	
+	private File files = null; // files for the icon
 
+	private BufferedImage image=null;
+	
 	public signin(final LinkToServer link){
+		final JButton loadIconButton=new JButton("Browse"); //upload the icon
 		final JTextField uid =new JTextField(20); // Input Field
 		final JPasswordField psw0=new JPasswordField(20); // input the psw for the first time
 		final JPasswordField psw1=new JPasswordField(20); // input the psw for the second time
 		final JTextField email=new JTextField(20); // input the email
 		
+
 		
 		final ButtonGroup sex=new ButtonGroup();
 		JRadioButton male=new JRadioButton("Male",true);
@@ -45,6 +57,15 @@ public class signin extends JFrame{
 		JButton submitButton=new JButton("Submit");
 		JButton cancelButton=new JButton("Cancel");
 		
+		
+		JPanel iconPanel=new JPanel();
+		final JLabel iconlocationLabel=new JLabel("文件位置 ：");
+		iconPanel.setLayout(new BorderLayout(5,10));
+		iconPanel.add(new JLabel(" Upload Your icon here :  "), BorderLayout.NORTH);
+		iconPanel.add(loadIconButton, BorderLayout.CENTER);
+		iconPanel.add(iconlocationLabel,BorderLayout.SOUTH);
+
+	
 		JPanel uidPanel=new JPanel();
 		uidPanel.setLayout(new BorderLayout(5,10));
 		uidPanel.add(new JLabel(" Enter Your UID: "), BorderLayout.NORTH);
@@ -78,16 +99,40 @@ public class signin extends JFrame{
 
 		
 		JPanel sinPanel=new JPanel();
-		sinPanel.setLayout(new GridLayout(6,1));
+		sinPanel.setLayout(new GridLayout(7,1));
 		
+		sinPanel.add(iconPanel,BorderLayout.WEST);
 		sinPanel.add(uidPanel,BorderLayout.WEST);
 		sinPanel.add(pswPanel0,BorderLayout.WEST);
 		sinPanel.add(pswPanel1,BorderLayout.WEST);
 		sinPanel.add(emailPanel,BorderLayout.WEST);
 		sinPanel.add(sexPanel,BorderLayout.WEST);
-		
 		sinPanel.add(buttonPanel,BorderLayout.WEST);
 		add(sinPanel);
+		
+		loadIconButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG Images", "jpg");
+				chooser.setFileFilter(filter); //set the type of the picture
+				chooser.setMultiSelectionEnabled(false); //judge whether it can be multiply-selected
+				int returnVal = chooser.showOpenDialog(getContentPane());
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					files = chooser.getSelectedFile();
+					try {
+						image = ImageIO.read(files);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					iconlocationLabel.setText("文件位置 ：" + files.getAbsolutePath());
+				}	
+			}
+		});
+		
 		
 		male.addActionListener(new ActionListener() {
 			
@@ -120,7 +165,7 @@ public class signin extends JFrame{
 					String uidStr=uid.getText();
 					String emailStr=email.getText();
 					if(uidStr!=null && emailStr!=null){
-						link.register(uidStr, pswStr0, emailStr, issex,null);
+						link.register(uidStr, pswStr0, emailStr, issex,image);
 						JOptionPane.showMessageDialog(null,"Success!", "sign in reminder!", JOptionPane.INFORMATION_MESSAGE);
 						dispose();
 					}
