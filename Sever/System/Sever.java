@@ -89,7 +89,9 @@ public class Sever {
 			System.exit(-1);
 		}
 	}
-	
+	public Map<String, List> getMsgMap(){
+		return msgMap;
+	}
 	
 	public void test(){
 		User u1 = new User("jam", "guoruijun");
