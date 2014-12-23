@@ -82,7 +82,6 @@ class SeverUI extends JFrame {
 	JScrollPane OnlineScroll; // 显示在线用户的列表
 	JList<String> OnlineList;
 	DefaultListModel JListOnlineModel;
-
 	JScrollPane OfflineScroll; // 显示不在线用户的列表
 	JList<String> OfflineList;
 	DefaultListModel JListOfflineModel;
@@ -90,7 +89,7 @@ class SeverUI extends JFrame {
 	String[] onlineuser;
 	JButton dispatchBtn; // 发送按钮
 	JButton freshUserBtn; // 发送按钮
-
+	
 	/***************************** 以上组件 ********************************/
 	public SeverUI() {
 		super("Server Controller");
@@ -249,9 +248,9 @@ class SeverUI extends JFrame {
 					onlineUserInfo.get(i).display();
 				}*/
 				mailbox = server.getMsgMap();
-				DispatchWindow subFrame = new DispatchWindow(mailbox);
+				DispatchWindow subFrame = new DispatchWindow(mailbox,SendedPubMsgText);
 				subFrame.setSize(300, 200);
-				subFrame.setTitle("About Dictionary");
+				subFrame.setTitle("Public Message");
 				subFrame.setLocationRelativeTo(null);//Center the Frame
 				subFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				subFrame.setVisible(true);

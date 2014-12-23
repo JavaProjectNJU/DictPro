@@ -3,6 +3,7 @@ package SeverUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -26,14 +27,17 @@ public class DispatchWindow extends JFrame
 {
 	private static final long serialVersionUID = -2215166237228509322L;
 	Map<String,ArrayList<Message>> mailbox;
+	String message;
 	JPanel explanationPanel;
 	JTextArea WordAera;
+	JTextArea tx;
 	JButton jbtAbout,jbtDel;
 	JScrollPane textArea;
 	JPanel ButtonArea = new JPanel();
 	//protected MessagePanel messagePanel;
-	public DispatchWindow(Map<String,ArrayList<Message>> _mailbox)
+	public DispatchWindow(Map<String,ArrayList<Message>> _mailbox, JTextArea _tx)
 	{
+		tx = _tx;
 		mailbox = _mailbox;
 		explanationPanel = new JPanel(new BorderLayout(5,0));	
 		WordAera = new JTextArea();
@@ -76,10 +80,12 @@ public class DispatchWindow extends JFrame
 					msg.data = data;
 					data.uid = "Server";
 					data.dialoge = WordAera.getText();
-					System.out.println("Test:" + data.dialoge);
+					message = WordAera.getText();
+					//System.out.println("Test:" + data.dialoge);
 					ArrayList<Message> list = mailbox.get(uid);
 					list.add(msg);
 				}
+				tx.append(message);
 				dispose();
 			}
 		});
@@ -90,11 +96,19 @@ public class DispatchWindow extends JFrame
 		
 	}
 	
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 	public static void main(String[] args)
 	{
-		DispatchWindow subFrame = new DispatchWindow(null);
+		DispatchWindow subFrame = new DispatchWindow(null,null);
 		subFrame.setSize(300, 200);
-		subFrame.setTitle("About Dictionary");
+		subFrame.setTitle("Public Message");
 		subFrame.setLocationRelativeTo(null);//Center the Frame
 		subFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		subFrame.setVisible(true);
