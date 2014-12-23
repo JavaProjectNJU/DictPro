@@ -70,7 +70,8 @@ public void run() {
 			if(msg.reply){// themsg is a reply
 				System.out.println("reply to:"+ msg.id);
 				synchronized(requestMap){
-					requestMap.put(msg.id, msg);
+					if(requestMap.containsKey(msg.id))//有相应的请求才会加入，否则说明该返回已经超时，丢弃
+						requestMap.put(msg.id, msg);
 				}
 				
 			}else{//then it is a request 
