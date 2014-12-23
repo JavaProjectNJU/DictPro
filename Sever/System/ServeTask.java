@@ -31,7 +31,7 @@ public class ServeTask extends Task implements Runnable{
 	private ArrayList<Message> msgBox;
 	private User user = null;
 	static private Map msgMap;//share with all the server
-	static private UserManager uManager;//share with all the server
+	//static private UserManager uManager;//share with all the server
 	static private DictionaryManager dictManager;
 	static private int idCreater = 0;
 	byte[] buff = null;
@@ -127,7 +127,7 @@ public class ServeTask extends Task implements Runnable{
 		Message.IsOnline isonline = (Message.IsOnline)(msg.data);
 		msg.reply = true;
 		msg.type = Message.IS_ONLINE;
-		if(user == null || !user.isOn() || !uManager.identityVerify(isonline.uid, isonline.psw)){
+		if(user == null || !user.isOn() || !UserManager.identityVerify(isonline.uid, isonline.psw)){
 			isonline.isOnline = false;
 			System.out.println("Failed");
 		}else{
@@ -141,7 +141,7 @@ public class ServeTask extends Task implements Runnable{
 		Message.Info uinfo = (Message.Info)(msg.data);
 		msg.reply = true;
 		msg.type = Message.USER_INFO;
-		if(user == null || !user.isOn() || !uManager.identityVerify(uinfo.uid, uinfo.psw)){
+		if(user == null || !user.isOn() || !UserManager.identityVerify(uinfo.uid, uinfo.psw)){
 			uinfo.myself = null;
 		}else{
 			uinfo.myself = new UserInfo(user);
@@ -154,14 +154,14 @@ public class ServeTask extends Task implements Runnable{
 		// TODO Auto-generated method stub
 		Message.OnlineFriend onlineFriend = (Message.OnlineFriend)(msg.data);
 		msg.reply = true;
-		if(user == null || !user.isOn() || !uManager.identityVerify(onlineFriend.uid, onlineFriend.psw)){
+		if(user == null || !user.isOn() || !UserManager.identityVerify(onlineFriend.uid, onlineFriend.psw)){
 
 			onlineFriend.friendList = null;
 			System.out.println("cant get friend list");
 		}else{
 			System.out.println("then can get friend list");
 			//onlineFriend.friendList = user.getFriendOnline();
-			onlineFriend.friendList = uManager.getOnlineUser();
+			onlineFriend.friendList = UserManager.getOnlineUser();
 			System.out.println(user.getAccount()+"&&&&&&&&&&&&&&&&");
 			for(UserInfo i :user.getFriendOnline())
 				i.display();
@@ -181,7 +181,7 @@ public class ServeTask extends Task implements Runnable{
 		reply.type = Message.DEL_PRAISE;
 		Message.ReplyData data = reply.new ReplyData();
 		reply.data = data;
-		if(user == null || !user.isOn() || !uManager.identityVerify(delPrise.uid, delPrise.psw) || !dictManager.DelPraise(delPrise.uid, delPrise.word, delPrise.source)){
+		if(user == null || !user.isOn() || !UserManager.identityVerify(delPrise.uid, delPrise.psw) || !dictManager.DelPraise(delPrise.uid, delPrise.word, delPrise.source)){
 			data.success = false;
 		}else{
 			data.success = true;
@@ -199,7 +199,7 @@ public class ServeTask extends Task implements Runnable{
 		reply.type = Message.ADD_PRAISE;
 		Message.ReplyData data = reply.new ReplyData();
 		reply.data = data;
-		if(user == null || !user.isOn() || !uManager.identityVerify(addPrise.uid, addPrise.psw) || !dictManager.AddPraise(addPrise.uid, addPrise.word, addPrise.source)){
+		if(user == null || !user.isOn() || !UserManager.identityVerify(addPrise.uid, addPrise.psw) || !dictManager.AddPraise(addPrise.uid, addPrise.word, addPrise.source)){
 			data.success = false;
 		}else{
 			data.success = true;
@@ -218,7 +218,7 @@ public class ServeTask extends Task implements Runnable{
 		Message.ReplyData data = reply.new ReplyData();
 		
 		reply.data = data;
-		if(user == null || !user.isOn() || !uManager.identityVerify(delFriend.uid, delFriend.psw) || !user.delFriend(delFriend.friend_uid)){
+		if(user == null || !user.isOn() || !UserManager.identityVerify(delFriend.uid, delFriend.psw) || !user.delFriend(delFriend.friend_uid)){
 			data.success = false;
 		}else{
 			data.success = true;
@@ -237,7 +237,7 @@ public class ServeTask extends Task implements Runnable{
 		Message.ReplyData data = reply.new ReplyData();
 		
 		reply.data = data;
-		if(user == null || !user.isOn() || !uManager.identityVerify(addFriend.uid, addFriend.psw) 
+		if(user == null || !user.isOn() || !UserManager.identityVerify(addFriend.uid, addFriend.psw) 
 				|| !user.addFriend(addFriend.friend_uid)){
 			data.success = false;
 		}else{
@@ -257,21 +257,21 @@ public class ServeTask extends Task implements Runnable{
 		ipReply.type = Message.IP_DATA;
 		Message.IpData ipdata = ipReply.new IpData();
 		ipReply.data = ipdata;
-		if(user == null || !user.isOn() || !uManager.identityVerify(sendCard.uid, sendCard.psw)
+		if(user == null || !user.isOn() || !UserManager.identityVerify(sendCard.uid, sendCard.psw)
 				|| !dictManager.saveWordCard(sendCard.uid, sendCard.targetuid, sendCard.card)){
 			ipdata.Ip = null;
 			System.out.println("card user is null?"+(user == null));
 			if(user != null)
 				System.out.println("card user is on?" + user.isOn());
-			System.out.println("identity ?"  +uManager.identityVerify(sendCard.uid, sendCard.psw) );
+			System.out.println("identity ?"  +UserManager.identityVerify(sendCard.uid, sendCard.psw) );
 			
 			System.out.println("card dont save!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}else{//认证成功
 			System.out.println("target id:" + sendCard.targetuid);
 			//ipdata.Ip = uManager.getOtherOnlineUser(sendCard.targetuid).IpAddr;
-			uManager.getOtherOnlineUser(sendCard.targetuid).display();
+			UserManager.getOtherOnlineUser(sendCard.targetuid).display();
 			
-			ipdata.Ip = uManager.getOtherOnlineUser(sendCard.targetuid).IpAddr;
+			ipdata.Ip = UserManager.getOtherOnlineUser(sendCard.targetuid).IpAddr;
 			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + ipdata.Ip);
 		}
 					
@@ -290,7 +290,7 @@ public class ServeTask extends Task implements Runnable{
 		Message.ReplyData data = reply.new ReplyData();
 		reply.data = data;
 		ArrayList<Message> targetMsgBox = null;
-		if(user == null || !user.isOn() || !uManager.identityVerify(sendMsg.uid, sendMsg.psw)){
+		if(user == null || !user.isOn() || !UserManager.identityVerify(sendMsg.uid, sendMsg.psw)){
 			data.success = false;//if the user id offline or the psw is wrong then dont forword
 		}
 		else{
@@ -346,7 +346,7 @@ public class ServeTask extends Task implements Runnable{
 		reply.reply = true;
 		Message.ReplyData data = reply.new ReplyData();
 		reply.data = data;
-		if(uManager.changePassword(chPsw.uid, chPsw.oldpsw, chPsw.newpsw)){//check 
+		if(UserManager.changePassword(chPsw.uid, chPsw.oldpsw, chPsw.newpsw)){//check 
 			data.success = true;
 			user.setPw(chPsw.newpsw);
 		}else{
@@ -365,7 +365,7 @@ public class ServeTask extends Task implements Runnable{
 		reply.type = Message.LOGOUT;
 		Message.ReplyData redata = reply.new ReplyData();
 		reply.data = redata;
-		if(uManager.identityVerify(logout.uid, logout.psw)){
+		if(UserManager.identityVerify(logout.uid, logout.psw)){
 			user.logout();
 			redata.success = true;
 			synchronized(msgMap){//then other can send msg
@@ -391,7 +391,7 @@ public class ServeTask extends Task implements Runnable{
 		Message.ReplyData redata = reply.new ReplyData();
 		reply.data = redata;
 		System.out.println("register msg: uid-"+rMsgData.uid+" psw-"+rMsgData.psw+" email-"+rMsgData.email+ " sex-"+rMsgData.sex);
-		if(uManager.createUser(rMsgData.uid, rMsgData.psw, rMsgData.email, rMsgData.sex)){
+		if(UserManager.createUser(rMsgData.uid, rMsgData.psw, rMsgData.email, rMsgData.sex)){
 			//user = new User(rMsgData.uid, rMsgData.psw);
 			
 			System.out.println("server register successful");
@@ -441,9 +441,9 @@ public class ServeTask extends Task implements Runnable{
 		ServeTask.msgMap = msgMap;
 	}
 	
-	public static void setUserManager(UserManager um){
+	/*public static void setUserManager(UserManager um){
 		ServeTask.uManager = um;
-	}
+	}*/
 	public static void setDictionaryManager(DictionaryManager dictm){
 		ServeTask.dictManager = dictm;
 	}

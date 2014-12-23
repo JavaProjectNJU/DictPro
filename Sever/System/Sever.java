@@ -28,10 +28,10 @@ public class Sever {
 		
 		
 		msgMap = new HashMap<String,List>();
-		uManager = new UserManager();
+		//uManager = new UserManager();
 		dictm = new DictionaryManager();
 		ServeTask.setMsgMap(msgMap);
-		ServeTask.setUserManager(uManager);
+		//ServeTask.setUserManager(uManager);
 		ServeTask.setDictionaryManager(dictm);
 		//读取配置
 		BufferedInputStream bis;
