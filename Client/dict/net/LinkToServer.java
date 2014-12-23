@@ -134,7 +134,7 @@ public class LinkToServer {
 		}
 		return false;
 	}
-	public boolean register(String uid, String psw, String email, boolean sex){
+	public boolean register(String uid, String psw, String email, boolean sex, BufferedImage head){
 		Message rigisterMsg = new Message();
 		rigisterMsg.id = idCreater ++;
 		rigisterMsg.reply = false;
@@ -145,6 +145,7 @@ public class LinkToServer {
 		data.psw = psw;
 		data.email = email;
 		data.sex = sex;
+		data.head = Message.imageToBytes(head);
 		try {
 			System.out.println("sending a register msg");
 			

@@ -390,7 +390,9 @@ public class ServeTask extends Task implements Runnable{
 		reply.type = Message.REGISTER;
 		Message.ReplyData redata = reply.new ReplyData();
 		reply.data = redata;
-		System.out.println("register msg: uid-"+rMsgData.uid+" psw-"+rMsgData.psw+" email-"+rMsgData.email+ " sex-"+rMsgData.sex);
+		UserInfo newusr = new UserInfo(null, rMsgData.uid, rMsgData.psw);
+		//newusr.
+		//System.out.println("register msg: uid-"+rMsgData.uid+" psw-"+rMsgData.psw+" email-"+rMsgData.email+ " sex-"+rMsgData.sex);
 		if(UserManager.createUser(rMsgData.uid, rMsgData.psw, rMsgData.email, rMsgData.sex)){
 			//user = new User(rMsgData.uid, rMsgData.psw);
 			

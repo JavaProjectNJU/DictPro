@@ -86,7 +86,8 @@ public class Message implements Serializable{
 		public String psw;
 		public String email;
 		public boolean sex;//false for famale true for male
-		
+		public byte[] head;
+		//public UserInfo user;
 	}
 
 	public class ChangePsw extends MsgData implements Serializable{
