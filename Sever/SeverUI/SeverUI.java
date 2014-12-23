@@ -23,6 +23,8 @@ import org.jvnet.substance.skin.OfficeBlue2007Skin;
 import org.jvnet.substance.theme.SubstanceTerracottaTheme;
 import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
 
+import com.sun.corba.se.spi.activation.Server;
+
 import DataBase.UserManager;
 import System.Sever;
 import System.ThreadPool;
@@ -333,8 +335,9 @@ class SeverUI extends JFrame {
         } catch (Exception e) {
             System.err.println("Something went wrong!");
         }
-		new SeverUI().setVisible(true);
-		
+		SeverUI server = new SeverUI();
+		server.setVisible(true);
+		server.start();
 		
 		
 	}// main()
