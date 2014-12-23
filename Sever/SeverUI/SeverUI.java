@@ -97,7 +97,6 @@ class SeverUI extends JFrame {
 		// 创建容器
 		contentPane = this.getContentPane();
 		contentPane.setLayout(new GridBagLayout());
-
 		PubMsgText = new JTextArea();
 		PubMsgText.setLineWrap(true);
 		PubMsgText.setBorder(BorderFactory
@@ -249,8 +248,9 @@ class SeverUI extends JFrame {
 				{
 					onlineUserInfo.get(i).display();
 				}*/
+				mailbox = server.getMsgMap();
 				DispatchWindow subFrame = new DispatchWindow(mailbox);
-				subFrame.setSize(300, 400);
+				subFrame.setSize(300, 200);
 				subFrame.setTitle("About Dictionary");
 				subFrame.setLocationRelativeTo(null);//Center the Frame
 				subFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -312,7 +312,6 @@ class SeverUI extends JFrame {
 		server = new Sever();
 		System.out.println("server is starting");
 		server.start();
-		mailbox = server.getMsgMap();
 	}
 	
 	public static void main(String args[]) {
