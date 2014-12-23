@@ -89,7 +89,7 @@ public class Sever {
 			System.exit(-1);
 		}
 	}
-	public Map<String, List> getMsgMap(){
+	public Map<String, ArrayList<Message>> getMsgMap(){
 		return msgMap;
 	}
 	
