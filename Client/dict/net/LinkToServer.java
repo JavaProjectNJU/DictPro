@@ -408,7 +408,7 @@ public class LinkToServer {
 		onlineMsg.data = data;
 		data.uid = this.uid;
 		data.psw = this.psw;
-		data.friendList = null;
+		data.friendList = new ArrayList<UserInfo>();
 		try {
 			
 			objOut.writeObject(onlineMsg);
