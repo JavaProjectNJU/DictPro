@@ -214,7 +214,7 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				myInfo mi=new myInfo(link);
 				mi.setTitle("My Info");
-				mi.setSize(300,200);
+				mi.setSize(300,400);
 				mi.setLocationRelativeTo(null);
 				mi.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				mi.setVisible(true);

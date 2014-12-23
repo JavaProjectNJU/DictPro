@@ -62,11 +62,12 @@ public class myInfo extends JFrame{
 		buttonPanel.add(cancel);
 		
 		JPanel fPanel=new JPanel();
-		fPanel.setLayout(new GridLayout(4,1));
+		fPanel.setLayout(new GridLayout(5,1));
 		fPanel.add(buttonPanel,FlowLayout.LEFT);
 		fPanel.add(sexLabel,FlowLayout.LEFT);	
 		fPanel.add(emailLabel,FlowLayout.LEFT);
 		fPanel.add(uidLabel,FlowLayout.LEFT);
+		fPanel.add(iconLabel,FlowLayout.LEFT);
 		
 		this.add(fPanel);
 		//+++++++++++++++++++++++++++++++++++++++++
@@ -120,6 +121,7 @@ public class myInfo extends JFrame{
 				
 				pswPanel.add(buttonPanel,BorderLayout.SOUTH);
 				
+				pswFrame.add(pswPanel);
 				
 				pswFrame.setTitle("Change Psw");
 				pswFrame.setSize(300,400);
