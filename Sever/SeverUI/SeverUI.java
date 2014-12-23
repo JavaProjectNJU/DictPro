@@ -236,7 +236,7 @@ class SeverUI extends JFrame {
 					temp.get(i).display();
 					//System.out.println(temp.get(i).getAccount()+" "+ this.account +" "+ temp.get(i).isFriend(this.account));
 					System.out.println("Hello");
-					if(UserManager.friendJudge("zhangry", temp.get(i).getAccount()))
+					if( UserManager.friendJudge("zhangry", temp.get(i).getAccount()))
 					{	
 						onlineFriend.add(temp.get(i));
 						System.out.println("Is Friend!!!");

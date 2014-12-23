@@ -80,6 +80,7 @@ public class DispatchWindow extends JFrame
 					ArrayList<Message> list = mailbox.get(uid);
 					list.add(msg);
 				}
+				dispose();
 			}
 		});
 		
