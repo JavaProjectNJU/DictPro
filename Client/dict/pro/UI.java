@@ -43,7 +43,7 @@ public class UI extends JFrame{
 	private ArrayList<Message> msgBox=new ArrayList<Message>();
 	
 	private JList Flist = new JList<UserInfo>(); //flist for online friend
-
+	
 	private JButton messageButton=new JButton("0 Message");
 	private JList messageList=new JList();
 	
@@ -54,12 +54,10 @@ public class UI extends JFrame{
 	private boolean ydgood=false;
 	private boolean bygood=false;
 
-	
 	private JTextField inputField = new JTextField(30); // Input Field
 	private JButton SearchButton = new JButton("search"); //Search Button
 	
 	private JButton Login=new JButton("Log in");//log in button
-	
 	private JButton Signin=new JButton("Sign in"); //sign in button
 	
 	private JCheckBox jchkBD=new JCheckBox("百度",true);
@@ -90,7 +88,7 @@ public class UI extends JFrame{
 	private JTextField addFriendField=new JTextField(10);
 	private JButton addFriendButton=new JButton("Add Friend");
 	
-
+	
 	private JLabel bdGoodLabel=new JLabel("Great number : ");
 	private JLabel ydGoodLabel=new JLabel("Great number : ");
 	private JLabel byGoodLabel=new JLabel("Great number : ");
@@ -156,7 +154,7 @@ public class UI extends JFrame{
 		
 		JPanel bottom=new JPanel();
 		final JButton userinfoButton =new JButton("User Info");
-		final JLabel usericonLabel=new JLabel();
+//		final JLabel usericonLabel=new JLabel();
 		
 		bottom.setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -164,7 +162,7 @@ public class UI extends JFrame{
 		bottom.add(jchkYD);
 		bottom.add(jchkBY);
 
-		bottom.add(usericonLabel);
+//		bottom.add(usericonLabel);
 		bottom.add(userinfoButton);
 		bottom.add(messageButton);
 		
@@ -214,7 +212,7 @@ public class UI extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				myInfo mi=new myInfo(link, (UserInfo)Flist.getSelectedValue());
+				myInfo mi=new myInfo(link);
 				mi.setTitle("My Info");
 				mi.setSize(300,200);
 				mi.setLocationRelativeTo(null);
@@ -540,7 +538,7 @@ public class UI extends JFrame{
 				// TODO Auto-generated method stub
 				 if(Login.getText().equals("Log in")){
 					usericonLabel.setVisible(true);
-					usericonLabel.setIcon(link.getDetail().getImage());
+					usericonLabel.setIcon(new Icon(link.getDetail().getImge()));
 					login lwin=new login(link,Login,userinfoButton);
 					lwin.setTitle("DictPro-LogIn");
 					lwin.setSize(250,200);
