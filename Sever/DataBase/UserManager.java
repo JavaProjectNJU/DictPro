@@ -301,7 +301,7 @@ public class UserManager {
 		usr2.login("ip2", 1);
 		usr3.login("ip3", 1);
 		usr.addFriend("Haohao");
-		usr.delFriend("zhangry");
+		usr.delFriend("Jam");
 		//UserInfo usrinfo = UserManager.getOtherOnlineUser("zhangry");
 		//usrinfo.display();
 	}
