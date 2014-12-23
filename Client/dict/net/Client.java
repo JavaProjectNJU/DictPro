@@ -52,6 +52,7 @@ public class Client {
 		for(int i = 0; i < 5; i ++){//try to connect
 			try {
 				socket = new Socket(ip, server_port);
+				socket.setKeepAlive(true);
 				//socket = new Socket("localhost", 8000);
 				System.out.println("hahahah"+ip + " "+server_port);
 				socket.setTcpNoDelay(true);
