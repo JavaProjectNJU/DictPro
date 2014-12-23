@@ -346,8 +346,8 @@ public class UI extends JFrame{
 						BYgood.setText("good");
 					}
 				}
-				body.repaint();
-				dictPro.repaint();
+				body.repaint(1000);
+				dictPro.repaint(1000);
 			}	
 		});
 		
@@ -390,8 +390,6 @@ public class UI extends JFrame{
 					int ydP=((uWord.getWordYoudao()==null)?(-1):uWord.getPariseYoudao());
 					int byP=((uWord.getWordBing()==null)?(-1):uWord.getPariseBing());
 					
-					body.repaint();
-					dictPro.repaint();
 					
 					if(bdP>=ydP && ydP>=byP){
 						if(jchkBD.isSelected())
@@ -497,8 +495,8 @@ public class UI extends JFrame{
 						BYgood.setText("good");
 					}
 				}
-				body.repaint();
-				dictPro.repaint();
+				body.repaint(1000);
+				dictPro.repaint(1000);
 			}
 		});
 		
