@@ -228,15 +228,22 @@ public class UI extends JFrame{
 					bDArea.setText("The word cannot be found! ");
 					yDArea.setText("The word cannot be found! ");
 					bYArea.setText("The word cannot be found! ");
+					
+					bdGoodLabel.setText("Great number : ");//JLabel("Great number : ");
+					ydGoodLabel.setText("Great number : ");
+					byGoodLabel.setText("Great number : ");
 				}
 				else{
 					
 					//++++++++++++++++++++++++++++++++++++++++++
-				
+
 
 					body.remove(bDJPanel);
 					body.remove(yDJPanel);
 					body.remove(bYJPanel);
+					
+					body.repaint(1000);
+					dictPro.repaint(1000);
 					
 					int bdP=((uWord.getWordBaidu()==null)?(-1):uWord.getPariseBaidu());
 					int ydP=((uWord.getWordYoudao()==null)?(-1):uWord.getPariseYoudao());
@@ -376,6 +383,10 @@ public class UI extends JFrame{
 					bDArea.setText("The word cannot be found! ");
 					yDArea.setText("The word cannot be found! ");
 					bYArea.setText("The word cannot be found! ");
+					
+					bdGoodLabel.setText("Great number : ");//JLabel("Great number : ");
+					ydGoodLabel.setText("Great number : ");
+					byGoodLabel.setText("Great number : ");
 				}
 				else{
 					
@@ -385,6 +396,9 @@ public class UI extends JFrame{
 					body.remove(bDJPanel);
 					body.remove(yDJPanel);
 					body.remove(bYJPanel);
+					
+					body.repaint(1000);
+					dictPro.repaint(1000);
 					
 					int bdP=((uWord.getWordBaidu()==null)?(-1):uWord.getPariseBaidu());
 					int ydP=((uWord.getWordYoudao()==null)?(-1):uWord.getPariseYoudao());
