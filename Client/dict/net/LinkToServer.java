@@ -466,7 +466,7 @@ public class LinkToServer {
 				if(reply != null){
 					requestMap.remove(id);
 					return reply;
-				}else if(loop > 80){//4s超时
+				}else if(loop > 160){//4s超时
 					System.out.println("time out");
 					return null;
 				}

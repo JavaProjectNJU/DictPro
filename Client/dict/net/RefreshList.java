@@ -38,8 +38,7 @@ public class RefreshList implements Runnable {
 				}else{
 					System.out.println("no friend online");
 				}
-				list.setModel(dlist);//更新列表中的元素
-				list.repaint();
+				
 			}
 	
 			try {
