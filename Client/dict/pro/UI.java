@@ -44,7 +44,7 @@ public class UI extends JFrame{
 	
 	private JList Flist = new JList<UserInfo>(); //flist for online friend
 
-	private JButton messageButton=new JButton("No Message");
+	private JButton messageButton=new JButton("0 Message");
 	private JList messageList=new JList();
 	
 	public LinkToServer link=Client.getLink(Flist,messageButton,messageList,msgBox);
@@ -59,7 +59,6 @@ public class UI extends JFrame{
 	private JButton SearchButton = new JButton("search"); //Search Button
 	
 	private JButton Login=new JButton("Log in");//log in button
-
 	
 	private JButton Signin=new JButton("Sign in"); //sign in button
 	
@@ -156,12 +155,17 @@ public class UI extends JFrame{
 		bar.add(Signin);
 		
 		JPanel bottom=new JPanel();
-		final JLabel userinfoLabel =new JLabel(" ");
+		final JButton userinfoButton =new JButton("User Info");
+		final JLabel usericonLabel=new JLabel();
+		
 		bottom.setLayout(new FlowLayout(FlowLayout.LEFT));
-		bottom.add(userinfoLabel);
+
 		bottom.add(jchkBD);
 		bottom.add(jchkYD);
 		bottom.add(jchkBY);
+
+		bottom.add(usericonLabel);
+		bottom.add(userinfoButton);
 		bottom.add(messageButton);
 		
 		headPanel.add(bar,BorderLayout.CENTER);
@@ -203,6 +207,20 @@ public class UI extends JFrame{
 				fi.setVisible(true);
 			}
 			
+		});
+		
+		userinfoButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				myInfo mi=new myInfo(link, (UserInfo)Flist.getSelectedValue());
+				mi.setTitle("My Info");
+				mi.setSize(300,200);
+				mi.setLocationRelativeTo(null);
+				mi.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				mi.setVisible(true);
+			}
 		});
 		
 		//listen the inputField
@@ -521,7 +539,9 @@ public class UI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				 if(Login.getText().equals("Log in")){
-					login lwin=new login(link,Login,userinfoLabel);
+					usericonLabel.setVisible(true);
+					usericonLabel.setIcon(link.getDetail().getImage());
+					login lwin=new login(link,Login,userinfoButton);
 					lwin.setTitle("DictPro-LogIn");
 					lwin.setSize(250,200);
 					lwin.setLocationRelativeTo(null);
@@ -532,11 +552,12 @@ public class UI extends JFrame{
 				 else{
 					 //log out
 					 if(link.logout()){
+						 usericonLabel.setVisible(false);
 						 Login.setText("Log in");
 						 BDgood.setText("good");
 						 YDgood.setText("good");
 						 BYgood.setText("good");
-						 userinfoLabel.setText(" ");
+						 userinfoButton.setText("User Info");
 					 }
 					 
 				 }

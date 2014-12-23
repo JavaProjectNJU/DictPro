@@ -14,12 +14,14 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import sun.security.util.Password;
 import dict.net.LinkToServer;
 
 public class signin extends JFrame{
@@ -29,9 +31,10 @@ public class signin extends JFrame{
 
 	public signin(final LinkToServer link){
 		final JTextField uid =new JTextField(20); // Input Field
-		final JTextField psw0=new JTextField(20); // input the psw for the first time
-		final JTextField psw1=new JTextField(20); // input the psw for the second time
+		final JPasswordField psw0=new JPasswordField(20); // input the psw for the first time
+		final JPasswordField psw1=new JPasswordField(20); // input the psw for the second time
 		final JTextField email=new JTextField(20); // input the email
+		
 		
 		final ButtonGroup sex=new ButtonGroup();
 		JRadioButton male=new JRadioButton("Male",true);
@@ -109,13 +112,15 @@ public class signin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String pswStr0=psw0.getText();
-				String pswStr1=psw1.getText();
+				String pswStr0= new String(psw0.getPassword());
+				String pswStr1= new String(psw1.getPassword());
+
+				
 				if(pswStr0!=null && pswStr1!=null &&pswStr0.equals(pswStr1)){
 					String uidStr=uid.getText();
 					String emailStr=email.getText();
 					if(uidStr!=null && emailStr!=null){
-						link.register(uidStr, pswStr0, emailStr, issex);
+						link.register(uidStr, pswStr0, emailStr, issex,null);
 						JOptionPane.showMessageDialog(null,"Success!", "sign in reminder!", JOptionPane.INFORMATION_MESSAGE);
 						dispose();
 					}

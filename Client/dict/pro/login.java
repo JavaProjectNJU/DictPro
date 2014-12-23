@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -28,9 +29,9 @@ public class login extends JFrame{
 	
 	private boolean submitEnable=true;
 
-	public login(final LinkToServer link, final JButton Login, final JLabel userinfoLabel){
+	public login(final LinkToServer link, final JButton Login, final JButton userinfoButton){
 		final JTextField uid =new JTextField(20); // Input Field
-		final JTextField psw=new JTextField(20); // input the psw for the first time
+		final JPasswordField psw=new JPasswordField(20); // input the psw for the first time
 
 		JButton loginButton=new JButton("Log In");
 		JButton cancelButton=new JButton("Cancel");
@@ -65,7 +66,8 @@ public class login extends JFrame{
 				// TODO Auto-generated method stub
 				 if(submitEnable){
 					 String uidString=uid.getText();
-					 String pswString=psw.getText();
+					 String pswString= new String(psw.getPassword());
+
 					 Boolean islogin=false;
 					 if(uidString!=null && pswString!=null){
 						 //submit something
@@ -79,7 +81,7 @@ public class login extends JFrame{
 						 String sex="Female";
 						 if(link.getDetail().isSex())
 							 sex="Male";
-						 userinfoLabel.setText(link.getDetail().getAccount()+"  "+sex);
+						 userinfoButton.setText(link.getDetail().getAccount()+"  "+sex);
 						 Login.setText("Log out");
 						 //I don't know, which windows was been disposed
 					 }else{
@@ -112,7 +114,7 @@ public class login extends JFrame{
 						 String sex="Female";
 						 if(link.getDetail().isSex())
 							 sex="Male";
-						 userinfoLabel.setText(link.getDetail().getAccount()+"  "+sex);
+						 userinfoButton.setText(link.getDetail().getAccount()+"  "+sex);
 						 Login.setText("Log out");
 						 //I don't know, which windows was been disposed
 					 }else{
