@@ -142,7 +142,7 @@ public class User implements Serializable{
 	public ArrayList<UserInfo> getFriendOnline()
 	{
 		updateFriendOnline();
-		return onlineFriend;
+		return new ArrayList<UserInfo>(onlineFriend);
 	}
 	
 	public Word SearchWord(String word)

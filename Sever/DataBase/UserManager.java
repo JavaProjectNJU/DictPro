@@ -253,7 +253,8 @@ public class UserManager {
 	}
 	
 	public static ArrayList<UserInfo> getOnlineUser(){
-		return onlineUser;
+		ArrayList<UserInfo> out = new ArrayList<UserInfo>(onlineUser); 
+		return out;
 	}
 	
 	public static UserInfo getUserInfo(String uid){
