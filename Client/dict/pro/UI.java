@@ -537,8 +537,6 @@ public class UI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				 if(Login.getText().equals("Log in")){
-					usericonLabel.setVisible(true);
-					usericonLabel.setIcon(new Icon(link.getDetail().getImge()));
 					login lwin=new login(link,Login,userinfoButton);
 					lwin.setTitle("DictPro-LogIn");
 					lwin.setSize(250,200);
@@ -550,7 +548,6 @@ public class UI extends JFrame{
 				 else{
 					 //log out
 					 if(link.logout()){
-						 usericonLabel.setVisible(false);
 						 Login.setText("Log in");
 						 BDgood.setText("good");
 						 YDgood.setText("good");

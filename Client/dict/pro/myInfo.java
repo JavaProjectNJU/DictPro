@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import com.sun.media.jfxmedia.events.NewFrameEvent;
 
 import net.Message.Message;
 import dict.net.LinkToServer;
@@ -34,11 +33,13 @@ public class myInfo extends JFrame{
 	JPasswordField newField0=new JPasswordField(20);
 	JPasswordField newField1=new JPasswordField(20);
 	
-	public myInfo(final LinkToServer link,final UserInfo finfo){
-		JLabel uidLabel=new JLabel("姓名 : "+finfo.getAccount());
-		JLabel emailLabel=new JLabel("邮箱 : "+finfo.getEmail());
+	public myInfo(final LinkToServer link){
+		JLabel iconLabel=new JLabel(" " + link.getDetail().getImge());
+		JLabel uidLabel=new JLabel("姓名 : "+link.getDetail().getAccount());
+		JLabel emailLabel=new JLabel("邮箱 : "+link.getDetail().getEmail());
+		
 		JLabel sexLabel;
-		if(!finfo.isSex()){
+		if(!link.getDetail().isSex()){
 			sexLabel=new JLabel("性别 ：Female");
 		}
 		else {
