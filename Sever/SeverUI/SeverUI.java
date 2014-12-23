@@ -227,8 +227,6 @@ class SeverUI extends JFrame {
 		});
 		
 		dispatchBtn.addActionListener(new ActionListener() {
-			Message tempPubMsg;
-
 			public void actionPerformed(ActionEvent e) {
 				/*ArrayList<UserInfo>onlineFriend = new ArrayList<UserInfo>();
 				ArrayList<UserInfo> temp = UserManager.getOnlineUser();
@@ -249,17 +247,12 @@ class SeverUI extends JFrame {
 				{
 					onlineUserInfo.get(i).display();
 				}*/
-				String uid = null;
-				Message msg = new Message();
-				msg.id = 0;
-				msg.reply = false;
-				msg.type = Message.SEND_MESSAGE;
-				Message.Send_Message data = msg.new Send_Message();
-				msg.data = data;
-				data.uid = "Server";
-				data.dialoge = "Test";
-				ArrayList<Message> list = mailbox.get(uid);
-				list.add(msg);
+				DispatchWindow subFrame = new DispatchWindow(mailbox);
+				subFrame.setSize(300, 400);
+				subFrame.setTitle("About Dictionary");
+				subFrame.setLocationRelativeTo(null);//Center the Frame
+				subFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				subFrame.setVisible(true);
 				//ThreadPool.workers.
 			}// public void actionPerformed(ActionEvent e)
 		});
