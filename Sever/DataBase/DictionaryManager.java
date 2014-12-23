@@ -343,23 +343,6 @@ public class DictionaryManager {
 		return true;
 	}
 	
-	public static boolean saveUserImage(String user,byte[] img){
-		boolean change = false;
-		try {
-			PreparedStatement statement;
-			Connection conn = DataBase.connect();
-			statement = conn.prepareStatement("update Dictionary set UserImg = (?) where user = '"+user+"';");
-			statement.setObject(1, img);
-			change = statement.execute();
-			DataBase.close(conn);
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-				       "未知的错误，存储单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
-			return false;
-		}
-		return true;
-	}
-	
 	public static ArrayList<byte[]> getWordCard(String uid){
 		boolean change = false;
 		ArrayList<byte[]> CardSet = new ArrayList<byte[]>();

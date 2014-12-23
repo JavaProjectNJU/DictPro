@@ -7,7 +7,7 @@ import DataBase.User;
 
 public class UserInfo extends User implements Serializable{
 //	String pw;  
-	String IpAddr;	
+	String IpAddr;
 	public String getIpAddr() {
 		return IpAddr;
 	}

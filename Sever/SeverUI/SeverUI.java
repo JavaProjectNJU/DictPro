@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Hashtable;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.*;     
@@ -60,7 +61,7 @@ class LayoutUtil{
 class SeverUI extends JFrame {
 
 	Sever server;
-
+	Map<String,ArrayList<Message>> mailbox;
 	/***************************** 以下组件 ********************************/
 	Container contentPane; // 顶层容器
 
@@ -242,12 +243,23 @@ class SeverUI extends JFrame {
 						System.out.println("Is Friend!!!");
 					}
 				}*/
-				ArrayList<UserInfo> onlineUserInfo = UserManager.getOnlineUser();
+				/*ArrayList<UserInfo> onlineUserInfo = UserManager.getOnlineUser();
 				String[] onlineuser = new String[onlineUserInfo.size()];
 				for(int i = 0;i < onlineuser.length; i ++)
 				{
 					onlineUserInfo.get(i).display();
-				}
+				}*/
+				String uid = null;
+				Message msg = new Message();
+				msg.id = 0;
+				msg.reply = false;
+				msg.type = Message.SEND_MESSAGE;
+				Message.Send_Message data = msg.new Send_Message();
+				msg.data = data;
+				data.uid = "Server";
+				data.dialoge = "Test";
+				ArrayList<Message> list = mailbox.get(uid);
+				list.add(msg);
 				//ThreadPool.workers.
 			}// public void actionPerformed(ActionEvent e)
 		});
@@ -299,7 +311,15 @@ class SeverUI extends JFrame {
 
 		
 	}
-
+	
+	public void start()
+	{
+		server = new Sever();
+		System.out.println("server is starting");
+		server.start();
+		mailbox = server.getMsgMap();
+	}
+	
 	public static void main(String args[]) {
 		try {
             UIManager.setLookAndFeel(new SubstanceLookAndFeel());
@@ -321,9 +341,8 @@ class SeverUI extends JFrame {
             System.err.println("Something went wrong!");
         }
 		new SeverUI().setVisible(true);
-		Sever sever = new Sever();
-		System.out.println("server is starting");
-		sever.start();
+		
+		
 		
 	}// main()
 

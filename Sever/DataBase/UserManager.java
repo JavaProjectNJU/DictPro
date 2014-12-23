@@ -1,6 +1,13 @@
 package DataBase;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +16,7 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
+import word.Word;
 import System.Sever;
 import System.UserInfo;
 
@@ -45,6 +53,27 @@ public class UserManager {
 			String sql = "insert into USERTABLE(username,password,email,sex) values('"
 					+account+"','"+Pw+"','"+email+"',"+(sex?"true":"false")+");";
 			change = statement.execute(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,
+				       "好友关系存在", "系统信息", JOptionPane.ERROR_MESSAGE);
+		}
+		finally{
+			DataBase.close(conn);
+		}
+		return change;
+	}
+	
+	public static boolean createUser(UserInfo usrinfo){
+		boolean change = false;
+		Connection conn = null;
+		try {
+			conn = DataBase.connect();
+			Statement statement = conn.createStatement();
+			String sql = "insert into USERTABLE(username,password,email,sex) values('"
+					+usrinfo.account+"','"+usrinfo.pw+"','"+usrinfo.email+"',"+(usrinfo.sex?"true":"false")+");";
+			change = statement.execute(sql);
+			saveUserImage(usrinfo.account, usrinfo.image);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
@@ -271,9 +300,30 @@ public class UserManager {
 				usrinfoInfo = new UserInfo(result.getString("nickname") ,result.getString("username"),null);
 				usrinfoInfo.setEmail(result.getString("email"));
 				usrinfoInfo.setOn(result.getBoolean("online"));
+				
+				Blob usrimg = result.getBlob("image");
+				byte[] buff = null;
+				//System.out.println(inblobBaidu);
+				if(usrimg != null)
+				{
+					InputStream isimg = usrimg.getBinaryStream();
+					BufferedInputStream inputimg = new BufferedInputStream(isimg);
+				
+					buff = new byte[(int)usrimg.length()];
+					while(-1 != (inputimg.read(buff, 0, buff.length)));
+					ObjectInputStream inimg = new ObjectInputStream(new ByteArrayInputStream(buff));
+					usrinfoInfo.setByteImage((byte[])inimg.readObject());
+				}	
+				usrinfoInfo.setOn(result.getBoolean("online"));
 				return usrinfoInfo;
 			}
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
@@ -292,6 +342,23 @@ public class UserManager {
 				break;
 			}
 		return usrinfoInfo;
+	}
+	
+	public static boolean saveUserImage(String user,byte[] img){
+		boolean change = false;
+		try {
+			PreparedStatement statement;
+			Connection conn = DataBase.connect();
+			statement = conn.prepareStatement("update Dictionary set UserImg = (?) where user = '"+user+"';");
+			statement.setObject(1, img);
+			change = statement.execute();
+			DataBase.close(conn);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,
+				       "未知的错误，存储单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		return true;
 	}
 	
 	public static void main(String[] args){

@@ -1,11 +1,13 @@
 package DataBase;
 
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
 
+import net.Message.Message;
 import System.UserInfo;
 import word.Word;
 
@@ -17,7 +19,7 @@ public class User implements Serializable{
 	protected ArrayList<UserInfo> onlineFriend;
 	protected boolean on = false;
 	protected boolean sex = true;
-	protected Icon image = null;
+	protected byte[] image = null;
 	protected Date date = null;		//date是上次上线时间
 	protected String strdate; 	//date的字符串表示
 
@@ -196,10 +198,19 @@ public class User implements Serializable{
 	public void setSex(boolean sex) {
 		this.sex = sex;
 	}
-	public Icon getImage() {
+	
+	public BufferedImage getImge(){
+		return Message.bytesToImage(image);
+	}
+	
+	public void setImge(BufferedImage img){
+		image = Message.imageToBytes(img);
+	}
+	
+	public byte[] getByteImage() {
 		return image;
 	}
-	public void setImage(Icon image) {
+	public void setByteImage(byte[] image) {
 		this.image = image;
 	}
 	public Date getDate() {
