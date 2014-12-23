@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -104,11 +105,19 @@ public class friendInfo extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				boolean issu=false;
 				if(msgField.getText()!=null && msgField.getText().length()!=0){
-					link.sendText(msgField.getText(), finfo.getAccount());
+					issu=link.sendText(msgField.getText(), finfo.getAccount());
+					if(issu){
+						JOptionPane.showMessageDialog(null,"Send successed!", "Successed", JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+					}
+					else{
+						JOptionPane.showMessageDialog(null,"Send fail!", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 
 				}
-				dispose();
+
 			}
 		});
 		
@@ -117,11 +126,19 @@ public class friendInfo extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				boolean issu=false;
 				if(msgField.getText()!=null && msgField.getText().length()!=0){
-					link.sendText(msgField.getText(), finfo.getAccount());
+					issu=link.sendText(msgField.getText(), finfo.getAccount());
+					if(issu){
+						JOptionPane.showMessageDialog(null,"Send successed!", "Successed", JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+					}
+					else{
+						JOptionPane.showMessageDialog(null,"Send fail!", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 
 				}
-				dispose();
+
 			}
 		});
 	}

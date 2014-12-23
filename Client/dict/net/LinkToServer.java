@@ -420,7 +420,7 @@ public class LinkToServer {
 				return null;
 			}
 			
-			System.out.println("refresh friendlist success//////" +((Message.OnlineFriend)(reply.data)).friendList.size());
+		//	System.out.println("refresh friendlist success//////" +((Message.OnlineFriend)(reply.data)).friendList.size());
 			return	((Message.OnlineFriend)(reply.data)).friendList;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -466,7 +466,7 @@ public class LinkToServer {
 				if(reply != null){
 					requestMap.remove(id);
 					return reply;
-				}else if(loop > 80){//4s超时
+				}else if(loop > 160){//4s超时
 					System.out.println("time out");
 					return null;
 				}
