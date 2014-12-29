@@ -34,6 +34,8 @@ public class myInfo extends JFrame{
 	JPasswordField newField1=new JPasswordField(20);
 	
 	public myInfo(final LinkToServer link){
+		
+		//add the head icon Here 
 		JLabel iconLabel=new JLabel(" " + link.getDetail().getImge());
 		JLabel uidLabel=new JLabel("姓名 : "+link.getDetail().getAccount());
 		JLabel emailLabel=new JLabel("邮箱 : "+link.getDetail().getEmail());
@@ -67,6 +69,7 @@ public class myInfo extends JFrame{
 		fPanel.add(sexLabel,FlowLayout.LEFT);	
 		fPanel.add(emailLabel,FlowLayout.LEFT);
 		fPanel.add(uidLabel,FlowLayout.LEFT);
+		//add the head icon Here 
 		fPanel.add(iconLabel,FlowLayout.LEFT);
 		
 		this.add(fPanel);

@@ -30,8 +30,9 @@ public class friendInfo extends JFrame{
 	
 	public friendInfo(final LinkToServer link,final UserInfo finfo){
 		
-		JLabel iconLabel =new JLabel(" "+ link.getDetail().getImge());
-		
+		//add the head icon Here 
+		JLabel iconLabel =new JLabel(" "+ link.getDetail().getImge()); 
+		 
 		JLabel uidLabel=new JLabel("姓名 : "+finfo.getAccount());
 		JLabel emailLabel=new JLabel("邮箱 : "+finfo.getEmail());
 		JLabel sexLabel;
@@ -62,6 +63,7 @@ public class friendInfo extends JFrame{
 		fPanel.add(sexLabel,FlowLayout.LEFT);	
 		fPanel.add(emailLabel,FlowLayout.LEFT);
 		fPanel.add(uidLabel,FlowLayout.LEFT);
+		//add the head icon Here 
 		fPanel.add(iconLabel,FlowLayout.LEFT);
 		
 		this.add(fPanel);
@@ -76,6 +78,7 @@ public class friendInfo extends JFrame{
 				dispose();
 			}
 		});
+		
 		
 		chatFriend.addActionListener(new ActionListener() {
 			
