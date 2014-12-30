@@ -301,29 +301,13 @@ public class UserManager {
 				usrinfoInfo.setEmail(result.getString("email"));
 				usrinfoInfo.setOn(result.getBoolean("online"));
 				
-				Blob usrimg = result.getBlob("image");
-				byte[] buff = null;
+				byte[] buff = result.getBytes("image");
+				usrinfoInfo.setByteImage(buff);
 				//System.out.println(inblobBaidu);
-				if(usrimg != null)
-				{
-					InputStream isimg = usrimg.getBinaryStream();
-					BufferedInputStream inputimg = new BufferedInputStream(isimg);
-				
-					buff = new byte[(int)usrimg.length()];
-					while(-1 != (inputimg.read(buff, 0, buff.length)));
-					ObjectInputStream inimg = new ObjectInputStream(new ByteArrayInputStream(buff));
-					usrinfoInfo.setByteImage((byte[])inimg.readObject());
-				}	
 				usrinfoInfo.setOn(result.getBoolean("online"));
 				return usrinfoInfo;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
@@ -350,13 +334,13 @@ public class UserManager {
 			PreparedStatement statement;
 			Connection conn = DataBase.connect();
 			statement = conn.prepareStatement("update UserTable set image = (?) where username = '"+user+"';");
-			statement.setObject(1, img);
+			statement.setBytes(1, img);
 			change = statement.execute();
 			DataBase.close(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
-				       "未知的错误，存储单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
+				       "未知的错误，存储头像不成功", "系统信息", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;
