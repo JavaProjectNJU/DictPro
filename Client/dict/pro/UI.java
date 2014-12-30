@@ -568,7 +568,7 @@ public class UI extends JFrame{
 				if(!link.isOnline()){
 					signin swin=new signin(link);
 					swin.setTitle("DictPro-SignIn");
-					swin.setSize(250,400);
+					swin.setSize(300,500);
 					swin.setLocationRelativeTo(null);
 					swin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					swin.setVisible(true);
