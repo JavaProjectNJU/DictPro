@@ -144,7 +144,8 @@ public class ServeTask extends Task implements Runnable{
 		if(user == null || !user.isOn() || !UserManager.identityVerify(uinfo.uid, uinfo.psw)){
 			uinfo.myself = null;
 		}else{
-			uinfo.myself = new UserInfo(user);
+			//uinfo.myself = new UserInfo(user);
+			uinfo.myself = UserManager.getUserInfo(user.getAccount());
 		}
 		synchronized(msgBox){
 			msgBox.add(msg);
