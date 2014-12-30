@@ -44,7 +44,8 @@ public class myInfo extends JFrame{
 		//add the head icon Here 
 		BufferedImage headBufferedImage = link.getDetail().getImge();
 		JLabel iconLabel=new JLabel(" ");
-		iconLabel.setIcon(new ImageIcon(headBufferedImage));
+		if(headBufferedImage!=null)
+			iconLabel.setIcon(new ImageIcon(headBufferedImage));
 		JLabel uidLabel=new JLabel("姓名 : "+link.getDetail().getAccount());
 		JLabel emailLabel=new JLabel("邮箱 : "+link.getDetail().getEmail());
 		

@@ -6,8 +6,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,8 +33,11 @@ public class friendInfo extends JFrame{
 	public friendInfo(final LinkToServer link,final UserInfo finfo){
 		
 		//add the head icon Here 
-		JLabel iconLabel =new JLabel(" "+ link.getDetail().getImge()); 
-		 
+		BufferedImage headBufferedImage = link.getDetail().getImge();
+		JLabel iconLabel=new JLabel(" ");
+		if(headBufferedImage!=null)
+			iconLabel.setIcon(new ImageIcon(headBufferedImage));
+		
 		JLabel uidLabel=new JLabel("姓名 : "+finfo.getAccount());
 		JLabel emailLabel=new JLabel("邮箱 : "+finfo.getEmail());
 		JLabel sexLabel;
