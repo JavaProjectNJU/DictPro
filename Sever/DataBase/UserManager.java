@@ -56,7 +56,7 @@ public class UserManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
-				       "好友关系存在", "系统信息", JOptionPane.ERROR_MESSAGE);
+				       "创建用户已存在", "系统信息", JOptionPane.ERROR_MESSAGE);
 		}
 		finally{
 			DataBase.close(conn);
@@ -77,7 +77,7 @@ public class UserManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
-				       "好友关系存在", "系统信息", JOptionPane.ERROR_MESSAGE);
+				       "创建用户已存在", "系统信息", JOptionPane.ERROR_MESSAGE);
 		}
 		finally{
 			DataBase.close(conn);
@@ -349,11 +349,12 @@ public class UserManager {
 		try {
 			PreparedStatement statement;
 			Connection conn = DataBase.connect();
-			statement = conn.prepareStatement("update Dictionary set UserImg = (?) where user = '"+user+"';");
+			statement = conn.prepareStatement("update UserTable set image = (?) where username = '"+user+"';");
 			statement.setObject(1, img);
 			change = statement.execute();
 			DataBase.close(conn);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 				       "未知的错误，存储单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
 			return false;

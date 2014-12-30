@@ -336,6 +336,7 @@ public class DictionaryManager {
 			change = statement.execute();
 			DataBase.close(conn);
 		} catch (SQLException e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,
 				       "未知的错误，存储单词卡失败", "系统信息", JOptionPane.ERROR_MESSAGE);
 			return false;
