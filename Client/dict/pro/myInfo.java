@@ -6,7 +6,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+
+
 
 
 import net.Message.Message;
@@ -36,7 +42,9 @@ public class myInfo extends JFrame{
 	public myInfo(final LinkToServer link){
 		
 		//add the head icon Here 
-		JLabel iconLabel=new JLabel(" " + link.getDetail().getImge());
+		BufferedImage headBufferedImage = link.getDetail().getImge();
+		JLabel iconLabel=new JLabel(" ");
+		iconLabel.setIcon(new ImageIcon(headBufferedImage));
 		JLabel uidLabel=new JLabel("姓名 : "+link.getDetail().getAccount());
 		JLabel emailLabel=new JLabel("邮箱 : "+link.getDetail().getEmail());
 		
