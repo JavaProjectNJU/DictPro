@@ -150,6 +150,7 @@ public class LinkToServer {
 		data.uid = uid;
 		data.psw = psw;
 		data.email = email;
+		//可以修改
 		data.sex = sex;
 		data.head = Message.imageToBytes(head);
 		try {
