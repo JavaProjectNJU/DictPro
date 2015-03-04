@@ -10,3 +10,5 @@ Our Project mainly employed SQL and Java Language. The main feature of our proje
   3.A Communication Protocol was designed and it transfered object datastream.
   
   4.Established a complete Friend Interaction System.
+  
+  © 2014-2015 All Rights reserved.
